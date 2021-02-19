@@ -6,14 +6,13 @@ def create_app(test_config=None):
     cors = CORS(app)
     
     #app configurations
-    app.config["DEBUG"] = True
     app.config["JSON_SORT_KEYS"] = False
     app.config['CORS_HEADERS'] = 'Content-Type'
     
     #main route
-    @app.route("/", methods=['GET'])
+    @app.route("/api", methods=['GET'])
     @cross_origin()
     def mainPage():
-        return "Hello World!"
+        return {'greeting': "Hello World"}
 
     return app
