@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const getHello = () => {
-    return axios.get("/api")
+    return axios.get("/students")
 }
 
 

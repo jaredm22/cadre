@@ -1,18 +1,12 @@
 from flask import Flask
-from flask_cors import CORS, cross_origin
+from flask_sqlalchemy import SQLAlchemy
+import os
 
-def create_app(test_config=None):
-    app = Flask(__name__)
-    cors = CORS(app)
-    
-    #app configurations
-    app.config["JSON_SORT_KEYS"] = False
-    app.config['CORS_HEADERS'] = 'Content-Type'
-    
-    #main route
-    @app.route("/api", methods=['GET'])
-    @cross_origin()
-    def mainPage():
-        return {'greeting': "Hello World"}
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-    return app
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]
+db = SQLAlchemy(app)
+
+app.config.from_object(__name__)
+from backend import views

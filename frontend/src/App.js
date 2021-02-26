@@ -11,12 +11,12 @@ function App() {
   const [curr, sett] = useState("");
   
   useEffect(() => {
-    getHello().then(res => sett(res.data['greeting']))
+    getHello().then(res => sett(res.data.students[0]['firstname']))
   }, []);
   
   return (
     <div className="App">
-      <p>{curr}</p>
+      <p>Wassup, {curr}!</p>
     </div>
   );
 }
