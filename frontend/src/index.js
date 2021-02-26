@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
+// import 'node_modules/core-js/modules/es7.array.includes';
+// import 'node_modules/core-js/modules/es6.array.fill';
+// import 'node_modules/core-js/modules/es6.string.includes';
+// import 'node_modules/core-js/modules/es6.string.trim';
+// import 'node_modules/core-js/modules/es7.object.values';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

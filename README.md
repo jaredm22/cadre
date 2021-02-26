@@ -2,12 +2,8 @@
 
 ## Requirements
 ### Frontend
-<<<<<<< HEAD
-===
-=======
 For dev on the frontend you'll need to install:
 - React (instructions to install can be found [here](https://reactjs.org/docs/create-a-new-react-app.html))
->>>>>>> 0cf872ce1feca577130bf5e2c1c6b26ec01904df
 
 ### Backend
 For dev on the backend you'll need to install: 
