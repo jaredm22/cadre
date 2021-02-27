@@ -55,7 +55,6 @@ class Calendar extends React.Component {
                             value={3}
                             onChange={({ value }) => this.setState({days: value})}
                             />
-                            <h5>{this.state.days}</h5>
                         </Column>
                     </Row>
                     <Row>
