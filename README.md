@@ -13,6 +13,7 @@ Link to Product Backlong is [here:](https://buspark.atlassian.net/jira/software/
 The reasoning of how we ordered our product backlog was that we ordered the items that we thought were vital to the app on the top and those after those are items that the app could feature, but it is not entirely necessary to it.
 
 ### Forecast
+- 02/22/2020 - 02/29/2020: We forecast to work on the **Switch calendar view b/w 1 and 5 days** story and **View Classes on Calender** story.
 
 ## Requirements
 ### Frontend
