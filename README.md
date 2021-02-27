@@ -37,3 +37,23 @@ If you would like to use the exisiting database url for this project, please con
 $ python3 run.py
 ```
 The server should be running on [http://0.0.0.0:5000](http://0.0.0.0:5000)
+
+#### Daily Scrum
+##### Done past 24 hours:
+- Jacqueline: changed it to a one day view with the class info; no side bar
+- Noelle: Update lofi design for one-day class view
+- Melissa: PostgreSQL query for student info
+- Chinwe: Slider to switch day components from 1 to 5
+- Jared: Make database relational
+##### Will do:
+- Jacqueline: low-mid-fi day view design
+- Noelle: low-mid-fi calendar design
+- Melissa: Dummy data
+- Chinwe: Use Carbon UI for styling
+- Jared: Create day component, populated with class events
+##### Blockers:
+- Jacqueline: 
+- Noelle: sleep
+- Melissa: parsing json data in flask 
+- Chinwe: Carbon documentation for Grid, just need to read more
+- Jared: intelligence

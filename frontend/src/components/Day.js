@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 
 
 class Day extends React.Component {
-    constructor(props){
-        super(props)
-    }
+
 
     render() {
         return(
-            <div>Imma day</div>
+            <div className={this.props.today ? 'blue' : 'black'}> {this.props.date}</div>
         )
  }}
 

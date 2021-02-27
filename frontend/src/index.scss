@@ -1,4 +1,10 @@
-@import '~carbon-components/scss/globals/scss/styles.scss';
+//global Carbon style changes
+$feature-flags: (
+  grid-columns-16: true,
+);
+
+@import 'carbon-components/scss/globals/grid/_grid.scss';
+
 
 body {
   margin: 0;

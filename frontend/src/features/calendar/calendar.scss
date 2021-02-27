@@ -1,0 +1,9 @@
+@import 'carbon-components/scss/components/slider/slider';
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
+@import 'carbon-components/scss/globals/scss/vars.scss';
+
+.calendar.container {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 20%;
+}
