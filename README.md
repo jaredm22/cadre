@@ -14,6 +14,7 @@ The reasoning of how we ordered our product backlog was that we ordered the item
 
 ### Forecast
 - 02/22/2020 - 02/29/2020: We forecast to work on the **Switch calendar view b/w 1 and 5 days** story and **View Classes on Calender** story.
+  - Our rational behind our forecast is because these two tasks are on the top of our backlong list and thus since these are the most important tasks on our backlog, it makes up the core of our app, so we need to get these task done first in order to make our app functional and thus easier to implement other non-necessary features. 
 
 ## Requirements
 ### Frontend
