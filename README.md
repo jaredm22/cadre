@@ -53,4 +53,3 @@ If you would like to use the exisiting database url for this project, please con
 $ python3 run.py
 ```
 The server should be running on [http://0.0.0.0:5000](http://0.0.0.0:5000)
-D
