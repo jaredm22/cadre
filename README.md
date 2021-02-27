@@ -7,6 +7,11 @@
 - Chinwe Oparaji - Software Engineer
 - Jared Min - Software Engineer
 
+## Product Backlog
+Link to Product Backlong is [here:](https://buspark.atlassian.net/jira/software/projects/CAD/boards/15/backlog)
+</br>
+The reasoning of how we ordered our product backlog was that we ordered the items that we thought were vital to out app on the top and those after those are items that our app could feature, but it is not entirely necessary to them.
+
 ## Requirements
 ### Frontend
 For dev on the frontend you'll need to install:
