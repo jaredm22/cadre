@@ -31,30 +31,32 @@ class Calendar extends React.Component {
 
     render(){
         const day_list = []
-
         for (let i = 0; i < this.state.days; i++) {
-            let day = i === 0 ? <Day key={i} today={true} date={ addDays(this.state.today, i).getDate()}/> :
+            let day = i === 0 ? <Day key={i} today={true} date={this.state.today.getDate()}/> :
                 <Day key={i} today={false} date={ addDays(this.state.today, i).getDate()}/> 
             day_list.push(day)
         }
 
         return(
-            <div className="contain-calendar">
-                <h3>wattup</h3>
-                <Grid className="bx--grid calendar " narrow={true}>
+                <Grid className="bx--grid calendar-contain" narrow={true}>
                     <Row>
-                        <Column>
-                            {format(this.state.today, 'MM.d.yy')}
-                        </Column>
+                        <h4 ariaLabel="calendar" className="calendar-title">Calendar</h4>
+                    </Row>
+                    <Row className="slider-row">
                         <Column lg={4} md={2} sm={0}>
-                            <Slider
-                            ariaLabelInput="day slider"
-                            className="day-slider "
-                            max={5}
-                            min={1}
-                            value={3}
-                            onChange={({ value }) => this.setState({days: value})}
-                            />
+                            <div>
+                                <p>{this.state.days} days</p>
+                                <Slider
+                                ariaLabelInput="day slider"
+                                className="day-slider "
+                                max={5}
+                                min={1}
+                                value={3}
+                                onChange={({ value }) => this.setState({days: value})}
+                                />
+                            </div>
+
+                            
                         </Column>
                     </Row>
                     <Row>
@@ -68,13 +70,7 @@ class Calendar extends React.Component {
                         )}
                     </Row>
                     
-                </Grid>
-
-            </div>
-            
-            
-            
-            
+                </Grid>            
         )
     }
 

@@ -2,12 +2,32 @@
 @import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
 @import 'carbon-components/scss/globals/scss/vars.scss';
 
-.calendar.container {
-    display: flex;
-    flex-direction: row-reverse;
-    width: 20%;
+.calendar-contain {
+    margin-top: 3em;
+    padding: 5% calc(5% - 1rem) 5% 5%;
+    background-color: white;
+    text-align: center;
+    border-radius: 1pc;
 }
 
+.calendar-title {
+    margin-top: -$spacing-07;
+    margin-bottom: $spacing-09;
+    @include carbon--font-family('sans');
+    // font-weight: 600;
+}
+
+.slider-row {
+    margin-bottom: $spacing-07;
+}
+
+//overrides
+.bx--grid {
+    margin-right: 0;
+}
+.bx--content{
+    background-color: transparent;
+}
 .bx--text-input.bx--slider-text-input {
     display: none;
 }

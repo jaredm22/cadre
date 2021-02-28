@@ -11,7 +11,7 @@ function HeaderNav() {
             <Header aria-label="Cadre home">
             <HeaderName href="#" prefix="Cadre">[hello]</HeaderName>
             <SideNav isFixedNav
-            expanded={false}
+            expanded={true}
             isChildOfHeader={true}>
             </SideNav>
 

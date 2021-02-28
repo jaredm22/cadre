@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <HeaderNav/>
       <Content>
-      <Calendar/>
+        <Calendar/>
       </Content>
       
     </div>
