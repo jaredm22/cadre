@@ -11,6 +11,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* TODO: collapsible nav and grid-expand transition */}
       <HeaderNav/>
       <Content>
         <Calendar/>

@@ -18,6 +18,8 @@ class Calendar extends React.Component {
             today: new Date(),
             days:3
         }
+        this.date = format(this.state.today, 'd')
+
     }
 
     shouldComponentUpdate(){
@@ -32,15 +34,19 @@ class Calendar extends React.Component {
     render(){
         const day_list = []
         for (let i = 0; i < this.state.days; i++) {
-            let day = i === 0 ? <Day key={i} today={true} date={this.state.today.getDate()}/> :
-                <Day key={i} today={false} date={ addDays(this.state.today, i).getDate()}/> 
+            let day = i === 0 ? <Day className="a-day" key={Math.random()} today={true} month={format(addDays(this.state.today, i), 'LLL')} date={this.state.today.getDate()}/> :
+                <Day className="a-day" key={Math.random()} today={false} month={format(addDays(this.state.today, i), 'LLL')} date={ addDays(this.state.today, i).getDate()}/> 
             day_list.push(day)
         }
 
         return(
                 <Grid className="bx--grid calendar-contain" narrow={true}>
                     <Row>
-                        <h4 ariaLabel="calendar" className="calendar-title">Calendar</h4>
+                        {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
+                        <h4 aria-label="calendar" className="calendar-title"> {format(this.state.today, 'LLLL')} {this.date} 
+                        {this.state.days > 1 ? " — " + format(addDays(this.state.today, this.state.days), 'LLLL') + " " + addDays(this.state.today, this.state.days).getDate() : "" }
+                        
+                        </h4>
                     </Row>
                     <Row className="slider-row">
                         <Column lg={4} md={2} sm={0}>
@@ -59,10 +65,7 @@ class Calendar extends React.Component {
                             
                         </Column>
                     </Row>
-                    <Row>
-                        
-                        
-
+                    <Row className="date-head">
                         {day_list.map(el => 
                             <Column> 
                              {el}

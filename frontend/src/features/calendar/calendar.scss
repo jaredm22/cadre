@@ -4,10 +4,11 @@
 
 .calendar-contain {
     margin-top: 3em;
-    padding: 5% calc(5% - 1rem) 5% 5%;
+    padding: 40px;
     background-color: white;
     text-align: center;
-    border-radius: 1pc;
+    border-radius: 0.5pc;
+    transition: 777ms;
 }
 
 .calendar-title {
@@ -18,8 +19,27 @@
 }
 
 .slider-row {
+    padding-bottom: $spacing-05;
     margin-bottom: $spacing-07;
+    border-bottom: 1px solid #20202020;
 }
+
+@keyframes rollout {
+    0% {
+        transform: translateY(-100px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.a-day {
+    animation: .4s rollout;
+}
+
+// .calendar-contain .bx--row {
+//     justify-content: center;
+// }
 
 //overrides
 .bx--grid {
