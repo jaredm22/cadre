@@ -20,9 +20,9 @@ def show_students():
 @app.route("/studentCourses")
 def get_student_courses():
     content =  request.get_json()
-    studentid = content["studentid"]
+    email = content["email"]
 
-    courses = Student.query.filter_by(studentId= studentid).all()
+    courses = Student.query.filter_by(email=email).all()
     results = [
         {
             "course": c.course
@@ -34,9 +34,9 @@ def get_student_courses():
 @app.route("/studentInfo")
 def get_student_info():
     content =  request.get_json()
-    studentid = content["studentid"]
+    email = content["email"]
 
-    info = Student.query.filter_by(studentId= studentid).first()
+    info = Student.query.filter_by(email= email).first()
     return jsonify(firstName = info.firstName, lastName = info.lastName, email= info.email)
 
 @app.route("/professors")
