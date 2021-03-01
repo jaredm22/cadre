@@ -1,8 +1,6 @@
 from flask import jsonify, request, json
 from backend import app, db
 from backend.models import *
-# import json
-
 
 @app.route("/api")
 def index():
@@ -13,7 +11,7 @@ def show_students():
     students = Student.query.all()
     student_list = []
     for student in students:
-        stud = {'id': student.id, 'firstname': student.firstName, 'lastname': student.lastName, 'studentId': student.studentId, 'email': student.email}
+        stud = {'id': student.id, 'firstname': student.firstName, 'lastname': student.lastName, 'email': student.email}
         student_list.append(stud)
     return jsonify(students = student_list)
 
