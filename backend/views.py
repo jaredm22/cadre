@@ -69,6 +69,22 @@ def show_courses():
     course_list = []
     for course in courses:
         # Listing the id, course name, zoom link, and course id of each course.
-        cour= {'id': course.id, 'coursename': course.courseName, 'zoomLink': course.zoomLink, 'courseId': course.courseId}
+        cour= {'id': course.id, 'coursename': course.courseName, 'lectureDate': course.lectureDate, 'courseId': course.courseId}
         course_list.append(cour)
     return jsonify(courses = course_list)
+
+@app.route("/courseLectures", methods= ['POST'])
+# Route to list all lecture dates of a course. 
+def get_lecture_dates():
+    # Parsing inputted json.
+    content =  request.get_json()
+    # Getting back course id of a course
+    courseId = content["courseId"]
+    # Querying list of lectures of a course.
+    lectures = Course.query.filter_by(courseId=courseId).all()
+    results = [
+        {
+            "date": l.lectureDate
+        }
+    for l in lectures]
+    return jsonify(dates = results)

@@ -20,11 +20,11 @@ class Professor(db.Model):
 
 class Course(db.Model):
 	# Database model for Course table. 
-	__tablename__ = "Course"
+	__tablename__ = 'course'
 	id = db.Column(db.Integer(), primary_key=True)
 	courseId = db.Column(db.Integer())
 	courseName = db.Column(db.String())
-	zoomLink = db.Column(db.String())
+	lectureDate = db.Column(db.DateTime())
 
 
 db.create_all()
