@@ -19,7 +19,7 @@ def show_students():
         student_list.append(stud)
     return jsonify(students = student_list)
 
-@app.route("/studentCourses")
+@app.route("/studentCourses", methods= ['POST'])
 # Route to list all courses that a student is taking. 
 def get_student_courses():
     # Parsing inputted json.
@@ -36,7 +36,7 @@ def get_student_courses():
     return jsonify(courses = results)
 
 
-@app.route("/studentInfo")
+@app.route("/studentInfo", methods= ['POST'])
 # Route to show a specified student info.
 def get_student_info():
     # Parsing inputted json.
