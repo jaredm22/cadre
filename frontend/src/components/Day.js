@@ -21,7 +21,7 @@ class Day extends React.Component {
     }
 
     componentDidMount() {
-        // api.getStudentCourses(8090980).then(res => console.log(res))
+        api.getStudentCourses("mlin2022@bu.edu").then(res => console.log(res))
     }
 
     render() {

@@ -1,12 +1,20 @@
 import axios from 'axios'
 
+var config = { headers: {  
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'}
+}
+
 const getHello = () => {
     return axios.get("/students")
 };
 
-const getStudentCourses = (id) => {
-    return axios.get("/studentCourses", {
-        studentid: id})
+const getStudentCourses = (mail) => {
+    return axios.get('/studentCourses', {
+        data: {
+            email: mail
+        }
+      }, config)
 };
 
 
