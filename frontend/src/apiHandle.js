@@ -10,11 +10,11 @@ const getHello = () => {
 };
 
 const getStudentCourses = (mail) => {
-    return axios.get('/studentCourses', {
-        data: {
-            email: mail
+    return axios.post('/studentCourses', 
+        {
+            "email": mail
         }
-      }, config)
+      , config)
 };
 
 
