@@ -84,7 +84,6 @@ class Calendar extends React.Component {
                             </Column>
                         )}
                     </Row>
-                    
                 </Grid>            
         )
     }

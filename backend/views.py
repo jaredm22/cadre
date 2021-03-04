@@ -88,3 +88,19 @@ def get_lecture_dates():
         }
     for l in lectures]
     return jsonify(dates = results)
+
+@app.route("/courseLecturesName", methods= ['POST'])
+# Route to list all lecture dates of a course. 
+def get_lecture_date_from_name():
+    # Parsing inputted json.
+    content =  request.get_json()
+    # Getting back course id of a course
+    courseName = content["coursename"]
+    # Querying list of lectures of a course.
+    lectures = Course.query.filter_by(courseName=courseName).all()
+    results = [
+        {
+            "date": l.lectureDate
+        }
+    for l in lectures]
+    return jsonify(dates = results)
