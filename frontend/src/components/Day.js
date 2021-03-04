@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row } from 'carbon-components-react';
+import { Dropdown, Grid, Row } from 'carbon-components-react';
 import api from '../apiHandle';
 
 
@@ -8,16 +8,39 @@ class Day extends React.Component {
     constructor(props){
         super(props)
         this.state= {
-            courses: []
+            courselist: [],
+            assgn: [],
         }
+        this.test = false;
     }
 
     componentDidMount() {
         api.getStudentCourses("mlin2022@bu.edu").then(res => {
-            this.setState({
-                courses: res.data
+            let courses = res.data.courses
+            console.log(courses)
+            
+            courses.filter(e => {
+                var days;
+                api.getLectureDates(e.course).then(lecture => {
+                    //map dates object to array of parsed days
+                    console.log(lecture)
+                    days = lecture.data.dates.map(e => e.date.substring(0,3))
+                    console.log(days)
+
+                    this.test = (this.props.day in days)
+
+                    
+                })
+                console.log(courses)
+                return this.test
             })
-        }).then(courses => console.log(courses), console.log("rejected"))
+
+            this.setState({
+                courselist: courses
+            })
+        })
+
+        
     }
 
     render() {
@@ -28,12 +51,12 @@ class Day extends React.Component {
                 <Row>
                     {this.props.month}
                 </Row>
+
                 <Row>
                 <div className={this.props.today ? 'blue' : 'black'}> {this.props.date}</div>
                 </Row>
-                <Row>
-                    {/* {console.log(courses)} */}
-                    {courses.courses.map(e => <div> {e} </div>)}
+                <Row>   
+                    {console.log(courses)}
                 </Row>
             </Grid>
             

@@ -34,8 +34,20 @@ class Calendar extends React.Component {
     render(){
         const day_list = []
         for (let i = 0; i < this.state.days; i++) {
-            let day = i === 0 ? <Day className="a-day" key={Math.random()} today={true} month={format(addDays(this.state.today, i), 'LLL')} date={this.state.today.getDate()}/> :
-                <Day className="a-day" key={Math.random()} today={false} month={format(addDays(this.state.today, i), 'LLL')} date={ addDays(this.state.today, i).getDate()}/> 
+            let day = i === 0 ? <Day 
+                                    className="a-day" 
+                                    key={Math.random()} 
+                                    today={true} 
+                                    month={format(addDays(this.state.today, i), 'LLL')} 
+                                    date={this.state.today.getDate()}
+                                    day={format(this.state.today, 'E..EEE')}/>
+                                     :
+                <Day className="a-day" 
+                    key={Math.random()} 
+                    today={false}
+                    month={format(addDays(this.state.today, i), 'LLL')} 
+                    date={ addDays(this.state.today, i).getDate()}
+                    day={format(addDays(this.state.today, i), 'LLL')}/> 
             day_list.push(day)
         }
 
@@ -44,7 +56,7 @@ class Calendar extends React.Component {
                     <Row>
                         {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
                         <h4 aria-label="calendar" className="calendar-title"> {format(this.state.today, 'LLLL')} {this.date} 
-                        {this.state.days > 1 ? " — " + format(addDays(this.state.today, this.state.days), 'LLLL') + " " + addDays(this.state.today, this.state.days).getDate() : "" }
+                        {this.state.days > 1 ? " — " + format(addDays(this.state.today, this.state.days), 'LLLL') + " " + addDays(this.state.today, (this.state.days - 1)).getDate() : "" }
                         
                         </h4>
                     </Row>

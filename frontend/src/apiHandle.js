@@ -9,6 +9,10 @@ const getHello = () => {
     return axios.get("/students")
 };
 
+const getCourses = () => {
+    return axios.get('/courses', config)
+};
+
 const getStudentCourses = (mail) => {
     return axios.post('/studentCourses', 
         {
@@ -17,9 +21,21 @@ const getStudentCourses = (mail) => {
       , config)
 };
 
+const getLectureDates = (name) => {
+    return axios.post('/courseLecturesName', 
+        {
+            "coursename": name
+        }
+      , config).then(res => res)
+};
+
+
+
 
 export default {
     getHello,
-    getStudentCourses
+    getStudentCourses,
+    getCourses,
+    getLectureDates
 
 }
