@@ -40,14 +40,14 @@ class Calendar extends React.Component {
                                     today={true} 
                                     month={format(addDays(this.state.today, i), 'LLL')} 
                                     date={this.state.today.getDate()}
-                                    day={format(this.state.today, 'E..EEE')}/>
+                                    day={format(this.state.today, 'EEE')}/>
                                      :
                 <Day className="a-day" 
                     key={Math.random()} 
                     today={false}
                     month={format(addDays(this.state.today, i), 'LLL')} 
                     date={ addDays(this.state.today, i).getDate()}
-                    day={format(addDays(this.state.today, i), 'LLL')}/> 
+                    day={format(addDays(this.state.today, i), 'EEE')}/> 
             day_list.push(day)
         }
 

@@ -14,37 +14,43 @@ class Day extends React.Component {
         this.test = false;
     }
 
-    componentDidMount() {
-        api.getStudentCourses("mlin2022@bu.edu").then(res => {
+    async componentDidMount() {
+        await api.getStudentCourses("mlin2022@bu.edu").then(res => {
             let courses = res.data.courses
-            console.log(courses)
-            
-            courses.filter(e => {
-                var days;
-                api.getLectureDates(e.course).then(lecture => {
-                    //map dates object to array of parsed days
-                    console.log(lecture)
-                    days = lecture.data.dates.map(e => e.date.substring(0,3))
-                    console.log(days)
+            // console.log(courses)
 
-                    this.test = (this.props.day in days)
+            const inDays = courses.map(e => { //map each course to a promise
+                const check =  api.getLectureDates(e.course).then(lecture => { //promise to get class days
+                    var days;
+                    days = lecture.data.dates.map(e => e.date.substring(0,3)) //parse lecture days of course
+                    // console.log(days)
+                    // console.log(this.props.day)
+                    // console.log(days.includes(this.props.day))
 
-                    
+                    //return if course is on this day (bool) and course name in array
+                    return [days.includes(this.props.day), e.course]
                 })
-                console.log(courses)
-                return this.test
+                return check
             })
-
+            return inDays 
+        //Promise.all takes array of promises and evaluate to single array of evaluated promises
+        }).then(res => Promise.all(res).then(vals => { 
             this.setState({
-                courselist: courses
+                courselist: vals.filter(e => { //e == ['T/F', lectuteName]
+                    let mapping = e
+                    return mapping[0] //filter out arrays not on today
+                }).map(course => {
+                    let arr = course
+                    return arr[1] //parse out name of course to set state with
+                })
             })
-        })
+        }))
 
         
     }
 
     render() {
-        var { courses } = this.state;
+        var { courselist } = this.state;
 
         return(
             <Grid>
@@ -56,7 +62,8 @@ class Day extends React.Component {
                 <div className={this.props.today ? 'blue' : 'black'}> {this.props.date}</div>
                 </Row>
                 <Row>   
-                    {console.log(courses)}
+                    {courselist}
+                    {console.log(courselist)}
                 </Row>
             </Grid>
             
