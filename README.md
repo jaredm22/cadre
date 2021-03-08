@@ -20,10 +20,10 @@ Blockers:
 - Melissa: Making database relational
 
 ## Mob Programming 
-[Check us out mob programming ooo] (./spark!/mob.png)
+[Check us out mob programming ooo](./spark!/mob.png)
 
 ## Sprint Review
-[Check us out reviewing our not-yet-done sprint ooo] (./spark!/stakeholder.png) 
+[Check us out reviewing our not-yet-done sprint ooo](./spark!/stakeholder.png) 
 
 ## Sprint Retrospective
 - predefine the needs of frontend, backend, design before implementation
