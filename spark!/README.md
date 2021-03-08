@@ -20,8 +20,11 @@ Blockers:
 - Melissa: Making database relational
 
 ## Mob Programming 
-
+[Check us out mob programming ooo] (./mob.png)
 
 ## Sprint Review
+[Check us out reviewing our not-yet-done sprint ooo] (./stakeholder.png) 
 
 ## Sprint Retrospective
+- predefine the needs of frontend, backend, design before implementation
+To acheive this, the whole team will make a flow chart of needs before starting the sprint.
