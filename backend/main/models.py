@@ -1,4 +1,4 @@
-from backend import db
+from api import db
 
 class Student(db.Model):
 	# Database model for student table. 

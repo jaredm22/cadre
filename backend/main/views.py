@@ -1,8 +1,8 @@
 from flask import jsonify, request, json
-from backend import app, db
-from backend.models import *
+from api import app, db
+from models import *
 
-@app.route("/api")
+@app.route("/")
 # Main route of the app.
 def index():
     return {'greeting': "Hello World"}
