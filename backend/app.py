@@ -1,8 +1,42 @@
-from flask import jsonify, request, json
-from api import app, db
-from models import *
+from flask import Flask, jsonify, request, json
+from flask_sqlalchemy import SQLAlchemy
 
-@app.route("/")
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgres://ezolcxxoztzkwe:700b5cc4219e52a1476fb954dc9b78f553bfbc7ba438b6ead4bfc00d26404763@ec2-3-222-127-167.compute-1.amazonaws.com:5432/d42frj072ftbkq'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db = SQLAlchemy(app)
+
+class Student(db.Model):
+	# Database model for student table. 
+	__tablename__ = 'student'
+	id = db.Column(db.Integer(), primary_key=True)
+	firstName = db.Column(db.String())
+	lastName = db.Column(db.String())
+	email = db.Column(db.String())
+	course = db.Column(db.String())
+
+class Professor(db.Model):
+	# Database model for Professor table. 
+	__tablename__ = "Professor"
+	id = db.Column(db.Integer(), primary_key=True)
+	professorId = db.Column(db.Integer())
+	firstName = db.Column(db.String())
+	lastName = db.Column(db.String())
+	email = db.Column(db.String())
+
+class Course(db.Model):
+	# Database model for Course table. 
+	__tablename__ = 'course'
+	id = db.Column(db.Integer(), primary_key=True)
+	courseId = db.Column(db.Integer())
+	courseName = db.Column(db.String())
+	lectureDate = db.Column(db.DateTime())
+
+
+db.create_all()
+
+
+@app.route("/api")
 # Main route of the app.
 def index():
     return {'greeting': "Hello World"}
@@ -88,3 +122,6 @@ def get_lecture_dates():
         }
     for l in lectures]
     return jsonify(dates = results)
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
