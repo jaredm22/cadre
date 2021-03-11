@@ -27,7 +27,14 @@ For dev on the backend you'll need to install:
 ## Quickstart
 
 ### Frontend
-TBD
+1. Install libraries
+```bash
+$ npm install 
+```
+2. Run server
+```bash
+$ npm run
+```
 
 ### Backend
 1. Start the virtual environment:
@@ -47,7 +54,9 @@ If you would like to use the exisiting database url for this project, please con
 
 4. Start the server
 ```bash
-$ python3 run_backend.py
+$ cd backend
+$ export FLASK_APP = app.py
+$ run flask 
 ```
 The server should be running on [http://0.0.0.0:5000](http://0.0.0.0:5000)
 
@@ -65,3 +74,5 @@ $ export DATABASE_URL= <INSERT DATABASE URL HERE>
 ```bash
 $ pytest
 ```
+## Deployment
+Our app is currently being deployed using Heroku. You can check it out here: [https://cadretest.herokuapp.com](https://cadretest.herokuapp.com)
