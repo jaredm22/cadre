@@ -24,7 +24,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f backend/requirements.txt ]; then pip install -r backend/requirements.txt; fi
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -33,5 +33,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        export DATABASE_URL=postgres://ezolcxxoztzkwe:700b5cc4219e52a1476fb954dc9b78f553bfbc7ba438b6ead4bfc00d26404763@ec2-3-222-127-167.compute-1.amazonaws.com:5432/d42frj072ftbkq
         pytest
