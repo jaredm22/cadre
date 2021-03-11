@@ -1,7 +1,9 @@
-from flask import Flask, jsonify, request, json
+from flask import Flask, jsonify, request, json, render_template
 from flask_sqlalchemy import SQLAlchemy
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="build/static", template_folder="build")
+port = int(os.environ.get("PORT", 5000))
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgres://ezolcxxoztzkwe:700b5cc4219e52a1476fb954dc9b78f553bfbc7ba438b6ead4bfc00d26404763@ec2-3-222-127-167.compute-1.amazonaws.com:5432/d42frj072ftbkq'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
@@ -35,6 +37,9 @@ class Course(db.Model):
 
 db.create_all()
 
+@app.route('/')
+def hello():
+    return render_template('index.html')
 
 @app.route("/api")
 # Main route of the app.
@@ -124,4 +129,4 @@ def get_lecture_dates():
     return jsonify(dates = results)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=port)
