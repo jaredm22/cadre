@@ -1,8 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
 
 const getHello = () => {
-    return axios.get("/students")
-}
+  return axios.get("/students");
+};
 
-
-export default getHello
+export default getHello;
