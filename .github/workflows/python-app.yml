@@ -34,23 +34,3 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-
-name: Deploy
-
-on:
-  push:
-    branches:
-      - docker
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: "41c1f8a1-8397-4d67-a752-63c189e0c8f9"
-          heroku_app_name: "cadretest" #Must be unique in Heroku
-          heroku_email: "mlin2022@bu.edu"
-          usedocker: true
-          appdir: "backend"
