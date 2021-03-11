@@ -9,11 +9,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build, Push and Deploy to Heroku #set the whatever name you want to this step
+        id: heroku
+        uses: jctaveras/heroku-deploy@v1.0.0  # use the latest version of the action
         with:
-          heroku_api_key: "41c1f8a1-8397-4d67-a752-63c189e0c8f9"
-          heroku_app_name: "cadretest" #Must be unique in Heroku
-          heroku_email: "mlin2022@bu.edu"
-          usedocker: true
-          appdir: "backend"
+          email: "mlin2022@bu.edu" # your heroku email
+          api_key: "41c1f8a1-8397-4d67-a752-63c189e0c8f9" # your  heroku api key
+          app_name: "cadretest" # you aplication name
+          dockerfile_path: './backend' # set the path to the folder wher the Dokerfile is located
