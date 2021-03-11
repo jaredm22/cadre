@@ -31,6 +31,7 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-#     - name: Test with pytest
-#       run: |
-#         pytest
+    - name: Test with pytest
+      run: |
+        export DATABASE_URL=postgres://ezolcxxoztzkwe:700b5cc4219e52a1476fb954dc9b78f553bfbc7ba438b6ead4bfc00d26404763@ec2-3-222-127-167.compute-1.amazonaws.com:5432/d42frj072ftbkq
+        pytest

@@ -51,3 +51,17 @@ $ python3 run_backend.py
 ```
 The server should be running on [http://0.0.0.0:5000](http://0.0.0.0:5000)
 
+## Testing
+
+### Frontend
+TBD
+
+### Backend
+1. Make the postgres database url into a enivronment variable
+```bash
+$ export DATABASE_URL= <INSERT DATABASE URL HERE>
+```
+2. Run test with pytest
+```bash
+$ pytest
+```
