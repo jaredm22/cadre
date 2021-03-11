@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "mv build ../backend/",
+    "postbuild": "rm -rf templates && mv build templates && rm -rf ../backend/templates && mv templates ../backend/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
