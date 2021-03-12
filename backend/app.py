@@ -9,13 +9,14 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class Student(db.Model):
-	# Database model for student table. 
-	__tablename__ = 'student'
-	id = db.Column(db.Integer(), primary_key=True)
-	firstName = db.Column(db.String())
-	lastName = db.Column(db.String())
-	email = db.Column(db.String())
-	course = db.Column(db.String())
+    # Database model for student table. 
+    __tablename__ = 'student'
+    id = db.Column(db.Integer(), primary_key=True)
+    firstName = db.Column(db.String())
+    lastName = db.Column(db.String())
+    email = db.Column(db.String())
+    course = db.Column(db.String())
+    course_id = db.Column(db.Integer(), db.ForeignKey('course.id'))
 
 class Professor(db.Model):
 	# Database model for Professor table. 
