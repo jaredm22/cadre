@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request, json, render_template
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects import postgresql
+from sqlalchemy.dialects.postgresql import ARRAY
 import os
 
 app = Flask(__name__, static_folder="templates/static", template_folder="templates")
@@ -11,40 +13,26 @@ db = SQLAlchemy(app)
 class Student(db.Model):
     # Database model for student table. 
     __tablename__ = 'student'
-    id = db.Column(db.Integer(), primary_key=True)
-    firstName = db.Column(db.String())
-    lastName = db.Column(db.String())
-    email = db.Column(db.String())
-    course = db.Column(db.String())
-    course_id = db.Column(db.Integer(), db.ForeignKey('course.id'))
-
-class Professor(db.Model):
-	# Database model for Professor table. 
-	__tablename__ = "Professor"
-	id = db.Column(db.Integer(), primary_key=True)
-	professorId = db.Column(db.Integer())
-	firstName = db.Column(db.String())
-	lastName = db.Column(db.String())
-	email = db.Column(db.String())
+    id = db.Column(db.String())
+    firstname = db.Column(db.String())
+    lastname = db.Column(db.String())
+    email = db.Column(db.String(), primary_key=True)
+    courses = db.Column(postgresql.ARRAY(db.String()))
 
 class Course(db.Model):
-	# Database model for Course table. 
-	__tablename__ = 'course'
-	id = db.Column(db.Integer(), primary_key=True)
-	courseId = db.Column(db.Integer())
-	courseName = db.Column(db.String())
-	lectureDate = db.Column(db.DateTime())
+    # Database model for Course table. 
+    __tablename__ = 'course'
+    id = db.Column(db.String(), primary_key=True)
+    coursename = db.Column(db.String())
+    zoomlink = db.Column(db.String())
+    lecturedates = db.Column(postgresql.ARRAY(db.String()))
 
 
 db.create_all()
 
 @app.route('/')
 def hello():
-    return render_template('index.html')
-
-@app.route("/api")
-# Main route of the app.
-def index():
+    # return render_template('index.html')
     return {'greeting': "Hello World"}
 
 @app.route("/students")
@@ -55,7 +43,7 @@ def show_students():
     student_list = []
     for student in students:
         # Listing the id, firstname, lastname, email, and course of each student.
-        stud = {'id': student.id, 'firstname': student.firstName, 'lastname': student.lastName, 'email': student.email}
+        stud = {'id': student.id, 'firstname': student.firstname, 'lastname': student.lastname, 'email': student.email, 'courses':student.courses}
         student_list.append(stud)
     return jsonify(students = student_list)
 
@@ -67,12 +55,12 @@ def get_student_courses():
     # Getting back the email of the student
     email = content["email"]
     # Querying list of courses by student email.
-    courses = Student.query.filter_by(email=email).all()
+    student = Student.query.filter_by(email=email).first()
     results = [
         {
-            "course": c.course
+            "course": c
         }
-    for c in courses]
+    for c in student.courses]
     return jsonify(courses = results)
 
 
@@ -86,19 +74,7 @@ def get_student_info():
     # Querying the student.
     info = Student.query.filter_by(email= email).first()
     # Returning firstname, lastname, and email of the student.
-    return jsonify(firstName = info.firstName, lastName = info.lastName, email= info.email)
-
-@app.route("/professors")
-# Route to show all students in the app database.
-def show_professors():
-    professors = Professor.query.all()
-    # Querying all professor in app database.
-    professor_list = []
-    for professor in professors:
-        # Listing the id, firstname, lastname, email, and course of each professor.
-        prof = {'id': professor.id, 'firstname': professor.firstName, 'lastname': professor.lastName, 'professorId': professor.professorId, 'email': professor.email}
-        professor_list.append(prof)
-    return jsonify(professors = professor_list)
+    return jsonify(firstName = info.firstname, lastName = info.lastname, email= info.email, courses = info.courses)
 
 
 @app.route("/courses")
@@ -109,8 +85,8 @@ def show_courses():
     course_list = []
     for course in courses:
         # Listing the id, course name, zoom link, and course id of each course.
-        cour= {'id': course.id, 'coursename': course.courseName, 'lectureDate': course.lectureDate, 'courseId': course.courseId}
-        course_list.append(cour)
+        c= {'id': course.id, 'coursename': course.coursename, 'lecturedates': course.lecturedates, 'zoomlink': course.zoomlink}
+        course_list.append(c)
     return jsonify(courses = course_list)
 
 @app.route("/courseLectures", methods= ['POST'])
@@ -119,14 +95,14 @@ def get_lecture_dates():
     # Parsing inputted json.
     content =  request.get_json()
     # Getting back course id of a course
-    courseId = content["courseId"]
+    courseid = content["id"]
     # Querying list of lectures of a course.
-    lectures = Course.query.filter_by(courseId=courseId).all()
+    course = Course.query.filter_by(id=courseid).first()
     results = [
         {
-            "date": l.lectureDate
+            "date": l
         }
-    for l in lectures]
+    for l in course.lecturedates]
     return jsonify(dates = results)
 
 @app.route("/courseLecturesName", methods= ['POST'])
@@ -135,14 +111,14 @@ def get_lecture_date_from_name():
     # Parsing inputted json.
     content =  request.get_json()
     # Getting back course id of a course
-    courseName = content["coursename"]
+    coursename = content["coursename"]
     # Querying list of lectures of a course.
-    lectures = Course.query.filter_by(courseName=courseName).all()
+    course = Course.query.filter_by(coursename=coursename).first()
     results = [
         {
-            "date": l.lectureDate
+            "date": l
         }
-    for l in lectures]
+    for l in course.lecturedates]
     return jsonify(dates = results)
 
 if __name__ == '__main__':
