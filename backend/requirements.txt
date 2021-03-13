@@ -11,3 +11,4 @@ SQLAlchemy>=1.0.12
 Werkzeug>=0.12.2
 psycopg2-binary==2.8.5
 numpy>=1.11.2
+GeoAlchemy2>=0.8.4
