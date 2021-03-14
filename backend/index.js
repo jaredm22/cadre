@@ -20,6 +20,8 @@ app.get('/students', async (req, res) => {
     res.json(students)
 });
 
+
+
 // app.post('/students', async (req, res) => {
 //     const courses = await prisma.course.create({
 //         data :{

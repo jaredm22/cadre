@@ -5,7 +5,7 @@ var config = { headers: {
     'Access-Control-Allow-Origin': '*'}
 }
 
-const getHello = () => {
+const getStudents = () => {
     return axios.get("/students")
 };
 
@@ -33,7 +33,7 @@ const getLectureDates = (name) => {
 
 
 export default {
-    getHello,
+    getStudents,
     getStudentCourses,
     getCourses,
     getLectureDates

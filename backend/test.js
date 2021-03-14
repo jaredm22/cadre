@@ -2,6 +2,7 @@ const axios = require('axios')
 
 const baseurl="http://localhost:5000"
 
+
 const students = 
     axios.get(baseurl+"/students")
         .then(data => {
@@ -14,27 +15,27 @@ const students =
             console.log(err.message);
         });
 
-// const professors = 
-//     axios.get(baseurl+"/professors")
-//         .then(data => {
-//             console.log(data.data);
-//         })
-//         .catch((err) => {
-//             console.log(err.message);
-//         });
+const professors = 
+    axios.get(baseurl+"/professors")
+        .then(data => {
+            console.log(data.data);
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
 
-// const courses = 
-//     axios.get(baseurl+"/courses")
-//         .then(data => {
-//             console.log(data.data);
-//             const students = data.data[1].students;
-//             students.forEach(student => {
-//                 console.log(student);
-//             });
-//         })
-//         .catch((err) =>  {
-//             console.log(err.message)
-//         });
+const courses = 
+    axios.get(baseurl+"/courses")
+        .then(data => {
+            console.log(data.data);
+            const students = data.data[1].students;
+            students.forEach(student => {
+                console.log(student);
+            });
+        })
+        .catch((err) =>  {
+            console.log(err.message)
+        });
 
 
 const t = 
