@@ -7,9 +7,8 @@ var config = {
   },
 };
 
-
 const getStudents = () => {
-    return axios.get("/students")
+  return axios.get("/students");
 };
 
 const getCourses = () => {
@@ -39,8 +38,8 @@ const getLectureDates = (name) => {
 };
 
 export default {
-    getStudents,
-    getStudentCourses,
-    getCourses,
-    getLectureDates
-}
+  getStudents,
+  getStudentCourses,
+  getCourses,
+  getLectureDates,
+};
