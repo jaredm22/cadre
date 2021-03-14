@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const path = require("path");
 const express = require("express");
 // const { graphqlExpress } = require('apollo-server-express')
 
@@ -8,6 +9,13 @@ const app = express();
 const port = 5000;
 
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "build")));
+//  app.use(express.static("public"));
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // Student Routes
 app.get("/students", async (req, res) => {
@@ -70,6 +78,6 @@ app.get("/courses", async (req, res) => {
 //     res.json(courses)
 // });
 
-const server = app.listen(port, () =>
+const server = app.listen(process.env.PORT || port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`)
 );
