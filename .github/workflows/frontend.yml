@@ -1,0 +1,29 @@
+name: frontend
+
+on: push
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: npm run format
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run format:check
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: npm run build
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build
