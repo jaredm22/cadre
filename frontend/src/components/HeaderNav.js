@@ -1,6 +1,4 @@
 import { 
-    Header, 
-    HeaderName, 
     SideNav,
 } from 'carbon-components-react';
 
@@ -8,14 +6,13 @@ function HeaderNav() {
 
     return (
         <div className="App">
-            <Header aria-label="Cadre home">
-            <HeaderName href="#" prefix="Cadre">[hello]</HeaderName>
-            <SideNav isFixedNav
-            expanded={true}
-            isChildOfHeader={true}>
+            <SideNav
+                isFixedNav
+                expanded={true}
+                isChildOfHeader={false}
+                aria-label="Side navigation">
             </SideNav>
 
-            </Header>
             
             
         </div>

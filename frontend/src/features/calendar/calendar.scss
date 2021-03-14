@@ -26,22 +26,39 @@
 
 @keyframes rollout {
     0% {
-        transform: translateY(-100px);
+        transform: translateX(50px);
     }
     100% {
-        transform: translateY(0);
+        transform: translateX(0);
     }
 }
 
 .a-day {
     animation: .4s rollout;
+    transition: margin 777ms;
+    // width: 100%;
+    
+}
+
+.is-expanded {
+    margin-left: 150%;
+    margin-right: 150%;
+    position: relative;
+    z-index: 999;
+    
+}
+
+.course {
+    width: 100%;
+    background-color: #f0f0f0;
+    min-height: 100px;
 }
 
 // .calendar-contain .bx--row {
 //     justify-content: center;
 // }
 
-//overrides
+//Carbon UI Overrides
 .bx--grid {
     margin-right: 0;
 }
@@ -49,5 +66,22 @@
     background-color: transparent;
 }
 .bx--text-input.bx--slider-text-input {
-    display: none;
+    display: none; //ugly number indicator in slider code
+}
+
+.date-head .bx--grid {
+    margin: 0;
+    padding: 0;
+    // padding-left: $spacing-01;
+    // padding-right: $spacing-01;
+}
+
+.date-head .bx--col:first-child {
+    padding-left: $spacing-03;
+    // padding-right: $spacing-01;
+}
+
+.date-head .bx--col:last-child {
+    // padding-left: $spacing-01;
+    padding-right: $spacing-01;
 }
