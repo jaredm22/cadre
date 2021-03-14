@@ -10,7 +10,7 @@ const port = 5000;
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "public")));
 //  app.use(express.static("public"));
 
 app.use((req, res, next) => {
