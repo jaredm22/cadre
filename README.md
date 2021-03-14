@@ -13,6 +13,9 @@ Find the README assignments [here:](https://github.com/jaredm22/cadre/tree/spark
 ### Product Backlog
 Link to Product Backlong is [here:](https://buspark.atlassian.net/jira/software/projects/CAD/boards/15/backlog)
 
+## Technologies Used
+The application uses React.js on the frontend, Express.js on the backend, and PostgresSQL as the database.
+
 ## Requirements
 ### Frontend
 For dev on the frontend you'll need to install:
@@ -20,34 +23,41 @@ For dev on the frontend you'll need to install:
 
 ### Backend
 For dev on the backend you'll need to install: 
-- Python3
-- Pip (python -m pip --version)
-- Virtualenv (python -m pip install --user virtualenv)
+- Express (instructions to install can be found [here](https://expressjs.com/en/starter/installing.html))
 
 ## Quickstart
 
 ### Frontend
-TBD
-
+1. Go into backend folder
+```bash
+$ cd frontend
+```
+2. Install the node packages
+```bash
+$ npm install
+```
+4. Start the web application
+```bash
+$ npm start run
+```
 ### Backend
-1. Start the virtual environment:
+1. Go into backend folder
 ```bash
-$ python3 -m venv venv
-$ . venv/bin/activate
+$ cd backend
 ```
-2. Install libraries
+2. Install the node packages
 ```bash
-$ pip install -r requirements.txt
+$ npm install
 ```
-3. Make the postgres database url into a enivronment variable
-```bash
-$ export DATABASE_URL= <INSERT DATABASE URL HERE>
+3. Create .env file and in the file add the line
 ```
-If you would like to use the exisiting database url for this project, please contact the admins
+DATABASE_URL= <INSERT DATABASE URL HERE>
+```
+If you would like to use the exisiting database url for this project, please contact the admins.
 
 4. Start the server
 ```bash
-$ python3 run_backend.py
+$ node index.js
 ```
 The server should be running on [http://0.0.0.0:5000](http://0.0.0.0:5000)
 

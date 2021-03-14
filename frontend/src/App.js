@@ -1,21 +1,18 @@
-
-import './App.scss';
+import "./App.scss";
 // import getHello from "./apiHandle"
 // import React, { useState, useEffect } from 'react';
-import Calendar from './features/calendar/Calendar'
-import HeaderNav from './components/HeaderNav'
-import { Content } from 'carbon-components-react';
-
+import Calendar from "./features/calendar/Calendar";
+import HeaderNav from "./components/HeaderNav";
+import { Content } from "carbon-components-react";
 
 function App() {
-
   return (
     <div className="App">
-      <HeaderNav/>
+      {/* TODO: collapsible nav and grid-expand transition */}
+      <HeaderNav />
       <Content>
-      <Calendar/>
+        <Calendar />
       </Content>
-      
     </div>
   );
 }

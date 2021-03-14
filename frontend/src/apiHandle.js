@@ -1,8 +1,45 @@
-import axios from 'axios'
+import axios from "axios";
 
-const getHello = () => {
-    return axios.get("/students")
-}
+var config = {
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
+};
 
+const getStudents = () => {
+  return axios.get("/students");
+};
 
-export default getHello
+const getCourses = () => {
+  return axios.get("/courses", config);
+};
+
+const getStudentCourses = (mail) => {
+  return axios.post(
+    "/studentCourses",
+    {
+      email: mail,
+    },
+    config
+  );
+};
+
+const getLectureDates = (name) => {
+  return axios
+    .post(
+      "/courseLecturesName",
+      {
+        coursename: name,
+      },
+      config
+    )
+    .then((res) => res);
+};
+
+export default {
+  getStudents,
+  getStudentCourses,
+  getCourses,
+  getLectureDates,
+};

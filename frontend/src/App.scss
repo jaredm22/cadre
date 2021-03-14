@@ -4,13 +4,16 @@
 @import 'carbon-components/scss/globals/scss/_css--body.scss';
 @import 'carbon-components/scss/components/ui-shell/ui-shell';
 
+body {
+  background-color: #fafafa;
+}
 
 .App {
-  text-align: center;
+  overflow-x: hidden;
 }
 
 .blue {
-  background-color: #61dafb;
+  color: salmon;
 }
 
 .App-logo {
@@ -46,4 +49,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+//overrides 
+.bx--content {
+  margin-left: auto;
+  width: calc(100% - 16rem);
 }
