@@ -9,7 +9,7 @@
   "scripts": {
     "format": "prettier --write \"./**/*.{js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"./**/*.{js,jsx,json,md,css}\"",
-    "postinstall": "yarn prisma generate && yarn prisma migrate up --experimental"
+    "prepare": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^2.18.0",
