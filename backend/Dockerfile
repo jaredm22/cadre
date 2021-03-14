@@ -16,4 +16,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 5000
+ENV DATABASE_URL "$DATABASE_URL"
 CMD [ "node", "index.js" ]
