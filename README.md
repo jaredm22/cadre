@@ -1,4 +1,9 @@
 # Cadre
+![backend workflow](https://github.com/jaredm22/cadre/actions/workflows/backend.yml/badge.svg)
+</br>
+![frontend workflow](https://github.com/jaredm22/cadre/actions/workflows/frontend.yml/badge.svg)
+</br>
+![deployment workflow](https://github.com/jaredm22/cadre/actions/workflows/deployment.yml/badge.svg)
 
 ## Team
 - Noelle No - UX Designer
