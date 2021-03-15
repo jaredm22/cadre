@@ -81,3 +81,5 @@ app.get("/courses", async (req, res) => {
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`)
 );
+
+module.exports = server;
