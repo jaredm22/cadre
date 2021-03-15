@@ -10,11 +10,21 @@ class Day extends React.Component {
         this.state= {
             courselist: [],
             assgn: [],
+            expand: 'no-expand' //classname to add to day component to indicate css transition
         }
         this.test = false;
     }
 
     async componentDidMount() {
+
+        api.getStudents().then(res => {
+            let teststudent = res.data[0]
+            let courses = teststudent.courses
+            this.setState({
+                courselist: teststudent.courses
+            })
+            console.log(courses)
+        })
         // await api.getStudentCourses("mlin2022@bu.edu").then(res => {
         //     let courses = res.data.courses
         //     // console.log(courses)
@@ -53,7 +63,7 @@ class Day extends React.Component {
         var { courselist } = this.state;
 
         return(
-            <Grid>
+            <Grid className={this.state.expand}>
                 <Row>
                     <div className={this.props.today ? 'blue' : 'black'}>
                         <h3>{this.props.day}</h3>
@@ -66,9 +76,9 @@ class Day extends React.Component {
                 </div>
                 </Row>
                 {courselist.map((e, i) => { return (
-                    <Row key={i}
+                <Row key={i}
                     className="course">
-                    {e}
+                    {e.courseName}
                 </Row>
                 )})}
                     {/* {console.log(courselist)} */}

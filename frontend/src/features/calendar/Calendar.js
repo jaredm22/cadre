@@ -16,15 +16,20 @@ class Calendar extends React.Component {
         super(props)
         this.state = {
             today: new Date(),
-            days:3
+            days:3,
+
         }
         this.date = format(this.state.today, 'd')
         this.expandRef = React.createRef()
+        this.daysrefs ={}
+
 
     }
 
     setDayRef = el => {
         this.expandRef = el
+        this.daysrefs.push(this.expandRef)
+        console.log(el)
     }
 
     shouldComponentUpdate(){
@@ -36,33 +41,43 @@ class Calendar extends React.Component {
 
     }
 
-    expandDay() {
+    expandDay(day, index) {
+        // console.log(index)
+        // console.log(day)
+        // if (day > 0 && day < 4) {
+        const wrapper = this.daysrefs[day].state;
+        var setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
+        this.daysrefs[day].setState({expand: setexpand})
+        console.log(this.daysrefs)
+        console.log(this.daysrefs[day].props.className)
+            // wrapper.className = wrapper.className.includes('is-expanded') ? 'a-day' : 'a-day is-expanded'
+        // }
         
-        const wrapper = this.expandRef;
-        // wrapper.classList.toggle('is-expanded')
-        console.log(wrapper)
     }
 
     render(){
         const day_list = []
         for (let i = 0; i < this.state.days; i++) {
             let day = i === 0 ? <Day 
-                                    key={Math.random()}
-                                    className="a-day" 
+                                    key={i}
+                                    // className="today"
                                     today={true} 
                                     month={format(this.state.today, 'LLL')} 
                                     date={this.state.today.getDate()}
                                     day={format(this.state.today, 'EEE')}
-                                    ref={this.setDayRef}
+                                    ref={ref => this.daysrefs[i] = ref}
+                                    expand="no-expand"
                                     />
                                      :
-                <Day className="a-day" 
+                <Day  
                     key={i}
+                    // className={this.state.expand}
                     today={false}
                     month={format(addDays(this.state.today, i), 'LLL')} 
                     date={ addDays(this.state.today, i).getDate()}
                     day={format(addDays(this.state.today, i), 'EEE')}
-                    ref={this.setDayRef}
+                    ref={ref => this.daysrefs[i] = ref}
+                    expand="no-expand"
                     
                     /> 
             day_list.push(day)
@@ -95,16 +110,22 @@ class Calendar extends React.Component {
                         </Column>
                     </Row>
                     <Row className="date-head" >
-                        {day_list.map(el =>
-                            <Column 
+                        {day_list.map((el, index) => {
+                            let handleclick = this.expandDay.bind(this, index)
+                            
+
+                            return (
+                                <Column 
                                 key={el.props.date}
                                 className="a-day"
-                                onClick={() => this.expandDay()}
+                                onClick={handleclick}
                             > 
                                     {el}
 
                                  {/* {el} */}
                             </Column>
+
+                            )}
                         )}
                     </Row>
                 </Grid>            
