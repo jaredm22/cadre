@@ -1,5 +1,6 @@
 ## Sprint Plan
-Our forecast for this week (Mar 1 - Mar 7) is to complete user story(ies):
+Our forecast for this week (Mar 15 - Mar 22) is to complete user story(ies):
+- Expanded Day View of Classes
 - View Schedule of Classes
 This was in our sprint last week and we did not realize how many child tasks were involved 
 in this. Melissa, Jared, and Chinwe particpated in this activity.
@@ -10,7 +11,7 @@ What We did:
 - Chinwe: Calendar component to format days properly
 - Melissa: Setting up endpoint to get course data 
 
-What We Will Work:
+What We Will Work On:
 - Jared: Day component, visualize data on day component
 - Chinwe: Styling day component
 - Melissa: Making db relational
@@ -20,7 +21,7 @@ Blockers:
 - Melissa: Making database relational
 
 ## Mob Programming 
-[Check us out mob programming ooo](./spark!/images/mob.png)
+[Check us out mob programming ooo](./spark!/images/mob2.png)
 
 ## Sprint Review
 [Check us out reviewing our not-yet-done sprint ooo](./spark!/images/stakeholder.png) 
