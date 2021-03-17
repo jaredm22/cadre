@@ -21,7 +21,7 @@ jobs:
       - name: Build, Push and Release a Docker container to Heroku. # Your custom step name
         uses: gonuit/heroku-docker-deploy@v1.3.2 # GitHub action name (leave it as it is).
         env:
-          DATABASE_URL: postgres://nkgcexvfhoqkbh:0822033df6fd3aeac8620c2dd630680a920c304030b076776b0071f1c4777481@ec2-54-159-175-113.compute-1.amazonaws.com:5432/dfvlsbn7e3mjku
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         with:
           # Below you must provide variables for your Heroku app.
 
@@ -32,7 +32,7 @@ jobs:
           
           # Heroku API key associated with provided user's email.
           # Api Key is available under your Heroku account settings.
-          heroku_api_key: 41c1f8a1-8397-4d67-a752-63c189e0c8f9
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           
           # Name of the heroku application to which the build is to be sent.
           heroku_app_name: cadretest
