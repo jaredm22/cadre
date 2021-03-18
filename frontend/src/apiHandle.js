@@ -1,45 +1,36 @@
 import axios from "axios";
 
-var config = {
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  },
-};
+// var config = {
+//   headers: {
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Origin": "*",
+//   },
+// };
 
 const getStudents = () => {
   return axios.get("/students");
 };
 
+const getProfessors = () => {
+  return axios.get("/professor");
+};
+
 const getCourses = () => {
-  return axios.get("/courses", config);
+  return axios.get("/courses");
 };
 
-const getStudentCourses = (mail) => {
-  return axios.post(
-    "/studentCourses",
-    {
-      email: mail,
-    },
-    config
-  );
+const getLectures = () => {
+  return axios.get("/lectures");
 };
 
-const getLectureDates = (name) => {
-  return axios
-    .post(
-      "/courseLecturesName",
-      {
-        coursename: name,
-      },
-      config
-    )
-    .then((res) => res);
+const getLabs = () => {
+  return axios.get("/labs");
 };
 
 export default {
   getStudents,
-  getStudentCourses,
+  getProfessors,
   getCourses,
-  getLectureDates,
+  getLectures,
+  getLabs
 };
