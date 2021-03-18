@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Dropdown, Grid, Row } from 'carbon-components-react';
-import api from '../apiHandle';
-
+import React from "react";
+import PropTypes from "prop-types";
+import { Dropdown, Grid, Row } from "carbon-components-react";
+import api from "../apiHandle";
 
 class Day extends React.Component {
     constructor(props){
@@ -37,30 +36,11 @@ class Day extends React.Component {
         //             // console.log(days)
         //             // console.log(this.props.day)
         //             // console.log(days.includes(this.props.day))
-
-        //             //return if course is on this day (bool) and course name in array
-        //             return [days.includes(this.props.day), e.course]
-        //         })
-        //         return check
-        //     })
-        //     return inDays 
-        // //Promise.all takes array of promises and evaluate to single array of evaluated promises
-        // }).then(res => Promise.all(res).then(vals => { 
-        //     this.setState({
-        //         courselist: vals.filter(e => { //e == ['T/F', lectuteName]
-        //             let mapping = e
-        //             return mapping[0] //filter out results not on today
-        //         }).map(course => {
-        //             let arr = course
-        //             return arr[1] //parse out name of course to set state with
-        //         })
-        //     })
-        // }))
-        
     }
+ 
 
-    render() {
-        var { courselist } = this.state;
+  render() {
+    var { courselist } = this.state;
 
         return(
             <Grid className={this.state.expand}>
@@ -85,6 +65,7 @@ class Day extends React.Component {
             </Grid>
             
         )
- }}
+ }
+}
 
-export default Day
+export default Day;

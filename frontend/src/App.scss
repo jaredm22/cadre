@@ -1,11 +1,12 @@
+@use './type.scss';
 @import 'carbon-components/scss/globals/scss/_css--reset.scss';
-@import 'carbon-components/scss/globals/scss/_css--font-face.scss';
+// @import 'carbon-components/scss/globals/scss/_css--font-face.scss';
 @import 'carbon-components/scss/globals/scss/_css--helpers.scss';
 @import 'carbon-components/scss/globals/scss/_css--body.scss';
 @import 'carbon-components/scss/components/ui-shell/ui-shell';
 
 body {
-  background-color: #fafafa;
+
 }
 
 .App {
@@ -55,4 +56,9 @@ body {
 .bx--content {
   margin-left: auto;
   width: calc(100% - 16rem);
+  padding: 0;
+}
+
+.bx--side-nav__navigation {
+  border-right: 1px solid grey;
 }

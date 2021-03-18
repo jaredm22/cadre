@@ -1,15 +1,11 @@
-import React from 'react'
-import { 
-    Slider,
-    Grid,
-    Row,
-    Column
- } from 'carbon-components-react'
-import { addDays, format } from 'date-fns'
-import Day from '../../components/Day'
-import './calendar.scss'
+import React from "react";
+import { Slider, Grid, Row, Column } from "carbon-components-react";
+import { addDays, format } from "date-fns";
+import Day from "../../components/Day";
+import "./calendar.scss";
 
-
+//TODO: keep expand state in calendar component to check if at most one
+//Day component is working
 
 class Calendar extends React.Component {
     constructor(props){
@@ -17,13 +13,12 @@ class Calendar extends React.Component {
         this.state = {
             today: new Date(),
             days:3,
+            expand: 'no-expand'
 
         }
         this.date = format(this.state.today, 'd')
         this.expandRef = React.createRef()
         this.daysrefs ={}
-
-
     }
 
     setDayRef = el => {
@@ -46,7 +41,16 @@ class Calendar extends React.Component {
         // console.log(day)
         // if (day > 0 && day < 4) {
         const wrapper = this.daysrefs[day].state;
-        var setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
+        var setexpand;
+
+        if (this.state.expand === 'no-expand') {
+          setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
+        } else {
+          
+        }
+
+
+        
         this.daysrefs[day].setState({expand: setexpand})
         console.log(this.daysrefs)
         console.log(this.daysrefs[day].props.className)
@@ -117,7 +121,7 @@ class Calendar extends React.Component {
                             return (
                                 <Column 
                                 key={el.props.date}
-                                className="a-day"
+                                className={'a-day ' + this.state.expand}
                                 onClick={handleclick}
                             > 
                                     {el}
@@ -136,4 +140,4 @@ class Calendar extends React.Component {
 
 }
 
-export default Calendar
+export default Calendar;
