@@ -35,15 +35,20 @@
 
 .a-day {
     animation: .4s rollout;
-    transition: margin 777ms;
+    
     // width: 100%;
     
 }
 
 .is-expanded {
-    margin-left: 150%;
-    margin-right: 150%;
+    padding-left: 150% !important;
+    padding-right: 150% !important;
+    // opacity: 0.7;
+    background-color: fuchsia;
+    // flex-grow: 12;
     position: relative;
+    width: 300% !important;
+    height: 100%;
     z-index: 999;
     
 }
@@ -61,6 +66,7 @@
 //Carbon UI Overrides
 .bx--grid {
     margin-right: 0;
+    transition: width 777ms;
 }
 .bx--content{
     background-color: transparent;
