@@ -30,21 +30,22 @@ model Professor {
 }
 
 model Course {
-  id         Int         @id @default(autoincrement())
-  courseId   String
-  courseName String
-  section    String?
-  school     String?
-  zoomLink   String?
-  days       String[]
-  startDate  DateTime    @db.Date
-  endDate    DateTime    @db.Date
-  startTime  DateTime    @db.Timetz(6)
-  endTime    DateTime    @db.Timetz(6)
-  labs       Lab[]
-  lectures   Lecture[]
-  professor  Professor[]
-  students   Student[]
+  id            Int            @id @default(autoincrement())
+  courseId      String
+  courseName    String
+  section       String?
+  school        String?
+  zoomLink      String?
+  days          String[]
+  lectureStyle  lectureStyle   @default(Hybrid)
+  startDate     DateTime       @db.Date
+  endDate       DateTime       @db.Date
+  startTime     DateTime       @db.Timetz(6)
+  endTime       DateTime       @db.Timetz(6)
+  labs          Lab[]
+  lectures      Lecture[]
+  professor     Professor[]
+  students      Student[]
 
   @@unique([courseId, courseName, section], name: "Course.courseId_courseName_section_unique")
 }

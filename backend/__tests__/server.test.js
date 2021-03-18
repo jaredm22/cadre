@@ -66,3 +66,48 @@ it("gets one professor based on email", async (done) => {
   expect(Array.isArray(response.body.labs)).toBeTruthy();
   done();
 });
+
+it("creates student entry", async (done) => {
+  const response = await request
+    .post("/students")
+    .send({ email: "test@bu.edu", firstName: "test", lastName: "guy" });
+  expect(response.status).toBe(200);
+  expect(response.body.firstName).toBe("test");
+  expect(response.body.lastName).toBe("guy");
+  done();
+});
+
+it("creates professor entry", async (done) => {
+  const response = await request
+    .post("/professors")
+    .send({ email: "test@bu.edu", firstName: "test", lastName: "guy" });
+  expect(response.status).toBe(200);
+  expect(response.body.firstName).toBe("test");
+  expect(response.body.lastName).toBe("guy");
+  done();
+});
+
+it("deletes student entry by email", async (done) => {
+  const response = await request
+    .delete("/students")
+    .send({ email: "test@bu.edu"});
+  expect(response.status).toBe(200);
+  expect(response.body.firstName).toBe("test");
+  expect(response.body.lastName).toBe("guy");
+  done();
+});
+
+it("deletes professor entry by email", async (done) => {
+  const response = await request
+    .delete("/professors")
+    .send({ email: "test@bu.edu" });
+    expect(response.status).toBe(200);
+    expect(response.body.firstName).toBe("test");
+    expect(response.body.lastName).toBe("guy");
+  done();
+});
+
+
+
+
+

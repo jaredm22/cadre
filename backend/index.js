@@ -39,28 +39,52 @@ app.post("/getStudent", async (req, res) => {
       email: studentEmail,
     },
     include: {
-      courses: true,
-      labs: true,
+      courses: {
+        include: {
+          labs: true,
+          lectures: true,
+          students: true,
+          professor: true
+        }
+      },
+      labs: {
+        include: {
+          course: true 
+        }
+      }
     },
   });
+
   console.log(student);
   res.json(student);
 });
 
 // Student post route
-// app.post('/student', async (req, res) => {
-//   const {id, email, firstName, lastName, courses} = req.body;
-//   const post = await prisma.student.create({
-//       data :{
-//         id,
-//         email,
-//         firstName,
-//         lastName,
-//         courses
-//       }
-//   })
-//   res.json(courses)
-// });
+app.post('/students', async (req, res) => {
+  const {email, firstName, lastName} = req.body;
+  const post = await prisma.student.create({
+      data :{
+        email,
+        firstName,
+        lastName
+      }
+  })
+  console.log(post)
+});
+
+// Student delete route
+app.delete('/students', async (req, res) => {
+  const email = req.body.email;
+  const post = await prisma.student.delete({
+    where: {
+      email: email
+    }
+  })
+  console.log(post)
+});
+
+
+
 
 // Professor Routes
 // Professor get all route
@@ -83,26 +107,49 @@ app.post("/getProfessor", async (req, res) => {
       email: professorEmail,
     },
     include: {
-      courses: true,
-      labs: true,
+      courses: {
+        include: {
+          labs: true,
+          lectures: true,
+          students: true,
+          professor: true
+        }
+      },
+      labs: {
+        include: {
+          course: true 
+        }
+      }
     },
   });
   console.log(professor);
   res.json(professor);
 });
 
-// Professor post route
-// app.post('/professor', async (req, res) => {
-//     const {id, email, firstName, lastName, courses} = req.body
-//     const post = await prisma.professor.create({
-//       id,
-//       email,
-//       firstName,
-//       lastName,
-//       courses
-//     })
-//     res.json(post)
-// });
+// Professors post route
+app.post('/professors', async (req, res) => {
+  const {email, firstName, lastName} = req.body;
+  const post = await prisma.professor.create({
+      data :{
+        email,
+        firstName,
+        lastName
+      }
+  })
+  console.log(post)
+});
+
+// Professor delete route
+app.delete('/professors', async (req, res) => {
+  const email = req.body.email;
+  const post = await prisma.professor.delete({
+      where: {
+        email: email
+      }
+  })
+  console.log(post)
+});
+
 
 // Course Routes
 // Course get all route
@@ -119,14 +166,25 @@ app.get("/courses", async (req, res) => {
   res.json(courses);
 });
 
-// app.post('/courses', async (req, res) => {
-//     const {id, courseId, courseName, zoomLink, professors, days, lecture}
-//     const courses = await prisma.course.create({
+app.post('/courses', async (req, res) => {
+    const {courseId, courseName, section, school, days, lectureStyle, startDate, endDate, startTime, endTime} = req.body
+    const courses = await prisma.course.create({
+      courseId,
+      courseName,
+      section, 
+      school, 
+      days,
+      lectureStyle,
+      startDate,
+      endDate,
+      startTime,
+      endTime
+    })
+    console.log(courses)
+    res.json(courses)
+});
 
-//     })
-//     console.log(courses)
-//     res.json(courses)
-// });
+
 
 // Lab Routes
 // Lab get all route
@@ -141,6 +199,8 @@ app.get("/labs", async (req, res) => {
   console.log(labs);
   res.json(labs);
 });
+
+
 
 // Lecture Routes
 // Lecture get all route

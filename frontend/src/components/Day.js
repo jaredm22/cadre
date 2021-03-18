@@ -7,8 +7,11 @@ class Day extends React.Component {
     constructor(props){
         super(props)
         this.state= {
-            courselist: [],
-            assgn: [],
+            courses: [],
+            labs: [],
+            todayCourse: [],
+            todayLabs: [],
+            // assgn: [],
             expand: 'no-expand' //classname to add to day component to indicate css transition
         }
         this.test = false;
@@ -16,31 +19,39 @@ class Day extends React.Component {
 
     async componentDidMount() {
 
-        api.getStudents().then(res => {
-            let teststudent = res.data[0]
-            let courses = teststudent.courses
-            this.setState({
-                courselist: teststudent.courses
+        api.getStudentByEmail("jmin@bu.edu").then(student => {
+            // console.log(student)
+            // console.log(student.courses)
+            // student.courses.forEach(element => {
+            //     console.log(element.days)
+            // });
+            const todayClasses = student.courses.filter( course => {
+                if (course.days.includes(this.props.day)) {
+                    return course
+                }
             })
-            console.log(courses)
-        })
-        // await api.getStudentCourses("mlin2022@bu.edu").then(res => {
-        //     let courses = res.data.courses
-        //     // console.log(courses)
+            console.log(student.labs)
 
-        //     const inDays = courses.map(e => { //map each course to a promise
-        //         const check =  api.getLectureDates(e.course).then(lecture => { //promise to get class days
-        //             console.log(lecture)
-        //             var days;
-        //             days = lecture.data.dates.map(e => e.date.substring(0,3)) //parse lecture days of course
-        //             // console.log(days)
-        //             // console.log(this.props.day)
-        //             // console.log(days.includes(this.props.day))
+            const todayLabs = student.labs.filter( lab => {
+                if (lab.days.includes(this.props.day)) {
+                    console.log(lab)
+                    return lab;
+                }
+            })
+
+            this.setState({
+                courses: student.courses,
+                labs: student.labs,
+                todayCourse: todayClasses,
+                todayLabs: todayLabs
+            })
+        })
     }
  
 
-  render() {
-    var { courselist } = this.state;
+    render() {
+        var { todayCourse, todayLabs } = this.state;
+        console.log(todayLabs)
 
         return(
             <Grid className={this.state.expand}>
@@ -55,13 +66,26 @@ class Day extends React.Component {
                     <h4>{this.props.date}</h4>
                 </div>
                 </Row>
-                {courselist.map((e, i) => { return (
-                <Row key={i}
-                    className="course">
-                    {e.courseName}
-                </Row>
-                )})}
-                    {/* {console.log(courselist)} */}
+                
+                {todayCourse.map( course => {
+                    return (
+                        <Row key={course.id}
+                            className="course">
+                            {course.courseId}<br></br>
+                            {course.courseName + " " + course.section} 
+                        </Row>
+                    )}
+                )}
+
+                {todayLabs.map( lab => {
+                        return (
+                            <Row key={lab.id}
+                                className="lab">
+                                {lab.course.courseId}<br></br>
+                                {lab.course.courseName + " " + lab.course.section}
+                            </Row>
+                        )}
+                )}
             </Grid>
             
         )
