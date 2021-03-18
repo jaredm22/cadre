@@ -28,3 +28,17 @@ it("gets courses endpoint", async (done) => {
   expect(Array.isArray(response.body)).toBeTruthy();
   done();
 });
+
+it("gets labs endpoint", async (done) => {
+  const response = await request.get("/labs");
+  expect(response.status).toBe(200);
+  expect(Array.isArray(response.body)).toBeTruthy();
+  done();
+});
+
+it("gets lectures endpoint", async (done) => {
+  const response = await request.get("/lectures");
+  expect(response.status).toBe(200);
+  expect(Array.isArray(response.body)).toBeTruthy();
+  done();
+});
