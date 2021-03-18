@@ -42,3 +42,27 @@ it("gets lectures endpoint", async (done) => {
   expect(Array.isArray(response.body)).toBeTruthy();
   done();
 });
+
+it("gets one student based on email", async (done) => {
+  const response = await request
+    .post("/getStudent")
+    .send({ email: "mlin@bu.edu" });
+  expect(response.status).toBe(200);
+  expect(response.body.firstName).toBe("Melissa");
+  expect(response.body.lastName).toBe("Lin");
+  expect(Array.isArray(response.body.courses)).toBeTruthy();
+  expect(Array.isArray(response.body.labs)).toBeTruthy();
+  done();
+});
+
+it("gets one professor based on email", async (done) => {
+  const response = await request
+    .post("/getProfessor")
+    .send({ email: "dsullivan@bu.edu" });
+  expect(response.status).toBe(200);
+  expect(response.body.firstName).toBe("Dave");
+  expect(response.body.lastName).toBe("Sullivan");
+  expect(Array.isArray(response.body.courses)).toBeTruthy();
+  expect(Array.isArray(response.body.labs)).toBeTruthy();
+  done();
+});

@@ -1,69 +1,80 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Student {
-  id        Int       @default(autoincrement()) @id
-  email     String    @db.VarChar(100)  
-  firstName String    @db.VarChar(100) 
-  lastName  String    @db.VarChar(100) 
+  id        Int      @id @default(autoincrement())
+  email     String   @db.VarChar(100)
+  firstName String   @db.VarChar(100)
+  lastName  String   @db.VarChar(100)
   courses   Course[]
   labs      Lab[]
+  
+  @@unique(fields: [email], name:email)
 }
 
 model Professor {
-  id        Int       @default(autoincrement()) @id
-  email     String    @db.VarChar(100) 
-  firstName String    @db.VarChar(100) 
-  lastName  String    @db.VarChar(100) 
+  id        Int      @id @default(autoincrement())
+  email     String   @db.VarChar(100)
+  firstName String   @db.VarChar(100)
+  lastName  String   @db.VarChar(100)
   courses   Course[]
   labs      Lab[]
+
+  @@unique(fields: [email], name:email)
 }
 
-
-
 model Course {
-  id            Int         @default(autoincrement()) @id
-  courseId      String
-  courseName    String      
-  section       String?       
-  school        String?      
-  zoomLink      String?    
-  students      Student[]   
-  professor     Professor[] 
-  days          String[]    
-  startDate     DateTime    @db.Date
-  endDate       DateTime    @db.Date
-  startTime     DateTime    @db.Timetz()
-  endTime       DateTime    @db.Timetz()
-  lectures      Lecture[] 
-  labs          Lab[]
+  id         Int         @id @default(autoincrement())
+  courseId   String
+  courseName String
+  section    String?
+  school     String?
+  zoomLink   String?
+  days       String[]
+  startDate  DateTime    @db.Date
+  endDate    DateTime    @db.Date
+  startTime  DateTime    @db.Timetz(6)
+  endTime    DateTime    @db.Timetz(6)
+  labs       Lab[]
+  lectures   Lecture[]
+  professor  Professor[]
+  students   Student[]
 
-  @@unique([courseId, courseName, section])
+  @@unique([courseId, courseName, section], name: "Course.courseId_courseName_section_unique")
 }
 
 model Lab {
   id          Int         @id @default(autoincrement())
-  instructors Professor[] 
   courseId    Int?
-  course      Course?     @relation(fields: [courseId], references: [id])
-  section     String?    
-  labStyle    labStyle    @default(Hybrid) 
-  days        String[]    
+  section     String?
+  labStyle    labStyle    @default(Hybrid)
+  days        String[]
   startDate   DateTime    @db.Date
   endDate     DateTime    @db.Date
-  startTime   DateTime    @db.Timetz()
-  endTime     DateTime    @db.Timetz()  
-  zoomLink    String?    
-  students    Student[] 
+  startTime   DateTime    @db.Timetz(6)
+  endTime     DateTime    @db.Timetz(6)
+  zoomLink    String?
+  course      Course?     @relation(fields: [courseId], references: [id])
+  instructors Professor[]
+  students    Student[]
+}
+
+model Lecture {
+  id           Int          @id @default(autoincrement())
+  lectureStyle lectureStyle @default(Hybrid)
+  courseId     Int?
+  zoomLink     String?
+  day          String?
+  lectureDate  DateTime     @db.Date
+  startTime    DateTime?    @db.Timestamptz(6)
+  endTime      DateTime?    @db.Timestamptz(6)
+  course       Course?      @relation(fields: [courseId], references: [id])
 }
 
 enum labStyle {
@@ -72,23 +83,8 @@ enum labStyle {
   Remote
 }
 
-model Lecture {
-  id            Int              @default(autoincrement()) @id
-  lectureStyle  lectureStyle     @default(Hybrid)
-  courseId      Int?
-  course        Course?          @relation(fields: [courseId], references: [id])
-  zoomLink      String?     
-  day           String?           
-  lectureDate   DateTime         @db.Date 
-  startTime     DateTime?        @db.Timestamptz()
-  endTime       DateTime?        @db.Timestamptz()
-}
-
 enum lectureStyle {
   InPerson
   Hybrid
   Remote
 }
-
-
-

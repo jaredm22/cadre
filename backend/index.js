@@ -1,3 +1,4 @@
+globalThis = global;
 const { PrismaClient } = require("@prisma/client");
 const path = require("path");
 const express = require("express");
@@ -23,11 +24,27 @@ app.get("/students", async (req, res) => {
   const students = await prisma.student.findMany({
     include: {
       courses: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(students);
   res.json(students);
+});
+
+// Get one student route
+app.post("/getStudent", async (req, res) => {
+  const studentEmail = req.body.email;
+  const student = await prisma.student.findUnique({
+    where: {
+      email: studentEmail,
+    },
+    include: {
+      courses: true,
+      labs: true,
+    },
+  });
+  console.log(student);
+  res.json(student);
 });
 
 // Student post route
@@ -51,11 +68,27 @@ app.get("/professors", async (req, res) => {
   const professors = await prisma.professor.findMany({
     include: {
       courses: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(professors);
   res.json(professors);
+});
+
+// Get one professor route
+app.post("/getProfessor", async (req, res) => {
+  const professorEmail = req.body.email;
+  const professor = await prisma.professor.findUnique({
+    where: {
+      email: professorEmail,
+    },
+    include: {
+      courses: true,
+      labs: true,
+    },
+  });
+  console.log(professor);
+  res.json(professor);
 });
 
 // Professor post route
@@ -71,8 +104,6 @@ app.get("/professors", async (req, res) => {
 //     res.json(post)
 // });
 
-
-
 // Course Routes
 // Course get all route
 app.get("/courses", async (req, res) => {
@@ -81,7 +112,7 @@ app.get("/courses", async (req, res) => {
       professor: true,
       students: true,
       lectures: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(courses);
@@ -97,8 +128,6 @@ app.get("/courses", async (req, res) => {
 //     res.json(courses)
 // });
 
-
-
 // Lab Routes
 // Lab get all route
 app.get("/labs", async (req, res) => {
@@ -106,22 +135,19 @@ app.get("/labs", async (req, res) => {
     include: {
       instructors: true,
       students: true,
-      course: true
+      course: true,
     },
   });
   console.log(labs);
   res.json(labs);
 });
 
-
-
-
 // Lecture Routes
 // Lecture get all route
 app.get("/lectures", async (req, res) => {
   const lectures = await prisma.lecture.findMany({
     include: {
-      course: true
+      course: true,
     },
   });
   console.log(lectures);
