@@ -4,9 +4,6 @@ import { addDays, format } from "date-fns";
 import Day from "../../components/Day";
 import "./calendar.scss";
 
-//TODO: keep expand state in calendar component to check if at most one
-//Day component is working
-
 class Calendar extends React.Component {
     constructor(props){
         super(props)
@@ -41,17 +38,22 @@ class Calendar extends React.Component {
         // console.log(day)
         // if (day > 0 && day < 4) {
         const wrapper = this.daysrefs[day].state;
-        var setexpand;
+        // var setexpand;
 
         if (this.state.expand === 'no-expand') {
-          setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
+          this.daysrefs[day].setState({expand: 'is-expanded'})
+          this.setState({ expand: 'is-expanded'})
         } else {
-          
+          if (wrapper.expand === 'is-expanded'){
+            this.daysrefs[day].setState({expand: 'no-expand'})
+            this.setState({ expand: 'no-expand'})
+          }
+          // setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
         }
 
 
         
-        this.daysrefs[day].setState({expand: setexpand})
+        // this.daysrefs[day].setState({expand: setexpand})
         console.log(this.daysrefs)
         console.log(this.daysrefs[day].props.className)
             // wrapper.className = wrapper.className.includes('is-expanded') ? 'a-day' : 'a-day is-expanded'
@@ -71,6 +73,7 @@ class Calendar extends React.Component {
                                     day={format(this.state.today, 'EEE')}
                                     ref={ref => this.daysrefs[i] = ref}
                                     expand="no-expand"
+                                    expand-width={document.getElementById('calendar')}
                                     />
                                      :
                 <Day  
@@ -88,7 +91,7 @@ class Calendar extends React.Component {
         }
 
         return(
-                <Grid className="bx--grid calendar-contain" narrow={true}>
+                <Grid id="calendar" className="bx--grid calendar-contain" narrow={true}>
                     <Row>
                         {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
                         <h4 aria-label="calendar" className="calendar-title"> {format(this.state.today, 'LLLL')} {this.date} 
@@ -121,7 +124,7 @@ class Calendar extends React.Component {
                             return (
                                 <Column 
                                 key={el.props.date}
-                                className={'a-day ' + this.state.expand}
+                                className='a-day'
                                 onClick={handleclick}
                             > 
                                     {el}

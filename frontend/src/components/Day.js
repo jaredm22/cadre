@@ -17,13 +17,14 @@ class Day extends React.Component {
     async componentDidMount() {
 
         api.getStudents().then(res => {
-            let teststudent = res.data[0]
+            let teststudent = res.data[0] 
             let courses = teststudent.courses
             this.setState({
                 courselist: teststudent.courses
             })
             console.log(courses)
         })
+        
         // await api.getStudentCourses("mlin2022@bu.edu").then(res => {
         //     let courses = res.data.courses
         //     // console.log(courses)
