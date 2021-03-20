@@ -3,6 +3,7 @@ import { Slider, Grid, Row, Column } from "carbon-components-react";
 import { addDays, format } from "date-fns";
 import Day from "../../components/Day";
 import "./calendar.scss";
+import api from '../../apiHandle'
 
 //TODO: keep expand state in calendar component to check if at most one
 //Day component is working
@@ -13,8 +14,9 @@ class Calendar extends React.Component {
         this.state = {
             today: new Date(),
             days:3,
+            dataLoaded: false,
+            student: [],
             expand: 'no-expand'
-
         }
         this.date = format(this.state.today, 'd')
         this.expandRef = React.createRef()
@@ -33,7 +35,16 @@ class Calendar extends React.Component {
 
     hello() {
         console.log('I was triggered during render');
-
+    }
+    
+    componentDidMount(){
+        api.getStudentByEmail("jmin@bu.edu").then(student => {
+            console.log(student)
+            this.setState({
+                dataLoaded: true,
+                student: student
+            })
+        })
     }
 
     expandDay(day, index) {
@@ -48,8 +59,6 @@ class Calendar extends React.Component {
         } else {
           
         }
-
-
         
         this.daysrefs[day].setState({expand: setexpand})
         console.log(this.daysrefs)
@@ -61,30 +70,37 @@ class Calendar extends React.Component {
 
     render(){
         const day_list = []
-        for (let i = 0; i < this.state.days; i++) {
-            let day = i === 0 ? <Day 
-                                    key={i}
-                                    // className="today"
-                                    today={true} 
-                                    month={format(this.state.today, 'LLL')} 
-                                    date={this.state.today.getDate()}
-                                    day={format(this.state.today, 'EEE')}
-                                    ref={ref => this.daysrefs[i] = ref}
-                                    expand="no-expand"
-                                    />
-                                     :
-                <Day  
-                    key={i}
-                    // className={this.state.expand}
-                    today={false}
-                    month={format(addDays(this.state.today, i), 'LLL')} 
-                    date={ addDays(this.state.today, i).getDate()}
-                    day={format(addDays(this.state.today, i), 'EEE')}
-                    ref={ref => this.daysrefs[i] = ref}
-                    expand="no-expand"
-                    
+
+        if (this.state.dataLoaded) {
+            for (let i = 0; i < this.state.days; i++) {
+                let day = i === 0 ? 
+                    <Day 
+                        key={i}
+                        // className="today"
+                        today={true} 
+                        month={format(this.state.today, 'LLL')} 
+                        date={this.state.today.getDate()}
+                        day={format(this.state.today, 'EEE')}
+                        year={format(this.state.today, 'yyyy')}
+                        ref={ref => this.daysrefs[i] = ref}
+                        expand="no-expand"
+                        student={this.state.student}
+                    />
+                                         :
+                    <Day  
+                        key={i}
+                        // className={this.state.expand}
+                        today={false}
+                        month={format(addDays(this.state.today, i), 'LLL')} 
+                        date={ addDays(this.state.today, i).getDate()}
+                        day={format(addDays(this.state.today, i), 'EEE')}
+                        year={format(addDays(this.state.today, i), 'yyyy')}
+                        ref={ref => this.daysrefs[i] = ref}
+                        expand="no-expand"
+                        student={this.state.student}
                     /> 
-            day_list.push(day)
+                day_list.push(day)
+            }
         }
 
         return(
@@ -96,6 +112,7 @@ class Calendar extends React.Component {
                         
                         </h4>
                     </Row>
+
                     <Row className="slider-row">
                         <Column lg={4} md={2} sm={0}>
                             <div>
@@ -113,6 +130,7 @@ class Calendar extends React.Component {
                             
                         </Column>
                     </Row>
+
                     <Row className="date-head" >
                         {day_list.map((el, index) => {
                             let handleclick = this.expandDay.bind(this, index)
@@ -120,24 +138,20 @@ class Calendar extends React.Component {
 
                             return (
                                 <Column 
-                                key={el.props.date}
-                                className={'a-day ' + this.state.expand}
-                                onClick={handleclick}
-                            > 
+                                    key={el.props.date}
+                                    className={'a-day ' + this.state.expand}
+                                    onClick={handleclick}
+                                > 
                                     {el}
 
                                  {/* {el} */}
-                            </Column>
-
+                                </Column>
                             )}
                         )}
                     </Row>
                 </Grid>            
         )
     }
-
-
-
 }
 
 export default Calendar;

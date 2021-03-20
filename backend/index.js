@@ -214,6 +214,23 @@ app.get("/lectures", async (req, res) => {
   res.json(lectures);
 });
 
+// Get one lecture based on date and courseId
+app.post("/getLecture", async (req, res) => {
+  const { courseId, lectureDate } = req.body;
+  const lecture = await prisma.lecture.findUnique({
+    where: {
+      lecture_courseId_lectureDate: {
+        courseId: courseId,
+        lectureDate: lectureDate
+      }
+    }
+  });
+  console.log(lecture);
+  res.json(lecture);
+});
+
+
+
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`)
 );

@@ -67,6 +67,16 @@ it("gets one professor based on email", async (done) => {
   done();
 });
 
+it("gets one lecture based on course id and lecture date", async (done) => {
+  const response = await request
+    .post("/getLecture")
+    .send({ courseId: 1, lectureDate: "2021-03-22"});
+  expect(response.status).toBe(200);
+  expect(response.body.courseId).toBe(1);
+  expect(response.body.lectureDate.toBe("2021-03-22"))
+  done();
+});
+
 it("creates student entry", async (done) => {
   const response = await request
     .post("/students")

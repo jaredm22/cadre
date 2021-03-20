@@ -14,6 +14,7 @@ model Student {
   lastName  String   @db.VarChar(100)
   courses   Course[]
   labs      Lab[]
+
   
   @@unique(fields: [email], name:email)
 }
@@ -33,35 +34,37 @@ model Course {
   id            Int            @id @default(autoincrement())
   courseId      String
   courseName    String
-  section       String?
+  section       String?        
   school        String?
   zoomLink      String?
   days          String[]
   lectureStyle  lectureStyle   @default(Hybrid)
-  startDate     DateTime       @db.Date
-  endDate       DateTime       @db.Date
-  startTime     DateTime       @db.Timetz(6)
-  endTime       DateTime       @db.Timetz(6)
+  startDate     String         @default("2021-01-25")
+  endDate       String         @default("2021-04-29")
+  startTime     String         @default("12:00")
+  endTime       String         @default("12:00")
   labs          Lab[]
   lectures      Lecture[]
   professor     Professor[]
   students      Student[]
+  // assignments   Assignment[]  
+  // exams         Exam[]
 
   @@unique([courseId, courseName, section], name: "Course.courseId_courseName_section_unique")
 }
 
 model Lab {
-  id          Int         @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   courseId    Int?
   section     String?
-  labStyle    labStyle    @default(Hybrid)
+  labStyle    labStyle      @default(Hybrid)
   days        String[]
-  startDate   DateTime    @db.Date
-  endDate     DateTime    @db.Date
-  startTime   DateTime    @db.Timetz(6)
-  endTime     DateTime    @db.Timetz(6)
+  startDate   String        @default("2021-01-25")
+  endDate     String        @default("2021-04-29")
+  startTime   String        @default("12:00")
+  endTime     String        @default("12:00")
   zoomLink    String?
-  course      Course?     @relation(fields: [courseId], references: [id])
+  course      Course?       @relation(fields: [courseId], references: [id])
   instructors Professor[]
   students    Student[]
 }
@@ -69,14 +72,35 @@ model Lab {
 model Lecture {
   id           Int          @id @default(autoincrement())
   lectureStyle lectureStyle @default(Hybrid)
-  courseId     Int?
+  courseId     Int?         
   zoomLink     String?
   day          String?
-  lectureDate  DateTime     @db.Date
-  startTime    DateTime?    @db.Timestamptz(6)
-  endTime      DateTime?    @db.Timestamptz(6)
+  lectureDate  String       @default("2021-01-25")
+  startTime    String?      @default("12:00")
+  endTime      String?      @default("12:00")
   course       Course?      @relation(fields: [courseId], references: [id])
+
+  @@unique(fields: [courseId, lectureDate], name: "lecture_courseId_lectureDate")
 }
+
+// model Assignment {
+//   id              Int       @id @default(autoincrement())
+//   courseId        Int       
+//   course          Course    @relation(fields: [courseId], references: [id])
+//   title           String    
+//   assignedDate    String 
+//   dueDate         String
+//   dueTime         String
+// }
+
+// model Exam {
+//   id        Int       @id @default(autoincrement())
+//   courseId  Int       
+//   course    Course    @relation(fields: [courseId], references: [id])
+//   title     String   
+//   examDate  String
+//   examTime  String
+// }
 
 enum labStyle {
   InPerson
@@ -88,4 +112,5 @@ enum lectureStyle {
   InPerson
   Hybrid
   Remote
+  Cancelled
 }
