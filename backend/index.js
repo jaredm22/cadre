@@ -1,3 +1,4 @@
+// polyfill globalThis for older nodes
 globalThis = global;
 const { PrismaClient } = require("@prisma/client");
 const path = require("path");
@@ -184,8 +185,6 @@ app.post('/courses', async (req, res) => {
     res.json(courses)
 });
 
-
-
 // Lab Routes
 // Lab get all route
 app.get("/labs", async (req, res) => {
@@ -199,8 +198,6 @@ app.get("/labs", async (req, res) => {
   console.log(labs);
   res.json(labs);
 });
-
-
 
 // Lecture Routes
 // Lecture get all route
