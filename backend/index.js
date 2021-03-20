@@ -44,14 +44,14 @@ app.post("/getStudent", async (req, res) => {
           labs: true,
           lectures: true,
           students: true,
-          professor: true
-        }
+          professor: true,
+        },
       },
       labs: {
         include: {
-          course: true 
-        }
-      }
+          course: true,
+        },
+      },
     },
   });
 
@@ -60,31 +60,28 @@ app.post("/getStudent", async (req, res) => {
 });
 
 // Student post route
-app.post('/students', async (req, res) => {
-  const {email, firstName, lastName} = req.body;
+app.post("/students", async (req, res) => {
+  const { email, firstName, lastName } = req.body;
   const post = await prisma.student.create({
-      data :{
-        email,
-        firstName,
-        lastName
-      }
-  })
-  console.log(post)
+    data: {
+      email,
+      firstName,
+      lastName,
+    },
+  });
+  console.log(post);
 });
 
 // Student delete route
-app.delete('/students', async (req, res) => {
+app.delete("/students", async (req, res) => {
   const email = req.body.email;
   const post = await prisma.student.delete({
     where: {
-      email: email
-    }
-  })
-  console.log(post)
+      email: email,
+    },
+  });
+  console.log(post);
 });
-
-
-
 
 // Professor Routes
 // Professor get all route
@@ -112,14 +109,14 @@ app.post("/getProfessor", async (req, res) => {
           labs: true,
           lectures: true,
           students: true,
-          professor: true
-        }
+          professor: true,
+        },
       },
       labs: {
         include: {
-          course: true 
-        }
-      }
+          course: true,
+        },
+      },
     },
   });
   console.log(professor);
@@ -127,29 +124,28 @@ app.post("/getProfessor", async (req, res) => {
 });
 
 // Professors post route
-app.post('/professors', async (req, res) => {
-  const {email, firstName, lastName} = req.body;
+app.post("/professors", async (req, res) => {
+  const { email, firstName, lastName } = req.body;
   const post = await prisma.professor.create({
-      data :{
-        email,
-        firstName,
-        lastName
-      }
-  })
-  console.log(post)
+    data: {
+      email,
+      firstName,
+      lastName,
+    },
+  });
+  console.log(post);
 });
 
 // Professor delete route
-app.delete('/professors', async (req, res) => {
+app.delete("/professors", async (req, res) => {
   const email = req.body.email;
   const post = await prisma.professor.delete({
-      where: {
-        email: email
-      }
-  })
-  console.log(post)
+    where: {
+      email: email,
+    },
+  });
+  console.log(post);
 });
-
 
 // Course Routes
 // Course get all route
@@ -166,22 +162,33 @@ app.get("/courses", async (req, res) => {
   res.json(courses);
 });
 
-app.post('/courses', async (req, res) => {
-    const {courseId, courseName, section, school, days, lectureStyle, startDate, endDate, startTime, endTime} = req.body
-    const courses = await prisma.course.create({
-      courseId,
-      courseName,
-      section, 
-      school, 
-      days,
-      lectureStyle,
-      startDate,
-      endDate,
-      startTime,
-      endTime
-    })
-    console.log(courses)
-    res.json(courses)
+app.post("/courses", async (req, res) => {
+  const {
+    courseId,
+    courseName,
+    section,
+    school,
+    days,
+    lectureStyle,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+  } = req.body;
+  const courses = await prisma.course.create({
+    courseId,
+    courseName,
+    section,
+    school,
+    days,
+    lectureStyle,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+  });
+  console.log(courses);
+  res.json(courses);
 });
 
 // Lab Routes
@@ -197,8 +204,6 @@ app.get("/labs", async (req, res) => {
   console.log(labs);
   res.json(labs);
 });
-
-
 
 // Lecture Routes
 // Lecture get all route
@@ -219,44 +224,13 @@ app.post("/getLecture", async (req, res) => {
     where: {
       lecture_courseId_lectureDate: {
         courseId: courseId,
-        lectureDate: lectureDate
-      }
-    }
+        lectureDate: lectureDate,
+      },
+    },
   });
   console.log(lecture);
   res.json(lecture);
 });
-
-
-app.post("/changeLectureStyle", async(req, res) => {
-  const { courseId, lectureDate, lectureStyle } = req.body;
-  const course = await prisma.course.findUnique({
-    where :{
-      courseId = courseId
-    },
-    include: {
-      professor: true,
-      students: true,
-      lectures: true,
-      labs: true,
-    },
-  });
-  const newLecture = await prisma.lecture.create({
-    data: {
-      courseId = courseId,
-      lectureStyle = lectureStyle,
-      lectureDate = lectureDate,
-      startTime = course.startTime,
-      endTime = course.endTime,
-      zoomLink = course.zoomLink
-    }
-  });
-  console.log(newLecture);
-  res.json(newLecture);
-  
-})
-
-
 
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`)
