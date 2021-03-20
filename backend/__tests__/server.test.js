@@ -2,8 +2,6 @@ const app = require("../index");
 const supertest = require("supertest");
 const request = supertest(app);
 
-this.timeout(10000)
-
 it("gets the main endpoint", async (done) => {
   const response = await request.get("/");
   expect(response.status).toBe(200);
@@ -72,7 +70,7 @@ it("gets one professor based on email", async (done) => {
 it("gets one lecture based on course id and lecture date", async (done) => {
   const response = await request
     .post("/getLecture")
-    .send({ courseId: 1, lectureDate: "2021-03-22"});
+    .send({ courseId: 1, lectureDate: "2021-03-22" });
   expect(response.status).toBe(200);
   expect(response.body.courseId).toBe(1);
   expect(response.body.lectureDate).toBe("2021-03-22");
@@ -102,7 +100,7 @@ it("creates professor entry", async (done) => {
 it("deletes student entry by email", async (done) => {
   const response = await request
     .delete("/students")
-    .send({ email: "test@bu.edu"});
+    .send({ email: "test@bu.edu" });
   expect(response.status).toBe(200);
   expect(response.body.firstName).toBe("test");
   expect(response.body.lastName).toBe("guy");
@@ -113,13 +111,8 @@ it("deletes professor entry by email", async (done) => {
   const response = await request
     .delete("/professors")
     .send({ email: "test@bu.edu" });
-    expect(response.status).toBe(200);
-    expect(response.body.firstName).toBe("test");
-    expect(response.body.lastName).toBe("guy");
+  expect(response.status).toBe(200);
+  expect(response.body.firstName).toBe("test");
+  expect(response.body.lastName).toBe("guy");
   done();
 });
-
-
-
-
-
