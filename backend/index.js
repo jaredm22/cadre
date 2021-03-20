@@ -70,7 +70,7 @@ app.post("/students", async (req, res) => {
     },
   });
   console.log(post);
-  res.json(post);
+  res.json("created student");
 });
 
 // Student delete route
@@ -82,7 +82,7 @@ app.delete("/students", async (req, res) => {
     },
   });
   console.log(post);
-  res.json(post);
+  res.json("deleted student");
 });
 
 // Professor Routes
@@ -136,7 +136,7 @@ app.post("/professors", async (req, res) => {
     },
   });
   console.log(post);
-  res.json(post);
+  res.json("created professor");
 });
 
 // Professor delete route
@@ -148,7 +148,7 @@ app.delete("/professors", async (req, res) => {
     },
   });
   console.log(post);
-  res.json(post);
+  res.json("deleted professor");
 });
 
 // Course Routes
@@ -201,7 +201,7 @@ app.post("/courses", async (req, res) => {
     startTime,
     endTime,
   } = req.body;
-  const courses = await prisma.course.create({
+  const course = await prisma.course.create({
     courseId,
     courseName,
     section,
@@ -213,8 +213,8 @@ app.post("/courses", async (req, res) => {
     startTime,
     endTime,
   });
-  console.log(courses);
-  res.json(courses);
+  console.log(course);
+  res.json("created course");
 });
 
 // Lab Routes
