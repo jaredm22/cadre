@@ -43,7 +43,7 @@ model Course {
   professor    Professor[]
   students     Student[]
 
-  @@unique([courseId, courseName, section], name: "Course.courseId_courseName_section_unique")
+  @@unique([courseId, courseName, section], name: "courseId_courseName_section_unique")
 }
 
 model Lab {

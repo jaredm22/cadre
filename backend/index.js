@@ -70,6 +70,7 @@ app.post("/students", async (req, res) => {
     },
   });
   console.log(post);
+  res.json(post);
 });
 
 // Student delete route
@@ -81,6 +82,7 @@ app.delete("/students", async (req, res) => {
     },
   });
   console.log(post);
+  res.json(post);
 });
 
 // Professor Routes
@@ -134,6 +136,7 @@ app.post("/professors", async (req, res) => {
     },
   });
   console.log(post);
+  res.json(post);
 });
 
 // Professor delete route
@@ -145,12 +148,35 @@ app.delete("/professors", async (req, res) => {
     },
   });
   console.log(post);
+  res.json(post);
 });
 
 // Course Routes
 // Course get all route
 app.get("/courses", async (req, res) => {
   const courses = await prisma.course.findMany({
+    include: {
+      professor: true,
+      students: true,
+      lectures: true,
+      labs: true,
+    },
+  });
+  console.log(courses);
+  res.json(courses);
+});
+
+// get one course based on course id, course name, and section
+app.post("/getCourse", async (req, res) => {
+  const { courseId, courseName, section } = req.body;
+  const courses = await prisma.course.findUnique({
+    where: {
+      courseId_courseName_section_unique: {
+        courseId: courseId,
+        courseName: courseName,
+        section: section,
+      },
+    },
     include: {
       professor: true,
       students: true,

@@ -9,21 +9,33 @@ import axios from "axios";
 
 const getStudents = async () => {
   const response = await axios.get("/students");
-  return response.data
+  return response.data;
 };
 
 const getStudentByEmail = async (email) => {
-  const response = await axios({method: 'post', url: "/getStudent", data: {email: email}})
+  const response = await axios({
+    method: "post",
+    url: "/getStudent",
+    data: { email: email },
+  });
   return response.data;
 };
 
 const createStudent = async (email, firstName, lastName) => {
-  const response = await axios({method: 'post', url: "/students", data: {email: email, firstName: firstName, lastName: lastName}})
+  const response = await axios({
+    method: "post",
+    url: "/students",
+    data: { email: email, firstName: firstName, lastName: lastName },
+  });
   return response.data;
 };
 
 const deleteStudent = async (email) => {
-  const response = await axios({method: 'delete', url: "/students", data: {email: email} })
+  const response = await axios({
+    method: "delete",
+    url: "/students",
+    data: { email: email },
+  });
   return response.data;
 };
 
@@ -33,17 +45,29 @@ const getProfessors = async () => {
 };
 
 const getProfessorByEmail = async (email) => {
-  const response = await axios({method: 'post', url: "/getProfessor", data: {email: email}})
+  const response = await axios({
+    method: "post",
+    url: "/getProfessor",
+    data: { email: email },
+  });
   return response.data;
 };
 
 const createProfessor = async (email, firstName, lastName) => {
-  const response = await axios({method: 'post', url: "/professors", data: {email: email, firstName: firstName, lastName: lastName}})
+  const response = await axios({
+    method: "post",
+    url: "/professors",
+    data: { email: email, firstName: firstName, lastName: lastName },
+  });
   return response.data;
 };
 
 const deleteProfessor = async (email) => {
-  const response = await axios({method: 'delete', url: "/professors", data: {email: email} })
+  const response = await axios({
+    method: "delete",
+    url: "/professors",
+    data: { email: email },
+  });
   return response.data;
 };
 
@@ -58,12 +82,16 @@ const getLectures = async () => {
 };
 
 const getModifiedLecture = async (courseId, date) => {
-  const response = await axios({method: 'post', url: "/getLecture", data: {courseId: courseId, lectureDate: date}})
+  const response = await axios({
+    method: "post",
+    url: "/getLecture",
+    data: { courseId: courseId, lectureDate: date },
+  });
   return response.data;
 };
 
 const getLabs = async () => {
-  const response = await axios.get('/labs');
+  const response = await axios.get("/labs");
   return response.data;
 };
 
@@ -79,5 +107,5 @@ export default {
   getCourses,
   getLectures,
   getModifiedLecture,
-  getLabs
+  getLabs,
 };
