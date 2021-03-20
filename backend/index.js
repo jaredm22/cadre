@@ -23,7 +23,7 @@ app.get("/students", async (req, res) => {
   const students = await prisma.student.findMany({
     include: {
       courses: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(students);
@@ -51,7 +51,7 @@ app.get("/professors", async (req, res) => {
   const professors = await prisma.professor.findMany({
     include: {
       courses: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(professors);
@@ -71,8 +71,6 @@ app.get("/professors", async (req, res) => {
 //     res.json(post)
 // });
 
-
-
 // Course Routes
 // Course get all route
 app.get("/courses", async (req, res) => {
@@ -81,7 +79,7 @@ app.get("/courses", async (req, res) => {
       professor: true,
       students: true,
       lectures: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(courses);
@@ -97,8 +95,6 @@ app.get("/courses", async (req, res) => {
 //     res.json(courses)
 // });
 
-
-
 // Lab Routes
 // Lab get all route
 app.get("/labs", async (req, res) => {
@@ -106,22 +102,19 @@ app.get("/labs", async (req, res) => {
     include: {
       instructors: true,
       students: true,
-      course: true
+      course: true,
     },
   });
   console.log(labs);
   res.json(labs);
 });
 
-
-
-
 // Lecture Routes
 // Lecture get all route
 app.get("/lectures", async (req, res) => {
   const lectures = await prisma.lecture.findMany({
     include: {
-      course: true
+      course: true,
     },
   });
   console.log(lectures);
