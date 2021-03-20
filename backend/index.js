@@ -228,6 +228,35 @@ app.post("/getLecture", async (req, res) => {
 });
 
 
+app.post("/changeLectureStyle", async(req, res) => {
+  const { courseId, lectureDate, lectureStyle } = req.body;
+  const course = await prisma.course.findUnique({
+    where :{
+      courseId = courseId
+    },
+    include: {
+      professor: true,
+      students: true,
+      lectures: true,
+      labs: true,
+    },
+  });
+  const newLecture = await prisma.lecture.create({
+    data: {
+      courseId = courseId,
+      lectureStyle = lectureStyle,
+      lectureDate = lectureDate,
+      startTime = course.startTime,
+      endTime = course.endTime,
+      zoomLink = course.zoomLink
+    }
+  });
+  console.log(newLecture);
+  res.json(newLecture);
+  
+})
+
+
 
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`)
