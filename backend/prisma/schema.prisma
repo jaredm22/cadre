@@ -11,30 +11,84 @@ generator client {
 }
 
 model Student {
-  id        Int         
-  email     String    @db.VarChar(100) @unique @id
+  id        Int       @default(autoincrement()) @id
+  email     String    @db.VarChar(100)  
   firstName String    @db.VarChar(100) 
   lastName  String    @db.VarChar(100) 
-  courses   Course[]  
+  courses   Course[]
+  labs      Lab[]
 }
 
 model Professor {
-  id        Int         
-  email     String    @db.VarChar(100) @unique @id
+  id        Int       @default(autoincrement()) @id
+  email     String    @db.VarChar(100) 
   firstName String    @db.VarChar(100) 
   lastName  String    @db.VarChar(100) 
-  courses   Course[]  
+  courses   Course[]
+  labs      Lab[]
 }
+
+
 
 model Course {
   id            Int         @default(autoincrement()) @id
-  courseId      String      
-  courseName    String    
-  zoomLink      String
-  students      Student[]
+  courseId      String
+  courseName    String      
+  section       String?       
+  school        String?      
+  zoomLink      String?    
+  students      Student[]   
   professor     Professor[] 
   days          String[]    
-  lectures      Json?    
+  startDate     DateTime    @db.Date
+  endDate       DateTime    @db.Date
+  startTime     DateTime    @db.Timetz()
+  endTime       DateTime    @db.Timetz()
+  lectures      Lecture[] 
+  labs          Lab[]
+
+  @@unique([courseId, courseName, section])
 }
+
+model Lab {
+  id          Int         @id @default(autoincrement())
+  instructors Professor[] 
+  courseId    Int?
+  course      Course?     @relation(fields: [courseId], references: [id])
+  section     String?    
+  labStyle    labStyle    @default(Hybrid) 
+  days        String[]    
+  startDate   DateTime    @db.Date
+  endDate     DateTime    @db.Date
+  startTime   DateTime    @db.Timetz()
+  endTime     DateTime    @db.Timetz()  
+  zoomLink    String?    
+  students    Student[] 
+}
+
+enum labStyle {
+  InPerson
+  Hybrid
+  Remote
+}
+
+model Lecture {
+  id            Int              @default(autoincrement()) @id
+  lectureStyle  lectureStyle     @default(Hybrid)
+  courseId      Int?
+  course        Course?          @relation(fields: [courseId], references: [id])
+  zoomLink      String?     
+  day           String?           
+  lectureDate   DateTime         @db.Date 
+  startTime     DateTime?        @db.Timestamptz()
+  endTime       DateTime?        @db.Timestamptz()
+}
+
+enum lectureStyle {
+  InPerson
+  Hybrid
+  Remote
+}
+
 
 
