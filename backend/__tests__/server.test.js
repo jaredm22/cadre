@@ -77,8 +77,8 @@ it("gets one lecture based on course id and lecture date", async (done) => {
   done();
 });
 
-it("creates student entry", async (done) => {
-  const response = await request
+it("creates student entry", (done) => {
+  const response = request
     .post("/students")
     .send({ email: "test@bu.edu", firstName: "test", lastName: "guy" });
   expect(response.status).toBe(200);
@@ -87,8 +87,8 @@ it("creates student entry", async (done) => {
   done();
 });
 
-it("creates professor entry", async (done) => {
-  const response = await request
+it("creates professor entry", (done) => {
+  const response = request
     .post("/professors")
     .send({ email: "test@bu.edu", firstName: "test", lastName: "guy" });
   expect(response.status).toBe(200);
@@ -97,8 +97,8 @@ it("creates professor entry", async (done) => {
   done();
 });
 
-it("deletes student entry by email", async (done) => {
-  const response = await request
+it("deletes student entry by email", (done) => {
+  const response = request
     .delete("/students")
     .send({ email: "test@bu.edu" });
   expect(response.status).toBe(200);
@@ -107,8 +107,8 @@ it("deletes student entry by email", async (done) => {
   done();
 });
 
-it("deletes professor entry by email", async (done) => {
-  const response = await request
+it("deletes professor entry by email", (done) => {
+  const response = request
     .delete("/professors")
     .send({ email: "test@bu.edu" });
   expect(response.status).toBe(200);
