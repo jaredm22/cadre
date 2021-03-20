@@ -16,7 +16,7 @@ class Calendar extends React.Component {
             days:3,
             dataLoaded: false,
             student: [],
-            expand: 'no-expand'
+            expand: 'no-expand',
         }
         this.date = format(this.state.today, 'd')
         this.expandRef = React.createRef()
@@ -42,7 +42,7 @@ class Calendar extends React.Component {
             console.log(student)
             this.setState({
                 dataLoaded: true,
-                student: student
+                student: student,
             })
         })
     }

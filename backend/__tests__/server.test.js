@@ -2,6 +2,8 @@ const app = require("../index");
 const supertest = require("supertest");
 const request = supertest(app);
 
+this.timeout(10000)
+
 it("gets the main endpoint", async (done) => {
   const response = await request.get("/");
   expect(response.status).toBe(200);
@@ -73,7 +75,7 @@ it("gets one lecture based on course id and lecture date", async (done) => {
     .send({ courseId: 1, lectureDate: "2021-03-22"});
   expect(response.status).toBe(200);
   expect(response.body.courseId).toBe(1);
-  expect(response.body.lectureDate.toBe("2021-03-22"))
+  expect(response.body.lectureDate).toBe("2021-03-22");
   done();
 });
 

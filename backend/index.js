@@ -134,7 +134,7 @@ app.post('/professors', async (req, res) => {
       data :{
         email,
         firstName,
-        lastName
+        lastName,
       }
   })
   console.log(post)
@@ -145,7 +145,7 @@ app.delete('/professors', async (req, res) => {
   const email = req.body.email;
   const post = await prisma.professor.delete({
       where: {
-        email: email
+        email: email,
       }
   })
   console.log(post)
@@ -167,6 +167,7 @@ app.get("/courses", async (req, res) => {
   res.json(courses);
 });
 
+// Course post route
 app.post('/courses', async (req, res) => {
     const {courseId, courseName, section, school, days, lectureStyle, startDate, endDate, startTime, endTime} = req.body
     const courses = await prisma.course.create({
@@ -179,7 +180,7 @@ app.post('/courses', async (req, res) => {
       startDate,
       endDate,
       startTime,
-      endTime
+      endTime,
     })
     console.log(courses)
     res.json(courses)
@@ -218,7 +219,7 @@ app.post("/getLecture", async (req, res) => {
     where: {
       lecture_courseId_lectureDate: {
         courseId: courseId,
-        lectureDate: lectureDate
+        lectureDate: lectureDate,
       }
     }
   });

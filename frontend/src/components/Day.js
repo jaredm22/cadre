@@ -12,7 +12,7 @@ class Day extends React.Component {
             labs: [],
             assignments: [],
             student: this.props.student, 
-            expand: 'no-expand' //classname to add to day component to indicate css transition
+            expand: 'no-expand', //classname to add to day component to indicate css transition
         }
         this.test = false;
     }
@@ -44,7 +44,7 @@ class Day extends React.Component {
 
         this.setState({
             lectures: lectures,
-            labs: labs
+            labs: labs,
         })  
      }
 
