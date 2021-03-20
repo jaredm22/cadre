@@ -71,6 +71,7 @@ app.post("/students", async (req, res) => {
     },
   });
   console.log(post);
+  res.json("created student");
 });
 
 // Student delete route
@@ -82,6 +83,7 @@ app.delete("/students", async (req, res) => {
     },
   });
   console.log(post);
+  res.json("deleted student");
 });
 
 // Professor Routes
@@ -135,6 +137,7 @@ app.post("/professors", async (req, res) => {
     },
   });
   console.log(post);
+  res.json("created professor");
 });
 
 // Professor delete route
@@ -146,6 +149,7 @@ app.delete("/professors", async (req, res) => {
     },
   });
   console.log(post);
+  res.json("deleted professor");
 });
 
 // Course Routes
@@ -163,7 +167,28 @@ app.get("/courses", async (req, res) => {
   res.json(courses);
 });
 
-//Create Course route
+// get one course based on course id, course name, and section
+app.post("/getCourse", async (req, res) => {
+  const { courseId, courseName, section } = req.body;
+  const courses = await prisma.course.findUnique({
+    where: {
+      courseId_courseName_section_unique: {
+        courseId: courseId,
+        courseName: courseName,
+        section: section,
+      },
+    },
+    include: {
+      professor: true,
+      students: true,
+      lectures: true,
+      labs: true,
+    },
+  });
+  console.log(courses);
+  res.json(courses);
+});
+
 app.post("/courses", async (req, res) => {
   const {
     courseId,

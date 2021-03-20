@@ -108,7 +108,6 @@ class Calendar extends React.Component {
         <Row>
           {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
           <h3 aria-label="calendar" className="calendar-title">
-            {" "}
             Welcome Jared
           </h3>
         </Row>
