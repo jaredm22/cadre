@@ -40,11 +40,11 @@ class Calendar extends React.Component {
         const wrapper = this.daysrefs[day].state;
         // var setexpand;
 
-        if (this.state.expand === 'no-expand') {
+        if (this.state.expand.includes('no-expand')) {
           this.daysrefs[day].setState({expand: 'is-expanded'})
           this.setState({ expand: 'is-expanded'})
         } else {
-          if (wrapper.expand === 'is-expanded'){
+          if (this.state.expand.includes('is-expanded')){
             this.daysrefs[day].setState({expand: 'no-expand'})
             this.setState({ expand: 'no-expand'})
           }
@@ -92,30 +92,40 @@ class Calendar extends React.Component {
 
         return(
                 <Grid id="calendar" className="bx--grid calendar-contain" narrow={true}>
-                    <Row>
+                    <Row className="intro">
                         {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
-                        <h4 aria-label="calendar" className="calendar-title"> {format(this.state.today, 'LLLL')} {this.date} 
-                        {this.state.days > 1 ? " — " + format(addDays(this.state.today, this.state.days), 'LLLL') + " " + addDays(this.state.today, (this.state.days - 1)).getDate() : "" }
                         
-                        </h4>
-                    </Row>
-                    <Row className="slider-row">
-                        <Column lg={4} md={2} sm={0}>
-                            <div>
-                                <p>{this.state.days} days</p>
-                                <Slider
-                                ariaLabelInput="day slider"
-                                className="day-slider "
-                                max={5}
-                                min={1}
-                                value={3}
-                                onChange={({ value }) => this.setState({days: value})}
-                                />
-                            </div>
+                        <Column>
+                        <h3>Hello, {this.state.student}</h3>
 
+                        <h4 aria-label="calendar" className="calendar-title"> 
+                            {format(this.state.today, 'cccc') + ", "}{format(this.state.today, 'LLLL')} {this.date} 
+                        </h4>
                             
                         </Column>
+
+                        <Column className="slider">
+                        <h4> {this.state.days} days </h4>
+                        <div className="slider-row">
+                            <div>
+                                <div>
+                                    
+                                    <Slider
+                                    ariaLabelInput="day slider"
+                                    className="day-slider "
+                                    max={5}
+                                    min={1}
+                                    value={3}
+                                    onChange={({ value }) => this.setState({days: value})}
+                                    />
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                        </Column>
                     </Row>
+                    
                     <Row className="date-head" >
                         {day_list.map((el, index) => {
                             let handleclick = this.expandDay.bind(this, index)

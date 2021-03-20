@@ -8,59 +8,72 @@ datasource db {
 }
 
 model Student {
-  id        Int       @default(autoincrement()) @id
-  email     String    @db.VarChar(100)  
-  firstName String    @db.VarChar(100) 
-  lastName  String    @db.VarChar(100) 
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(100)
+  firstName String   @db.VarChar(100)
+  lastName  String   @db.VarChar(100)
   courses   Course[]
   labs      Lab[]
 }
 
 model Professor {
-  id        Int       @default(autoincrement()) @id
-  email     String    @db.VarChar(100) 
-  firstName String    @db.VarChar(100) 
-  lastName  String    @db.VarChar(100) 
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(100)
+  firstName String   @db.VarChar(100)
+  lastName  String   @db.VarChar(100)
   courses   Course[]
   labs      Lab[]
 }
 
-
-
 model Course {
-  id            Int         @default(autoincrement()) @id
-  courseId      String
-  courseName    String      
-  section       String?       
-  school        String?      
-  zoomLink      String?    
-  students      Student[]   
-  professor     Professor[] 
-  days          String[]    
-  startDate     DateTime    @db.Date
-  endDate       DateTime    @db.Date
-  startTime     DateTime    @db.Timetz()
-  endTime       DateTime    @db.Timetz()
-  lectures      Lecture[] 
-  labs          Lab[]
+  id           Int          @id @default(autoincrement())
+  courseId     String
+  courseName   String
+  section      String?
+  school       String?
+  zoomLink     String?
+  days         String[]
+  startDate    String       @default("2021-01-25")
+  endDate      String       @default("2021-04-29")
+  startTime    String       @default("12:00")
+  endTime      String       @default("12:00")
+  lectureStyle lectureStyle @default(Hybrid)
+  labs         Lab[]
+  lectures     Lecture[]
+  professor    Professor[]
+  students     Student[]
 
-  @@unique([courseId, courseName, section])
+  @@unique([courseId, courseName, section], name: "courseId_courseName_section_unique")
 }
 
 model Lab {
   id          Int         @id @default(autoincrement())
-  instructors Professor[] 
   courseId    Int?
+  section     String?
+  labStyle    labStyle    @default(Hybrid)
+  days        String[]
+  startDate   String      @default("2021-01-25")
+  endDate     String      @default("2021-04-29")
+  startTime   String      @default("12:00")
+  endTime     String      @default("12:00")
+  zoomLink    String?
   course      Course?     @relation(fields: [courseId], references: [id])
-  section     String?    
-  labStyle    labStyle    @default(Hybrid) 
-  days        String[]    
-  startDate   DateTime    @db.Date
-  endDate     DateTime    @db.Date
-  startTime   DateTime    @db.Timetz()
-  endTime     DateTime    @db.Timetz()  
-  zoomLink    String?    
-  students    Student[] 
+  instructors Professor[]
+  students    Student[]
+}
+
+model Lecture {
+  id           Int          @id @default(autoincrement())
+  lectureStyle lectureStyle @default(Hybrid)
+  courseId     Int?
+  zoomLink     String?
+  day          String?
+  lectureDate  String       @default("2021-01-25")
+  startTime    String?      @default("12:00")
+  endTime      String?      @default("12:00")
+  course       Course?      @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, lectureDate], name: "lecture_courseId_lectureDate")
 }
 
 enum labStyle {
@@ -69,23 +82,9 @@ enum labStyle {
   Remote
 }
 
-model Lecture {
-  id            Int              @default(autoincrement()) @id
-  lectureStyle  lectureStyle     @default(Hybrid)
-  courseId      Int?
-  course        Course?          @relation(fields: [courseId], references: [id])
-  zoomLink      String?     
-  day           String?           
-  lectureDate   DateTime         @db.Date 
-  startTime     DateTime?        @db.Timestamptz()
-  endTime       DateTime?        @db.Timestamptz()
-}
-
 enum lectureStyle {
   InPerson
   Hybrid
   Remote
+  Cancelled
 }
-
-
-

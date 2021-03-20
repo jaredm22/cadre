@@ -44,26 +44,18 @@ class Day extends React.Component {
     var { courselist } = this.state;
 
         return(
-            <Grid className={this.state.expand}>
-                <Row>
-                    <div className={this.props.today ? 'blue' : 'black'}>
-                        <h3>{this.props.day}</h3>
-                    </div>
-                </Row>
-
-                <Row>
-                <div className={this.props.today ? 'blue' : 'black'}> 
-                    <h4>{this.props.date}</h4>
+            <section id="calendar-days" className={"day-col " + this.state.expand + (this.props.today ? " clndr-today" : "")}>
+                <div class="date">
+                        <h3 className="clndr-day">{this.props.day}</h3>
+                        <h4 className="clndr-date">{this.props.date}</h4>
                 </div>
-                </Row>
                 {courselist.map((e, i) => { return (
-                <Row key={i}
+                <div key={i}
                     className="course">
-                    {e.courseName}
-                </Row>
+                </div>
                 )})}
                     {/* {console.log(courselist)} */}
-            </Grid>
+            </section>
             
         )
  }
