@@ -1,3 +1,4 @@
+// polyfill globalThis for older nodes
 globalThis = global;
 const { PrismaClient } = require("@prisma/client");
 const path = require("path");
