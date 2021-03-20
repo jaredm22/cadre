@@ -52,6 +52,25 @@ const getCourses = async () => {
   return response.data;
 };
 
+const createCourse = async (courseId, courseName, section, school, zoomLink, days, startDate, endDate, startTime, endTime, lectureStyle) => {
+  const response = await axios({method: 'post', url: "/courses", 
+    data: {
+      courseId: courseId, 
+      courseName: courseName,
+      section: section,
+      school: school,
+      zoomLink: zoomLink,
+      days: days,
+      startDate: startDate,
+      endDate: endDate,
+      startTime: startTime,
+      endTime: endTime,
+      lectureStyle: lectureStyle
+    }
+  })
+  return response.data;
+};
+
 const getLectures = async () => {
   const response = await axios.get("/lectures");
   return response.data;
@@ -77,6 +96,7 @@ export default {
   createProfessor,
   deleteProfessor,
   getCourses,
+  createCourse,
   getLectures,
   getModifiedLecture,
   getLabs

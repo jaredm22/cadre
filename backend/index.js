@@ -167,19 +167,23 @@ app.get("/courses", async (req, res) => {
   res.json(courses);
 });
 
+//Create Course route
 app.post('/courses', async (req, res) => {
-    const {courseId, courseName, section, school, days, lectureStyle, startDate, endDate, startTime, endTime} = req.body
+    const {courseId, courseName, section, school, zoomLink, days, startDate, endDate, startTime, endTime, lectureStyle} = req.body
     const courses = await prisma.course.create({
-      courseId,
-      courseName,
-      section, 
-      school, 
-      days,
-      lectureStyle,
-      startDate,
-      endDate,
-      startTime,
-      endTime
+      data: {
+        courseId,
+        courseName,
+        section, 
+        school, 
+        zoomLink,
+        days,
+        startDate,
+        endDate,
+        startTime,
+        endTime,
+        lectureStyle
+      }
     })
     console.log(courses)
     res.json(courses)

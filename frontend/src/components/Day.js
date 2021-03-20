@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Dropdown, Grid, Row } from "carbon-components-react";
 import api from "../apiHandle";
 import {parse, getHours, getMinutes, format} from 'date-fns';
+import CourseCard from './CourseCard';
+import LabCard from './LabCard'
 
 class Day extends React.Component {
     constructor(props){
@@ -88,26 +90,8 @@ class Day extends React.Component {
                         <h4>{this.props.date}</h4>
                     </div>
                 </Row>
-                
-                {lectures.map( course => {
-                    return (
-                        <Row key={course.id} className="course">
-                            <h4>{course.courseId + " - " + course.courseName + " " + course.section}</h4><br></br>
-                            <h5>{"Lecture Time: " + this.parseTime(course.startTime) + " - " + this.parseTime(course.endTime)}</h5><br></br>
-                            <h5>{"Zoom Link: " + course.zoomLink}</h5><br></br> 
-                        </Row>
-                    )}
-                )}
-
-                {labs.map( lab => {
-                    return (
-                        <Row key={lab.id} className="lab">
-                            <h4>{lab.course.courseId + " - " + lab.course.courseName + " " + lab.course.section}</h4><br></br>
-                            <h5>{"Lecture Time: " + this.parseTime(lab.startTime) + " - " + this.parseTime(lab.endTime)}</h5><br></br>
-                            <h5>{"Zoom Link: " + lab.zoomLink}</h5><br></br> 
-                        </Row>
-                    )}
-                )}
+                {lectures.map( course => {return (<CourseCard course={course}/> )} )}
+                {labs.map(lab => { return (<LabCard lab={lab}/>)})}
             </Grid>
         )
     }
