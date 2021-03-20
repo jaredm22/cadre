@@ -184,8 +184,6 @@ app.post('/courses', async (req, res) => {
     res.json(courses)
 });
 
-
-
 // Lab Routes
 // Lab get all route
 app.get("/labs", async (req, res) => {
