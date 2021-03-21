@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@carbon/grid": "10.17.0",
-    "@patternfly/patternfly": "^4.90.5",
-    "@patternfly/react-core": "^4.101.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
