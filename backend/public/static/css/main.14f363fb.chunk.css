@@ -1,3 +1,7 @@
+body,
+code {
+  font-family: "Helvetica";
+}
 .bx--grid {
   margin-right: auto;
   margin-left: auto;
@@ -1844,24 +1848,7 @@
   height: 100%;
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-@use "./type.scss";
-h1 {
-  font-size: 2rem;
-}
-a {
-  color: #0062fe;
-}
-body {
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
   font-size: 100%;
   font-family: inherit;
@@ -3200,11 +3187,21 @@ a.bx--navigation-link:focus {
 .bx--side-nav.bx--side-nav--expanded ~ .bx--content {
   margin-left: 16rem;
 }
-.App {
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
-.blue {
-  color: salmon;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+@use "./type.scss";
+.App {
+  overflow-x: hidden;
 }
 .App-logo {
   height: 40vmin;
@@ -3259,7 +3256,7 @@ a.bx--navigation-link:focus {
   padding: 0;
 }
 .bx--side-nav__navigation {
-  border-right: 1px solid grey;
+  background-color: #fafafa;
 }
 a,
 abbr,
@@ -4721,22 +4718,29 @@ input:not(output):not([data-invalid]):-moz-ui-invalid {
   pointer-events: none;
 }
 .calendar-contain {
-  margin-top: 3em;
   padding: 40px;
+  height: 100%;
   background-color: #fff;
-  text-align: center;
   border-radius: 0.5pc;
   transition: 777ms;
 }
-.calendar-title {
-  margin-top: -2rem;
-  margin-bottom: 3rem;
-  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+.blue a {
+  text-decoration: none;
 }
-.slider-row {
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid rgba(32, 32, 32, 0.12549019607843137);
+.intro {
+  height: 10rem;
+}
+.days {
+  text-align: center;
+}
+.date {
+  margin-bottom: 1rem;
+}
+.slider {
+  float: right;
+}
+.calendar-title {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
 }
 @-webkit-keyframes rollout {
   0% {
@@ -4762,19 +4766,56 @@ input:not(output):not([data-invalid]):-moz-ui-invalid {
   -webkit-animation: rollout 0.4s;
   animation: rollout 0.4s;
 }
+.date-head {
+  height: calc(100vh - 15rem);
+  overflow-x: hidden;
+}
+.clndr-today {
+  background-color: #f0f8ff;
+}
+.clndr-day {
+  margin-bottom: -0.125rem;
+  transition: width 777ms;
+}
+.day-col {
+  padding: 1.5rem;
+  transition: all 777ms;
+}
+.clndr-today > .clndr-date,
+.clndr-today > .clndr-day {
+  color: #00f;
+}
+.shadow {
+  box-shadow: 0 8px 24px 1px #f0f0f0;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.course,
+.lab {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.25pc;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f0f0;
+  min-height: 100px;
+  overflow-wrap: break-word;
+}
+.course-id {
+  margin-bottom: -0.125rem;
+}
+.fullname-course {
+  margin-bottom: 0.25rem;
+}
+.zoomlink {
+  margin-top: 0.5rem;
+}
 .is-expanded {
-  padding-left: 150% !important;
-  padding-right: 150% !important;
-  background-color: #f0f;
+  background-color: #fff;
   position: relative;
-  width: 300% !important;
+  margin: 0 auto;
+  width: calc(100vw - 18.5em) !important;
   height: 100%;
   z-index: 999;
-}
-.course {
-  width: 100%;
-  background-color: #f0f0f0;
-  min-height: 100px;
 }
 .bx--grid {
   margin-right: 0;
@@ -4786,14 +4827,14 @@ input:not(output):not([data-invalid]):-moz-ui-invalid {
 .bx--text-input.bx--slider-text-input {
   display: none;
 }
-.date-head .bx--grid {
-  margin: 0;
-  padding: 0;
+.bx--slider__thumb {
+  height: 1rem;
+  width: 1rem;
 }
 .date-head .bx--col:first-child {
-  padding-left: 0.5rem;
+  padding-left: 0.125rem;
 }
 .date-head .bx--col:last-child {
   padding-right: 0.125rem;
 }
-/*# sourceMappingURL=main.4635a8f9.chunk.css.map */
+/*# sourceMappingURL=main.14f363fb.chunk.css.map */
