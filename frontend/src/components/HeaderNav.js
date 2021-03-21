@@ -1,7 +1,7 @@
 import { SideNav } from "carbon-components-react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import CreateCoursePage from '../pages/createCourse/CreateCoursePage';
-import LoginPage from '../pages/createCourse/CreateCoursePage';
+import CreateCoursePage from "../pages/createCourse/CreateCoursePage";
+import LoginPage from "../pages/createCourse/CreateCoursePage";
 import SchedulePage from "../pages/schedule/SchedulePage";
 
 const style = {
@@ -20,7 +20,8 @@ function HeaderNav() {
         <ul>
           <li>
             <h3>Cadre</h3>
-          </li><br></br>
+          </li>
+          <br></br>
 
           <li>
             <h4>Calendar</h4>
@@ -43,7 +44,7 @@ function HeaderNav() {
           </li>
         </ul>
 
-      {/* <Router >
+        {/* <Router >
         <div>
             <nav>
               <ul>
@@ -66,7 +67,6 @@ function HeaderNav() {
           
       </Router>
          */}
-
       </SideNav>
     </div>
   );

@@ -1,27 +1,24 @@
 import React from "react";
 
 import {
-    Form,
-    FormGroup,
-    TextInput,
-    Select,
-    SelectItem,
-    TimePicker,
-    TimePickerSelect,
-    Checkbox,
-    Button,
-    Grid, 
-    Row,
-    Column
-} from 'carbon-components-react/';
+  Form,
+  FormGroup,
+  TextInput,
+  Select,
+  SelectItem,
+  TimePicker,
+  TimePickerSelect,
+  Checkbox,
+  Button,
+  Grid,
+  Row,
+  Column,
+} from "carbon-components-react/";
 
 import api from "../../apiHandle";
-import './form.css';
-
-
+import "./form.css";
 
 export default class CreateCourseForm extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +27,13 @@ export default class CreateCourseForm extends React.Component {
       section: "",
       school: "",
       zoomLink: "",
-      days: { Monday: false, Tuesday: false, Wednesday: false, Thursday: false, Friday: false },
+      days: {
+        Monday: false,
+        Tuesday: false,
+        Wednesday: false,
+        Thursday: false,
+        Friday: false,
+      },
       startDate: "2021-01-25",
       endDate: "2021-04-29",
       startTime: "",
@@ -39,23 +42,23 @@ export default class CreateCourseForm extends React.Component {
     };
 
     this.onLectureStyleChange = (event) => {
-      this.setState({lectureStyle: event.target.value});
+      this.setState({ lectureStyle: event.target.value });
     };
 
     this.onSchoolChange = (event) => {
-      this.setState({school: event.target.value});
+      this.setState({ school: event.target.value });
     };
 
     this.handleTextInputChange = (event) => {
-      const id = event.target.id
-      this.setState({ [id] : event.target.value})
-    }
+      const id = event.target.id;
+      this.setState({ [id]: event.target.value });
+    };
 
     this.handleTimeInput = (event) => {
-      console.log(event)
+      console.log(event);
       const id = event.target.id;
 
-      this.setState({ [id] : event.target.value});
+      this.setState({ [id]: event.target.value });
     };
 
     this.handleEndTimeInput = (endTime) => {
@@ -71,12 +74,10 @@ export default class CreateCourseForm extends React.Component {
     };
 
     this.schoolOptions = [
-      { text: "Choose a school",
-        label: "placeholder-item"
-      },
+      { text: "Choose a school", label: "placeholder-item" },
       {
         text: "College of Arts and Sciences",
-        value: "College of Arts and Sciences"
+        value: "College of Arts and Sciences",
       },
       {
         text: "College of Fine Arts",
@@ -89,18 +90,10 @@ export default class CreateCourseForm extends React.Component {
     ];
 
     this.lectureStyleOptions = [
-      { text: "Choose a lecture style", 
-        value: "placeholder-item",
-      },
-      { text: "Hybrid",
-        value: "Hybrid",
-      },
-      { text: "InPerson", 
-        value: "InPerson", 
-      },
-      { text: "Remote", 
-        value: "Remote", 
-      },
+      { text: "Choose a lecture style", value: "placeholder-item" },
+      { text: "Hybrid", value: "Hybrid" },
+      { text: "InPerson", value: "InPerson" },
+      { text: "Remote", value: "Remote" },
     ];
 
     this.submitHandler = () => {
@@ -121,10 +114,10 @@ export default class CreateCourseForm extends React.Component {
       const parsedDays = [];
       for (const day in this.state.days) {
         if (days[day]) {
-          parsedDays.push(day.slice(0,3));
+          parsedDays.push(day.slice(0, 3));
         }
       }
-      
+
       api
         .createCourse(
           courseId,
@@ -153,32 +146,26 @@ export default class CreateCourseForm extends React.Component {
           <Row>
             <h2>Create Course</h2>
           </Row>
-         
+
           <Row>
             <Column>
-              <FormGroup
-                className="course-id-input"
-                legendText="Course ID"
-              >
+              <FormGroup className="course-id-input" legendText="Course ID">
                 <TextInput
-                    id="courseId"
-                    value={courseId}
-                    helperText="Please provide the course ID (i.e. CS111)"
-                    onChange={this.handleTextInputChange}
+                  id="courseId"
+                  value={courseId}
+                  helperText="Please provide the course ID (i.e. CS111)"
+                  onChange={this.handleTextInputChange}
                 />
               </FormGroup>
             </Column>
 
             <Column>
-              <FormGroup
-                className="course-name-input"
-                legendText="Course Name"
-              >
+              <FormGroup className="course-name-input" legendText="Course Name">
                 <TextInput
-                    id="courseName"
-                    value={courseName}
-                    helperText="Please provide the course name (i.e. Intro to Computer Science)"
-                    onChange={this.handleTextInputChange}
+                  id="courseName"
+                  value={courseName}
+                  helperText="Please provide the course name (i.e. Intro to Computer Science)"
+                  onChange={this.handleTextInputChange}
                 />
               </FormGroup>
             </Column>
@@ -186,24 +173,18 @@ export default class CreateCourseForm extends React.Component {
 
           <Row>
             <Column>
-              <FormGroup
-                className="section-input"
-                legendText="Section"
-              >
+              <FormGroup className="section-input" legendText="Section">
                 <TextInput
-                    id="section"
-                    value={section}
-                    helperText="Please provide the course section"
-                    onChange={this.handleTextInputChange}
+                  id="section"
+                  value={section}
+                  helperText="Please provide the course section"
+                  onChange={this.handleTextInputChange}
                 />
               </FormGroup>
             </Column>
-          
+
             <Column>
-              <FormGroup 
-                label="school-select" 
-                legendText="Select School"
-              >
+              <FormGroup label="school-select" legendText="Select School">
                 <Select
                   value={this.state.school}
                   onChange={this.onSchoolChange}
@@ -211,10 +192,7 @@ export default class CreateCourseForm extends React.Component {
                   hideLabel={true}
                 >
                   {this.schoolOptions.map((option) => (
-                    <SelectItem
-                      text={option.text}
-                      value={option.value}
-                    />
+                    <SelectItem text={option.text} value={option.value} />
                   ))}
                 </Select>
               </FormGroup>
@@ -223,10 +201,7 @@ export default class CreateCourseForm extends React.Component {
 
           <Row>
             <Column>
-              <FormGroup
-                label="zoom-link-input" 
-                legendText="Zoom Link"
-              >
+              <FormGroup label="zoom-link-input" legendText="Zoom Link">
                 <TextInput
                   id="zoomLink"
                   value={zoomLink}
@@ -240,13 +215,36 @@ export default class CreateCourseForm extends React.Component {
           <Row>
             <Column>
               <FormGroup
-                label="start-time-input" 
+                label="start-time-input"
                 legendText="Lecture Start Time"
               >
-                <TimePicker id="startTime" onChange={this.handleTimeInput} placeholder="hh:mm">
+                <TimePicker
+                  id="startTime"
+                  onChange={this.handleTimeInput}
+                  placeholder="hh:mm"
+                >
                   <TimePickerSelect id="time-picker-select">
-                    <SelectItem value="AM" text="AM"/>
-                    <SelectItem value="PM" text="PM"/>
+                    <SelectItem value="AM" text="AM" />
+                    <SelectItem value="PM" text="PM" />
+                  </TimePickerSelect>
+                </TimePicker>
+              </FormGroup>
+            </Column>
+
+            <Column>
+              <FormGroup label="start-time-input" legendText="Lecture End Time">
+                <TimePicker
+                  id="endTime"
+                  onChange={this.handleTimeInput}
+                  placeholder="hh:mm"
+                  maxLength={5}
+                >
+                  <TimePickerSelect
+                    id="time-picker-select"
+                    onChange={this.handleTimeInput}
+                  >
+                    <SelectItem value="AM" text="AM" />
+                    <SelectItem value="PM" text="PM" />
                   </TimePickerSelect>
                 </TimePicker>
               </FormGroup>
@@ -254,21 +252,7 @@ export default class CreateCourseForm extends React.Component {
 
             <Column>
               <FormGroup
-                label="start-time-input" 
-                legendText="Lecture End Time"
-              >
-                <TimePicker id="endTime" onChange={this.handleTimeInput} placeholder="hh:mm" maxLength={5}>
-                  <TimePickerSelect id="time-picker-select" onChange={this.handleTimeInput}>
-                    <SelectItem value="AM" text="AM"/>
-                    <SelectItem value="PM" text="PM"/>
-                  </TimePickerSelect>
-                </TimePicker>
-              </FormGroup>
-            </Column>
-
-            <Column>
-              <FormGroup 
-                label="lecture-style-select" 
+                label="lecture-style-select"
                 legendText="Lecture Style"
               >
                 <Select
@@ -278,22 +262,15 @@ export default class CreateCourseForm extends React.Component {
                   id="lectureStyle"
                 >
                   {this.lectureStyleOptions.map((option) => (
-                    <SelectItem
-                      text={option.text}
-                      value={option.value}
-                    />
+                    <SelectItem text={option.text} value={option.value} />
                   ))}
                 </Select>
               </FormGroup>
             </Column>
           </Row>
 
-          
-            <FormGroup
-              label="days-select" 
-              legendText="Lecture Days"
-            >
-              <Row>
+          <FormGroup label="days-select" legendText="Lecture Days">
+            <Row>
               <Column>
                 <Checkbox
                   id="Monday"
@@ -301,8 +278,7 @@ export default class CreateCourseForm extends React.Component {
                   className="checkbox-1"
                   labelText="Monday"
                   onChange={this.handleDaySelect}
-                >
-                </Checkbox>
+                ></Checkbox>
               </Column>
 
               <Column>
@@ -312,8 +288,7 @@ export default class CreateCourseForm extends React.Component {
                   className="checkbox-2"
                   labelText="Tuesday"
                   onChange={this.handleDaySelect}
-                >
-                </Checkbox>
+                ></Checkbox>
               </Column>
 
               <Column>
@@ -323,8 +298,7 @@ export default class CreateCourseForm extends React.Component {
                   className="checkbox-3"
                   labelText="Wednesday"
                   onChange={this.handleDaySelect}
-                >
-                </Checkbox>
+                ></Checkbox>
               </Column>
 
               <Column>
@@ -334,8 +308,7 @@ export default class CreateCourseForm extends React.Component {
                   className="checkbox-4"
                   labelText="Thursday"
                   onChange={this.handleDaySelect}
-                >
-                </Checkbox>
+                ></Checkbox>
               </Column>
 
               <Column>
@@ -345,16 +318,13 @@ export default class CreateCourseForm extends React.Component {
                   className="checkbox-5"
                   labelText="Friday"
                   onChange={this.handleDaySelect}
-                >
-                </Checkbox>
+                ></Checkbox>
               </Column>
-              </Row>
-            </FormGroup>
-          
-          
+            </Row>
+          </FormGroup>
 
           <Button variant="primary" type="submit" className="submit">
-              Submit
+            Submit
           </Button>
         </Form>
       </Grid>

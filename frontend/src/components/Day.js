@@ -67,26 +67,25 @@ class Day extends React.Component {
     console.log(this.props.expandWidth);
 
     return (
+      //       <Grid className={this.state.expand}>
+      //         <Row>
+      //           <div className={this.props.today ? "blue" : "black"}>
+      //             <h3>{this.props.day}</h3>
+      //           </div>
+      //         </Row>
 
-//       <Grid className={this.state.expand}>
-//         <Row>
-//           <div className={this.props.today ? "blue" : "black"}>
-//             <h3>{this.props.day}</h3>
-//           </div>
-//         </Row>
-
-//         <Row>
-//           <div className={this.props.today ? "blue" : "black"}>
-//             <h4>{this.props.date}</h4>
-//           </div>
-//         </Row>
-//         {lectures.map((course) => {
-//           return <CourseCard course={course} />;
-//         })}
-//         {labs.map((lab) => {
-//           return <LabCard lab={lab} />;
-//         })}
-//       </Grid>
+      //         <Row>
+      //           <div className={this.props.today ? "blue" : "black"}>
+      //             <h4>{this.props.date}</h4>
+      //           </div>
+      //         </Row>
+      //         {lectures.map((course) => {
+      //           return <CourseCard course={course} />;
+      //         })}
+      //         {labs.map((lab) => {
+      //           return <LabCard lab={lab} />;
+      //         })}
+      //       </Grid>
       <section
         id={"clndr-col-" + this.props.i}
         className={
@@ -102,8 +101,24 @@ class Day extends React.Component {
         </div>
 
         <div className="courses">
-          { lectures.map((course) => { return ( <CourseCard {...course} expand={this.state.expand} showFull={(this.props.days < 4)}/> ); })}
-          { labs.map((lab) => { return (<LabCard {...lab} expand={this.state.expand} showFull={(this.props.days < 4)}/>); })}
+          {lectures.map((course) => {
+            return (
+              <CourseCard
+                {...course}
+                expand={this.state.expand}
+                showFull={this.props.days < 4}
+              />
+            );
+          })}
+          {labs.map((lab) => {
+            return (
+              <LabCard
+                {...lab}
+                expand={this.state.expand}
+                showFull={this.props.days < 4}
+              />
+            );
+          })}
         </div>
       </section>
     );

@@ -1,10 +1,10 @@
 import { Dropdown, Grid, Row } from "carbon-components-react";
 import { parse, getHours, getMinutes, format } from "date-fns";
 import React from "react";
-import '../features/calendar/calendar.scss';
+import "../features/calendar/calendar.scss";
 
 const parseTime = (time) => {
-  const [hours, minutes] = time.split(":")
+  const [hours, minutes] = time.split(":");
 
   return (
     (hours >= 13 ? hours - 12 : hours) +
@@ -12,7 +12,7 @@ const parseTime = (time) => {
     (minutes == 0 ? "00" : minutes) +
     (hours >= 12 ? " PM" : " AM")
   );
-}
+};
 
 export default function CourseCard(props) {
   console.log(props);
@@ -32,9 +32,7 @@ export default function CourseCard(props) {
       <div className="time">
         <h5>
           {" "}
-          {parseTime(props.startTime) +
-            " - " +
-            parseTime(props.endTime)}{" "}
+          {parseTime(props.startTime) + " - " + parseTime(props.endTime)}{" "}
         </h5>
       </div>
 
@@ -44,9 +42,7 @@ export default function CourseCard(props) {
             Zoom Link
           </a>
         </h5>
-        <p
-          style={{ display: props.showFull ? "block" : "none" }}
-        >
+        <p style={{ display: props.showFull ? "block" : "none" }}>
           <a target="_blank" rel="noreferrer" href={props.zoomLink}>
             {props.zoomLink}
           </a>
