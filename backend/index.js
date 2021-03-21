@@ -1,3 +1,5 @@
+// polyfill globalThis for older nodes
+globalThis = global;
 const { PrismaClient } = require("@prisma/client");
 const path = require("path");
 const express = require("express");
@@ -23,27 +25,66 @@ app.get("/students", async (req, res) => {
   const students = await prisma.student.findMany({
     include: {
       courses: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(students);
   res.json(students);
 });
 
+// Get one student route
+app.post("/getStudent", async (req, res) => {
+  const studentEmail = req.body.email;
+  const student = await prisma.student.findUnique({
+    where: {
+      email: studentEmail,
+    },
+    include: {
+      courses: {
+        include: {
+          labs: true,
+          lectures: true,
+          students: true,
+          professor: true,
+        },
+      },
+      labs: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+
+  console.log(student);
+  res.json(student);
+});
+
 // Student post route
-// app.post('/student', async (req, res) => {
-//   const {id, email, firstName, lastName, courses} = req.body;
-//   const post = await prisma.student.create({
-//       data :{
-//         id,
-//         email,
-//         firstName,
-//         lastName,
-//         courses
-//       }
-//   })
-//   res.json(courses)
-// });
+app.post("/students", async (req, res) => {
+  const { email, firstName, lastName } = req.body;
+  const post = await prisma.student.create({
+    data: {
+      email,
+      firstName,
+      lastName,
+    },
+  });
+  console.log(post);
+  res.json("created student");
+});
+
+// Student delete route
+app.delete("/students", async (req, res) => {
+  const email = req.body.email;
+  const post = await prisma.student.delete({
+    where: {
+      email: email,
+    },
+  });
+  console.log(post);
+  res.json("deleted student");
+});
 
 // Professor Routes
 // Professor get all route
@@ -51,27 +92,65 @@ app.get("/professors", async (req, res) => {
   const professors = await prisma.professor.findMany({
     include: {
       courses: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(professors);
   res.json(professors);
 });
 
-// Professor post route
-// app.post('/professor', async (req, res) => {
-//     const {id, email, firstName, lastName, courses} = req.body
-//     const post = await prisma.professor.create({
-//       id,
-//       email,
-//       firstName,
-//       lastName,
-//       courses
-//     })
-//     res.json(post)
-// });
+// Get one professor route
+app.post("/getProfessor", async (req, res) => {
+  const professorEmail = req.body.email;
+  const professor = await prisma.professor.findUnique({
+    where: {
+      email: professorEmail,
+    },
+    include: {
+      courses: {
+        include: {
+          labs: true,
+          lectures: true,
+          students: true,
+          professor: true,
+        },
+      },
+      labs: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+  console.log(professor);
+  res.json(professor);
+});
 
+// Professors post route
+app.post("/professors", async (req, res) => {
+  const { email, firstName, lastName } = req.body;
+  const post = await prisma.professor.create({
+    data: {
+      email,
+      firstName,
+      lastName,
+    },
+  });
+  console.log(post);
+  res.json("created professor");
+});
 
+// Professor delete route
+app.delete("/professors", async (req, res) => {
+  const email = req.body.email;
+  const post = await prisma.professor.delete({
+    where: {
+      email: email,
+    },
+  });
+  console.log(post);
+  res.json("deleted professor");
+});
 
 // Course Routes
 // Course get all route
@@ -81,23 +160,63 @@ app.get("/courses", async (req, res) => {
       professor: true,
       students: true,
       lectures: true,
-      labs: true
+      labs: true,
     },
   });
   console.log(courses);
   res.json(courses);
 });
 
-// app.post('/courses', async (req, res) => {
-//     const {id, courseId, courseName, zoomLink, professors, days, lecture}
-//     const courses = await prisma.course.create({
+// get one course based on course id, course name, and section
+app.post("/getCourse", async (req, res) => {
+  const { courseId, courseName, section } = req.body;
+  const courses = await prisma.course.findUnique({
+    where: {
+      courseId_courseName_section_unique: {
+        courseId: courseId,
+        courseName: courseName,
+        section: section,
+      },
+    },
+    include: {
+      professor: true,
+      students: true,
+      lectures: true,
+      labs: true,
+    },
+  });
+  console.log(courses);
+  res.json(courses);
+});
 
-//     })
-//     console.log(courses)
-//     res.json(courses)
-// });
-
-
+app.post("/courses", async (req, res) => {
+  const {
+    courseId,
+    courseName,
+    section,
+    school,
+    days,
+    lectureStyle,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+  } = req.body;
+  const course = await prisma.course.create({
+    courseId,
+    courseName,
+    section,
+    school,
+    days,
+    lectureStyle,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+  });
+  console.log(course);
+  res.json("created course");
+});
 
 // Lab Routes
 // Lab get all route
@@ -106,26 +225,38 @@ app.get("/labs", async (req, res) => {
     include: {
       instructors: true,
       students: true,
-      course: true
+      course: true,
     },
   });
   console.log(labs);
   res.json(labs);
 });
 
-
-
-
 // Lecture Routes
 // Lecture get all route
 app.get("/lectures", async (req, res) => {
   const lectures = await prisma.lecture.findMany({
     include: {
-      course: true
+      course: true,
     },
   });
   console.log(lectures);
   res.json(lectures);
+});
+
+// Get one lecture based on date and courseId
+app.post("/getLecture", async (req, res) => {
+  const { courseId, lectureDate } = req.body;
+  const lecture = await prisma.lecture.findUnique({
+    where: {
+      lecture_courseId_lectureDate: {
+        courseId: courseId,
+        lectureDate: lectureDate,
+      },
+    },
+  });
+  console.log(lecture);
+  res.json(lecture);
 });
 
 const server = app.listen(process.env.PORT || port, () =>

@@ -51,7 +51,7 @@ jobs:
           node-version: 12
       - name: npm test
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: postgres://nkgcexvfhoqkbh:0822033df6fd3aeac8620c2dd630680a920c304030b076776b0071f1c4777481@ec2-54-159-175-113.compute-1.amazonaws.com:5432/dfvlsbn7e3mjku
         working-directory: ./backend
         run: |
           npm install

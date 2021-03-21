@@ -1,45 +1,111 @@
 import axios from "axios";
 
-var config = {
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  },
+// var config = {
+//   headers: {
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Origin": "*",
+//   },
+// };
+
+const getStudents = async () => {
+  const response = await axios.get("/students");
+  return response.data;
 };
 
-const getStudents = () => {
-  return axios.get("/students");
+const getStudentByEmail = async (email) => {
+  const response = await axios({
+    method: "post",
+    url: "/getStudent",
+    data: { email: email },
+  });
+  return response.data;
 };
 
-const getCourses = () => {
-  return axios.get("/courses", config);
+const createStudent = async (email, firstName, lastName) => {
+  const response = await axios({
+    method: "post",
+    url: "/students",
+    data: { email: email, firstName: firstName, lastName: lastName },
+  });
+  return response.data;
 };
 
-const getStudentCourses = (mail) => {
-  return axios.post(
-    "/studentCourses",
-    {
-      email: mail,
-    },
-    config
-  );
+const deleteStudent = async (email) => {
+  const response = await axios({
+    method: "delete",
+    url: "/students",
+    data: { email: email },
+  });
+  return response.data;
 };
 
-const getLectureDates = (name) => {
-  return axios
-    .post(
-      "/courseLecturesName",
-      {
-        coursename: name,
-      },
-      config
-    )
-    .then((res) => res);
+const getProfessors = async () => {
+  const response = await axios.get("/professor");
+  return response.data;
+};
+
+const getProfessorByEmail = async (email) => {
+  const response = await axios({
+    method: "post",
+    url: "/getProfessor",
+    data: { email: email },
+  });
+  return response.data;
+};
+
+const createProfessor = async (email, firstName, lastName) => {
+  const response = await axios({
+    method: "post",
+    url: "/professors",
+    data: { email: email, firstName: firstName, lastName: lastName },
+  });
+  return response.data;
+};
+
+const deleteProfessor = async (email) => {
+  const response = await axios({
+    method: "delete",
+    url: "/professors",
+    data: { email: email },
+  });
+  return response.data;
+};
+
+const getCourses = async () => {
+  const response = await axios.get("/courses");
+  return response.data;
+};
+
+const getLectures = async () => {
+  const response = await axios.get("/lectures");
+  return response.data;
+};
+
+const getModifiedLecture = async (courseId, date) => {
+  const response = await axios({
+    method: "post",
+    url: "/getLecture",
+    data: { courseId: courseId, lectureDate: date },
+  });
+  return response.data;
+};
+
+const getLabs = async () => {
+  const response = await axios.get("/labs");
+  return response.data;
 };
 
 export default {
   getStudents,
-  getStudentCourses,
+  getStudentByEmail,
+  createStudent,
+  deleteStudent,
+  getProfessors,
+  getProfessorByEmail,
+  createProfessor,
+  deleteProfessor,
   getCourses,
-  getLectureDates,
+  getLectures,
+  getModifiedLecture,
+  getLabs,
 };
