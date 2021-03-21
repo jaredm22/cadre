@@ -7,7 +7,7 @@ import {
   Button,
 } from "@patternfly/react-core";
 import api from "../../apiHandle";
-// import "@patternfly/react-core/dist/styles/base.css";
+import "@patternfly/react-styles/css/components/Form/form.css";
 import "./form.css";
 
 export default class LoginForm extends React.Component {
@@ -38,7 +38,7 @@ export default class LoginForm extends React.Component {
             label="Email"
             isRequired
             fieldId="horizontal-form-name"
-            helperText="Please enter the email"
+            helperText="Please enter your email (For privacy during testing, please enter email as FirstInitialLastName@bu.edu (eg. John Smith - jsmith@bu.edu)"
           >
             <TextInput
               value={email}

@@ -1,91 +1,106 @@
 import React from "react";
+
 import {
-  Form,
-  FormGroup,
-  TextInput,
-  TimePicker,
-  FormSelect,
-  FormSelectOption,
-  Checkbox,
-  ActionGroup,
-  Button,
-} from "@patternfly/react-core";
+    Form,
+    FormGroup,
+    TextInput,
+    Select,
+    SelectItem,
+    TimePicker,
+    TimePickerSelect,
+    Checkbox,
+    Button,
+    Grid, 
+    Row,
+    Column
+} from 'carbon-components-react/';
+
 import api from "../../apiHandle";
-// import "@patternfly/react-core/dist/styles/base.css";
-import "./form.css";
+import './form.css';
+
+
 
 export default class CreateCourseForm extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
       courseId: "",
       courseName: "",
       section: "",
-      school: "please choose",
+      school: "",
       zoomLink: "",
-      days: { Mon: false, Tue: false, Wed: false, Thu: false, Fri: false },
+      days: { Monday: false, Tuesday: false, Wednesday: false, Thursday: false, Friday: false },
       startDate: "2021-01-25",
       endDate: "2021-04-29",
       startTime: "",
       endTime: "",
       lectureStyle: "Hybrid",
     };
-    this.onLectureStyleChange = (lectureStyle) => {
-      this.setState({ lectureStyle });
+
+    this.onLectureStyleChange = (event) => {
+      this.setState({lectureStyle: event.target.value});
     };
-    this.onSchoolChange = (school) => {
-      this.setState({ school });
+
+    this.onSchoolChange = (event) => {
+      this.setState({school: event.target.value});
     };
-    this.handleCourseIdInputChange = (courseId) => {
-      this.setState({ courseId });
+
+    this.handleTextInputChange = (event) => {
+      const id = event.target.id
+      this.setState({ [id] : event.target.value})
+    }
+
+    this.handleTimeInput = (event) => {
+      console.log(event)
+      const id = event.target.id;
+
+      this.setState({ [id] : event.target.value});
     };
-    this.handleCourseNameInputChange = (courseName) => {
-      this.setState({ courseName });
-    };
-    this.handleSectionInputChange = (section) => {
-      this.setState({ section });
-    };
-    this.handleZoomLinkInputChange = (zoomLink) => {
-      this.setState({ zoomLink });
-    };
-    this.handleStartTimeInput = (startTime) => {
-      this.setState({ startTime });
-    };
+
     this.handleEndTimeInput = (endTime) => {
       this.setState({ endTime });
     };
-    this.handleDaySelect = (checked, event) => {
-      const target = event.target;
-      const name = target.name;
-      if (checked != this.state.days[name]) {
+
+    this.handleDaySelect = (checked, id, event) => {
+      if (checked != this.state.days[id]) {
         const currentDayState = this.state.days;
-        currentDayState[name] = checked;
+        currentDayState[id] = checked;
         this.setState({ days: currentDayState });
       }
     };
+
     this.schoolOptions = [
-      { value: "please choose", label: "Please Choose", disabled: false },
-      {
-        value: "College of Arts and Sciences",
-        label: "College of Arts and Sciences",
-        disabled: false,
+      { text: "Choose a school",
+        label: "placeholder-item"
       },
       {
+        text: "College of Arts and Sciences",
+        value: "College of Arts and Sciences"
+      },
+      {
+        text: "College of Fine Arts",
         value: "College of Fine Arts",
-        label: "College of Fine Arts",
-        disabled: false,
       },
       {
+        text: "Questrom School of Business",
         value: "Questrom School of Business",
-        label: "Questrom School of Business",
-        disabled: false,
       },
     ];
+
     this.lectureStyleOptions = [
-      { value: "please choose", label: "Please Choose", disabled: false },
-      { value: "Hybrid", label: "Hybrid", disabled: false },
-      { value: "InPerson", label: "InPerson", disabled: false },
-      { value: "Remote", label: "Remote", disabled: false },
+      { text: "Choose a lecture style", 
+        value: "placeholder-item",
+      },
+      { text: "Hybrid",
+        value: "Hybrid",
+      },
+      { text: "InPerson", 
+        value: "InPerson", 
+      },
+      { text: "Remote", 
+        value: "Remote", 
+      },
     ];
 
     this.submitHandler = () => {
@@ -102,12 +117,14 @@ export default class CreateCourseForm extends React.Component {
         endTime,
         lectureStyle,
       } = this.state;
+
       const parsedDays = [];
       for (const day in this.state.days) {
         if (days[day]) {
-          parsedDays.push(day);
+          parsedDays.push(day.slice(0,3));
         }
       }
+      
       api
         .createCourse(
           courseId,
@@ -131,187 +148,216 @@ export default class CreateCourseForm extends React.Component {
     console.log(this.state);
 
     return (
-      <div className="form">
-        <Form isHorizontal onSubmit={this.submitHandler}>
-          <h2>Create Course</h2>
-          <FormGroup
-            label="Course ID"
-            isRequired
-            fieldId="horizontal-form-name"
-            helperText="Please provide the course ID (ex. CS111)"
-          >
-            <TextInput
-              value={courseId}
-              isRequired
-              type="text"
-              id="horizontal-form-name"
-              aria-describedby="horizontal-form-name-helper"
-              name="horizontal-form-name"
-              onChange={this.handleCourseIdInputChange}
-            />
-          </FormGroup>
-
-          <FormGroup
-            label="Course Name"
-            isRequired
-            fieldId="horizontal-form-email"
-          >
-            <TextInput
-              value={courseName}
-              onChange={this.handleCourseNameInputChange}
-              isRequired
-              type="text"
-              id="horizontal-form-course-name"
-              name="horizontal-form-course-name"
-            />
-          </FormGroup>
-
-          <FormGroup
-            label="Section"
-            isRequired
-            fieldId="horizontal-form-name"
-            helperText="Please provide the course section (ex. A1)"
-          >
-            <TextInput
-              value={section}
-              isRequired
-              type="text"
-              id="horizontal-form-name"
-              aria-describedby="horizontal-form-name-helper"
-              name="horizontal-form-name"
-              onChange={this.handleSectionInputChange}
-            />
-          </FormGroup>
-
-          <FormGroup label="School" fieldId="horizontal-form-title">
-            <FormSelect
-              value={this.state.school}
-              onChange={this.onSchoolChange}
-              id="horzontal-form-title"
-              name="horizontal-form-title"
-              aria-label="School"
-            >
-              {this.schoolOptions.map((option, index) => (
-                <FormSelectOption
-                  isDisabled={option.disabled}
-                  key={index}
-                  value={option.value}
-                  label={option.label}
+      <Grid>
+        <Form onSubmit={this.submitHandler}>
+          <Row>
+            <h2>Create Course</h2>
+          </Row>
+         
+          <Row>
+            <Column>
+              <FormGroup
+                className="course-id-input"
+                legendText="Course ID"
+              >
+                <TextInput
+                    id="courseId"
+                    value={courseId}
+                    helperText="Please provide the course ID (i.e. CS111)"
+                    onChange={this.handleTextInputChange}
                 />
-              ))}
-            </FormSelect>
-          </FormGroup>
+              </FormGroup>
+            </Column>
 
-          <FormGroup
-            label="Zoom Link"
-            isRequired
-            fieldId="horizontal-form-name"
-            helperText="Please provide the zoom link"
-          >
-            <TextInput
-              value={zoomLink}
-              isRequired
-              type="text"
-              id="horizontal-form-name"
-              aria-describedby="horizontal-form-name-helper"
-              name="horizontal-form-name"
-              onChange={this.handleZoomLinkInputChange}
-            />
-          </FormGroup>
-
-          <FormGroup
-            label="Start Time"
-            isRequired
-            fieldId="horizontal-form-name"
-          >
-            <TimePicker
-              defaultTime="14:00"
-              is24Hour={true}
-              onChange={this.handleStartTimeChange}
-            ></TimePicker>
-          </FormGroup>
-
-          <FormGroup label="End Time" isRequired fieldId="horizontal-form-name">
-            <TimePicker
-              defaultTime="14:00"
-              is24Hour={true}
-              onChange={this.handleEndTimeChange}
-            ></TimePicker>
-          </FormGroup>
-
-          <FormGroup label="Lecture Style" fieldId="horizontal-form-title">
-            <FormSelect
-              value={this.state.lectureStyle}
-              onChange={this.onLectureStyleChange}
-              id="horzontal-form-title"
-              name="horizontal-form-title"
-              aria-label="Lecture Style"
-            >
-              {this.lectureStyleOptions.map((option, index) => (
-                <FormSelectOption
-                  isDisabled={option.disabled}
-                  key={index}
-                  value={option.value}
-                  label={option.label}
+            <Column>
+              <FormGroup
+                className="course-name-input"
+                legendText="Course Name"
+              >
+                <TextInput
+                    id="courseName"
+                    value={courseName}
+                    helperText="Please provide the course name (i.e. Intro to Computer Science)"
+                    onChange={this.handleTextInputChange}
                 />
-              ))}
-            </FormSelect>
-          </FormGroup>
+              </FormGroup>
+            </Column>
+          </Row>
 
-          <FormGroup
-            isInline
-            label="What days does this lecture occur?"
-            isRequired
-          >
-            <Checkbox
-              isChecked={this.state.days.Mon}
-              onChange={this.handleDaySelect}
-              label="Mon"
-              aria-label="Monday"
-              id="inlinecheck04"
-              name="Mon"
-            />
-            <Checkbox
-              isChecked={this.state.days.Tue}
-              onChange={this.handleDaySelect}
-              label="Tue"
-              aria-label="Tuesday"
-              id="inlinecheck05"
-              name="Tue"
-            />
-            <Checkbox
-              isChecked={this.state.days.Wed}
-              onChange={this.handleDaySelect}
-              label="Wed"
-              aria-label="Wednesday"
-              id="inlinecheck06"
-              name="Wed"
-            />
-            <Checkbox
-              isChecked={this.state.days.Thu}
-              onChange={this.handleDaySelect}
-              label="Thu"
-              aria-label="Thursday"
-              id="inlinecheck07"
-              name="Thu"
-            />
-            <Checkbox
-              isChecked={this.state.days.Fri}
-              onChange={this.handleDaySelect}
-              label="Fri"
-              aria-label="Friday"
-              id="inlinecheck08"
-              name="Fri"
-            />
-          </FormGroup>
+          <Row>
+            <Column>
+              <FormGroup
+                className="section-input"
+                legendText="Section"
+              >
+                <TextInput
+                    id="section"
+                    value={section}
+                    helperText="Please provide the course section"
+                    onChange={this.handleTextInputChange}
+                />
+              </FormGroup>
+            </Column>
+          
+            <Column>
+              <FormGroup 
+                label="school-select" 
+                legendText="Select School"
+              >
+                <Select
+                  value={this.state.school}
+                  onChange={this.onSchoolChange}
+                  id="school"
+                  hideLabel={true}
+                >
+                  {this.schoolOptions.map((option) => (
+                    <SelectItem
+                      text={option.text}
+                      value={option.value}
+                    />
+                  ))}
+                </Select>
+              </FormGroup>
+            </Column>
+          </Row>
 
-          <ActionGroup>
-            <Button variant="primary" type="submit">
-              Submit form
-            </Button>
-          </ActionGroup>
+          <Row>
+            <Column>
+              <FormGroup
+                label="zoom-link-input" 
+                legendText="Zoom Link"
+              >
+                <TextInput
+                  id="zoomLink"
+                  value={zoomLink}
+                  helperText="Please provide the zoom link"
+                  onChange={this.handleTextInputChange}
+                />
+              </FormGroup>
+            </Column>
+          </Row>
+
+          <Row>
+            <Column>
+              <FormGroup
+                label="start-time-input" 
+                legendText="Lecture Start Time"
+              >
+                <TimePicker id="startTime" onChange={this.handleTimeInput} placeholder="hh:mm">
+                  <TimePickerSelect id="time-picker-select">
+                    <SelectItem value="AM" text="AM"/>
+                    <SelectItem value="PM" text="PM"/>
+                  </TimePickerSelect>
+                </TimePicker>
+              </FormGroup>
+            </Column>
+
+            <Column>
+              <FormGroup
+                label="start-time-input" 
+                legendText="Lecture End Time"
+              >
+                <TimePicker id="endTime" onChange={this.handleTimeInput} placeholder="hh:mm" maxLength={5}>
+                  <TimePickerSelect id="time-picker-select" onChange={this.handleTimeInput}>
+                    <SelectItem value="AM" text="AM"/>
+                    <SelectItem value="PM" text="PM"/>
+                  </TimePickerSelect>
+                </TimePicker>
+              </FormGroup>
+            </Column>
+
+            <Column>
+              <FormGroup 
+                label="lecture-style-select" 
+                legendText="Lecture Style"
+              >
+                <Select
+                  value={this.state.lectureStyle}
+                  onChange={this.onLectureStyleChange}
+                  hideLabel={true}
+                  id="lectureStyle"
+                >
+                  {this.lectureStyleOptions.map((option) => (
+                    <SelectItem
+                      text={option.text}
+                      value={option.value}
+                    />
+                  ))}
+                </Select>
+              </FormGroup>
+            </Column>
+          </Row>
+
+          
+            <FormGroup
+              label="days-select" 
+              legendText="Lecture Days"
+            >
+              <Row>
+              <Column>
+                <Checkbox
+                  id="Monday"
+                  checked={this.state.days.Monday}
+                  className="checkbox-1"
+                  labelText="Monday"
+                  onChange={this.handleDaySelect}
+                >
+                </Checkbox>
+              </Column>
+
+              <Column>
+                <Checkbox
+                  id="Tuesday"
+                  checked={this.state.days.Tuesday}
+                  className="checkbox-2"
+                  labelText="Tuesday"
+                  onChange={this.handleDaySelect}
+                >
+                </Checkbox>
+              </Column>
+
+              <Column>
+                <Checkbox
+                  id="Wednesday"
+                  checked={this.state.days.Wednesday}
+                  className="checkbox-3"
+                  labelText="Wednesday"
+                  onChange={this.handleDaySelect}
+                >
+                </Checkbox>
+              </Column>
+
+              <Column>
+                <Checkbox
+                  id="Thursday"
+                  checked={this.state.days.Thursday}
+                  className="checkbox-4"
+                  labelText="Thursday"
+                  onChange={this.handleDaySelect}
+                >
+                </Checkbox>
+              </Column>
+
+              <Column>
+                <Checkbox
+                  id="Friday"
+                  checked={this.state.days.Friday}
+                  className="checkbox-5"
+                  labelText="Friday"
+                  onChange={this.handleDaySelect}
+                >
+                </Checkbox>
+              </Column>
+              </Row>
+            </FormGroup>
+          
+          
+
+          <Button variant="primary" type="submit" className="submit">
+              Submit
+          </Button>
         </Form>
-      </div>
+      </Grid>
     );
   }
 }

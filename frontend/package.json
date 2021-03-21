@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@carbon/grid": "10.17.0",
+    "@patternfly/patternfly": "^4.90.5",
     "@patternfly/react-core": "^4.101.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -19,6 +20,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "styled-components": "^5.2.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

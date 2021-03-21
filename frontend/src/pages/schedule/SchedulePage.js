@@ -12,7 +12,6 @@ import { Content } from "carbon-components-react";
 function SchedulePage() {
   return (
     <div className="App">
-      {/* TODO: collapsible nav and grid-expand transition */}
       <HeaderNav />
       <Content>
         <Calendar />
