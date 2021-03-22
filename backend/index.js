@@ -195,27 +195,31 @@ app.post("/courses", async (req, res) => {
     courseName,
     section,
     school,
+    zoomLink,
     days,
-    lectureStyle,
     startDate,
     endDate,
     startTime,
     endTime,
+    lectureStyle,
   } = req.body;
-  const course = await prisma.course.create({
-    courseId,
-    courseName,
-    section,
-    school,
-    days,
-    lectureStyle,
-    startDate,
-    endDate,
-    startTime,
-    endTime,
+  const courses = await prisma.course.create({
+    data: {
+      courseId,
+      courseName,
+      section,
+      school,
+      zoomLink,
+      days,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      lectureStyle,
+    },
   });
-  console.log(course);
-  res.json("created course");
+  console.log(courses);
+  res.json(courses);
 });
 
 // Lab Routes

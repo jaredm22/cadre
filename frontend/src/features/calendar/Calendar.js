@@ -111,7 +111,6 @@ class Calendar extends React.Component {
       <Grid id="calendar" className="bx--grid calendar-contain" narrow={true}>
         <Row className="intro">
           {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
-
           <Column>
             <h3>Hello, {this.state.student.firstName}</h3>
 

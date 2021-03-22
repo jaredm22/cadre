@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Dropdown, Grid, Row } from "carbon-components-react";
 import api from "../apiHandle";
 import { parse, getHours, getMinutes, format } from "date-fns";
+import CourseCard from "./CourseCard";
+import LabCard from "./LabCard";
 
 class Day extends React.Component {
   constructor(props) {
@@ -11,7 +13,6 @@ class Day extends React.Component {
       lectures: [],
       labs: [],
       assignments: [],
-      student: this.props.student,
       expand: "no-expand", //classname to add to day component to indicate css transition
     };
     this.test = false;
@@ -22,16 +23,12 @@ class Day extends React.Component {
       if (course.days.includes(this.props.day)) {
         course.startDate = parse(course.startDate, "yyyy-MM-dd", new Date());
         course.endDate = parse(course.endDate, "yyyy-MM-dd", new Date());
-        course.startTime = parse(course.startTime, "HH:mm", new Date());
-        course.endTime = parse(course.endTime, "HH:mm", new Date());
         return course;
       }
     });
 
     const labs = this.props.student.labs.filter((lab) => {
       if (lab.days.includes(this.props.day)) {
-        lab.startTime = parse(lab.startTime, "HH:mm", new Date());
-        lab.endTime = parse(lab.endTime, "HH:mm", new Date());
         return lab;
       }
     });
@@ -40,19 +37,6 @@ class Day extends React.Component {
       lectures: lectures,
       labs: labs,
     });
-
-    // await api.getStudentCourses("mlin2022@bu.edu").then(res => {
-    //     let courses = res.data.courses
-    //     // console.log(courses)
-
-    //     const inDays = courses.map(e => { //map each course to a promise
-    //         const check =  api.getLectureDates(e.course).then(lecture => { //promise to get class days
-    //             console.log(lecture)
-    //             var days;
-    //             days = lecture.data.dates.map(e => e.date.substring(0,3)) //parse lecture days of course
-    //             // console.log(days)
-    //             // console.log(this.props.day)
-    //             // console.log(days.includes(this.props.day))
   }
 
   parseTime(date) {
@@ -83,6 +67,25 @@ class Day extends React.Component {
     console.log(this.props.expandWidth);
 
     return (
+      //       <Grid className={this.state.expand}>
+      //         <Row>
+      //           <div className={this.props.today ? "blue" : "black"}>
+      //             <h3>{this.props.day}</h3>
+      //           </div>
+      //         </Row>
+
+      //         <Row>
+      //           <div className={this.props.today ? "blue" : "black"}>
+      //             <h4>{this.props.date}</h4>
+      //           </div>
+      //         </Row>
+      //         {lectures.map((course) => {
+      //           return <CourseCard course={course} />;
+      //         })}
+      //         {labs.map((lab) => {
+      //           return <LabCard lab={lab} />;
+      //         })}
+      //       </Grid>
       <section
         id={"clndr-col-" + this.props.i}
         className={
@@ -100,99 +103,23 @@ class Day extends React.Component {
         <div className="courses">
           {lectures.map((course) => {
             return (
-              <div key={course.id} className="course">
-                <div className="course-id">
-                  <h4>{course.courseId}</h4>
-                </div>
-
-                <div
-                  className="fullname-course"
-                  style={{ display: this.props.days < 4 ? "block" : "none" }}
-                >
-                  <h6>{course.courseName + " " + course.section}</h6>
-                </div>
-                <div className="time">
-                  <h5>
-                    {" "}
-                    {this.parseTime(course.startTime) +
-                      " - " +
-                      this.parseTime(course.endTime)}{" "}
-                  </h5>
-                </div>
-
-                <div className="zoomlink">
-                  <h5 className="blue">
-                    <a target="_blank" rel="noreferrer" href={course.zoomLink}>
-                      Zoom Link:
-                    </a>
-                  </h5>
-                  <p
-                    style={{ display: this.props.days < 4 ? "block" : "none" }}
-                  >
-                    <a target="_blank" rel="noreferrer" href={course.zoomLink}>
-                      {course.zoomLink}
-                    </a>
-                  </p>
-                </div>
-
-                <div
-                  className="xtra-info"
-                  style={{
-                    display:
-                      this.state.expand === "is-expanded" ? "block" : "none",
-                  }}
-                >
-                  <ul>
-                    <li>assignments</li>
-                    <li>office hours</li>
-                    <li>other</li>
-                  </ul>
-                </div>
-              </div>
+              <CourseCard
+                {...course}
+                expand={this.state.expand}
+                showFull={this.props.days < 4}
+              />
             );
           })}
-
           {labs.map((lab) => {
             return (
-              <div key={lab.id} className="lab">
-                <div className="course-id">
-                  <h4>{lab.labId ? lab.labId : "Lab"}</h4>
-                </div>
-
-                <div
-                  className="fullname-course"
-                  style={{ display: this.props.days < 4 ? "block" : "none" }}
-                >
-                  <h4>{lab.courseName + " " + lab.section}</h4>
-                </div>
-                <div className="time">
-                  <h5>
-                    {" "}
-                    {this.parseTime(lab.startTime) +
-                      " - " +
-                      this.parseTime(lab.endTime)}{" "}
-                  </h5>
-                </div>
-
-                <div className="zoomlink">
-                  <h5 className="blue">
-                    <a target="_blank" rel="noreferrer" href={lab.zoomLink}>
-                      Zoom Link:
-                    </a>
-                  </h5>
-                  <p
-                    style={{ display: this.props.days < 4 ? "block" : "none" }}
-                  >
-                    <a target="_blank" rel="noreferrer" href={lab.zoomLink}>
-                      {lab.zoomLink}
-                    </a>
-                  </p>
-                </div>
-              </div>
+              <LabCard
+                {...lab}
+                expand={this.state.expand}
+                showFull={this.props.days < 4}
+              />
             );
           })}
         </div>
-        {/* {console.log(courselist)} */}
       </section>
     );
   }
