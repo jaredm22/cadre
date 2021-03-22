@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: npm run format
+      - name: npm run ci
         working-directory: ./backend
         run: |
           npm install
