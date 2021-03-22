@@ -21,10 +21,10 @@ Blockers:
 - Melissa & Jared: merge conflicts, secrets preventing from auto-deploy
 
 ## Mob Programming 
-[Check us out mob programming ooo](./spark!/images/mob2.png)
+[Check us out mob programming ooo](./spark!sprintReports!/images/mob2.png)
 
 ## Sprint Review
-[Check us out reviewing our not-yet-done sprint ooo](./spark!/images/stakeholder2.png) 
+[Check us out reviewing our not-yet-done sprint ooo](./spark!sprintReports!/images/stakeholder2.png) 
 
 ## Sprint Retrospective
 - everytime we meet, take notes and then update whole to check out meeting notes 

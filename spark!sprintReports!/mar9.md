@@ -18,7 +18,7 @@ Blockers:
 - Melissa: setting up DB to have list of courses in Student table in DB
 
 ## Mob Programming 
-[Check us out mob programming ooo](./spark!/images/mob3.png)
+[Check us out mob programming ooo](./images/mob3.png)
 
 ## Sprint Review
 No Sprint Review photo because this sprint report was added after the fact.
