@@ -17,56 +17,22 @@ function HeaderNav() {
         isChildOfHeader={false}
         aria-label="Side navigation"
       >
-        <ul>
-          <li>
-            <h3>Cadre</h3>
-          </li>
-          <br></br>
-
-          <li>
-            <h4>Calendar</h4>
-          </li>
-
-          <li>
-            <h4>Courses</h4>
-          </li>
-
-          <li>
-            <h4>Assignments</h4>
-          </li>
-
-          <li>
-            <h4>Resources</h4>
-          </li>
-
-          <li>
-            <h4>Grades</h4>
-          </li>
-        </ul>
-
-        {/* <Router >
-        <div>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">
-                    <h3>Cadre</h3>
-                    <br></br>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/createCourse">Create Course</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-          
-      </Router>
-         */}
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">
+                <h3>Cadre</h3>
+                <br></br>
+              </Link>
+            </li>
+            <li>
+              <Link to="/createCourse">Create Course</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        </nav>
       </SideNav>
     </div>
   );

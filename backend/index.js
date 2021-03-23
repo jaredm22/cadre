@@ -3,6 +3,8 @@ globalThis = global;
 const { PrismaClient } = require("@prisma/client");
 const path = require("path");
 const express = require("express");
+const { triggerAsyncId } = require("async_hooks");
+const { transformDocument } = require("@prisma/client/runtime");
 // const { graphqlExpress } = require('apollo-server-express')
 
 const prisma = new PrismaClient();
@@ -46,6 +48,16 @@ app.post("/getStudent", async (req, res) => {
           lectures: true,
           students: true,
           professor: true,
+          assignments: {
+            include: {
+              course: true,
+            },
+          },
+          exams: {
+            include: {
+              course: true,
+            },
+          },
         },
       },
       labs: {
@@ -99,7 +111,7 @@ app.get("/professors", async (req, res) => {
   res.json(professors);
 });
 
-// Get one professor route
+// Get one professor by email route
 app.post("/getProfessor", async (req, res) => {
   const professorEmail = req.body.email;
   const professor = await prisma.professor.findUnique({
@@ -113,6 +125,8 @@ app.post("/getProfessor", async (req, res) => {
           lectures: true,
           students: true,
           professor: true,
+          assignments: true,
+          exams: true,
         },
       },
       labs: {
@@ -183,6 +197,8 @@ app.post("/getCourse", async (req, res) => {
       students: true,
       lectures: true,
       labs: true,
+      assignments: true,
+      exams: true,
     },
   });
   console.log(courses);

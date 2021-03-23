@@ -32,6 +32,7 @@ model Course {
   section      String?
   school       String?
   zoomLink     String?
+  piazzaLink   String?      
   days         String[]
   startDate    String       @default("2021-01-25")
   endDate      String       @default("2021-04-29")
@@ -42,6 +43,8 @@ model Course {
   lectures     Lecture[]
   professor    Professor[]
   students     Student[]
+  assignments  Assignment[]
+  exams        Exam[]
 
   @@unique([courseId, courseName, section], name: "courseId_courseName_section_unique")
 }
@@ -74,6 +77,34 @@ model Lecture {
   course       Course?      @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, lectureDate], name: "lecture_courseId_lectureDate")
+}
+
+model Assignment {
+  id              Int          @id @default(autoincrement())
+  courseId        Int?
+  name            String       @db.VarChar(100)
+  assignmentType  String?      
+  assignedDate    String?      @default("2021-01-25")
+  assignedTime    String?      @default("12:00")
+  dueDate         String       @default("2021-01-25")
+  dueTime         String       @default("12:00")
+  tags            String[]      
+  course          Course?      @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, name], name: "assignment_courseId_name")
+}
+
+model Exam {
+  id              Int          @id @default(autoincrement())
+  courseId        Int?
+  name            String       @db.VarChar(100)
+  examType        String       @default("Exam")
+  dueDate         String       @default("2021-01-25")
+  dueTime         String       @default("12:00")
+  tags            String[]     
+  course          Course?      @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, name], name: "exam_courseId_name")
 }
 
 enum labStyle {

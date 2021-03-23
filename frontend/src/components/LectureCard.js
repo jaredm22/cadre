@@ -1,5 +1,5 @@
 import { Dropdown, Grid, Row } from "carbon-components-react";
-import { parse, getHours, getMinutes, format } from "date-fns";
+import { parseISO, getHours, getMinutes, format } from "date-fns";
 import React from "react";
 import "../features/calendar/calendar.scss";
 
@@ -14,9 +14,7 @@ const parseTime = (time) => {
   );
 };
 
-export default function CourseCard(props) {
-  console.log(props);
-
+export default function LectureCard(props) {
   return (
     <div key={props.id} className="course">
       <div className="course-id">
@@ -42,11 +40,38 @@ export default function CourseCard(props) {
             Zoom Link
           </a>
         </h5>
-        <p style={{ display: props.showFull ? "block" : "none" }}>
+        {/* <p style={{ display: props.showFull ? "block" : "none" }}>
           <a target="_blank" rel="noreferrer" href={props.zoomLink}>
             {props.zoomLink}
           </a>
-        </p>
+        </p> */}
+      </div>
+
+      {/* Render piazza link for class if exists */}
+      {props.piazzaLink != null ? (
+        <div
+          className="piazzalink"
+          style={{ display: props.showFull ? "block" : "none" }}
+        >
+          <h5 className="blue">
+            <a target="_blank" rel="noreferrer" href={props.piazzaLink}>
+              Piazza
+            </a>
+          </h5>
+        </div>
+      ) : (
+        false
+      )}
+
+      <div
+        className="lectureslideslink"
+        style={{ display: props.showFull ? "block" : "none" }}
+      >
+        <h5 className="blue">
+          <a target="_blank" rel="noreferrer" href="blackboard.com">
+            Lecture Slides
+          </a>
+        </h5>
       </div>
 
       <div
@@ -55,6 +80,7 @@ export default function CourseCard(props) {
       >
         <ul>
           <li>assignments</li>
+          <li>lecture slides</li>
           <li>office hours</li>
           <li>other</li>
         </ul>

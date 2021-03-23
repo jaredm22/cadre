@@ -17,6 +17,11 @@
     // color: blue
 }
 
+.black a {
+    text-decoration: none;
+    // color: blue
+}
+
 .intro {
     height: $layout-07;
 }
@@ -96,7 +101,7 @@
 //     overflow-y: scroll;
 //     height: calc(100% - 20rem);
 // }
-.course, .lab {
+.course, .lab, .assignment, .exam {
     margin-bottom: $spacing-05;
     padding: $spacing-03;
     border-radius: 0.25pc;
@@ -111,13 +116,12 @@
     margin-bottom: -$spacing-01;
 }
 
-.fullname-course{
+.fullname-course, .fullname-assignment, .fullname-exam {
     margin-bottom: $spacing-02;
 }
 
-.zoomlink {
+.zoomlink, .piazzalink, .lectureslideslink {
     margin-top: $spacing-03
-
 }
 
 .is-expanded {

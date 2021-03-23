@@ -19,21 +19,32 @@ export default class LoginForm extends React.Component {
       email: "",
     };
 
-    this.handleEmailChange = (email) => {
-      this.setState({ email });
+    this.handleTextInputChange = (event) => {
+      const id = event.target.id;
+      this.setState({ [id]: event.target.value });
     };
 
     this.submitHandler = () => {
       const { email } = this.state;
-      api.getStudentByEmail(email).then((res) => console.log(res));
+      const { history } = this.props.props;
+
+      api.getStudentByEmail(email).then((res) => {
+        if (res != null) {
+          console.log(res);
+          history.push("/schedule" + email);
+        } else {
+          console.log(null);
+        }
+      });
     };
   }
 
   render() {
     const { email } = this.state;
+    console.log(this.props);
 
     return (
-      <Grid>
+      <Grid className="form">
         <Form onSubmit={this.submitHandler}>
           <Row>
             <h2>View your Schedule</h2>
@@ -45,17 +56,20 @@ export default class LoginForm extends React.Component {
                 <TextInput
                   id="email"
                   value={email}
-                  placeholderText="Email"
-                  onChange={this.handleEmailChange}
+                  placeholdertext="Email"
+                  labelText={false}
+                  onChange={this.handleTextInputChange}
                 />
               </FormGroup>
             </Column>
           </Row>
-        </Form>
 
-        <Button variant="primary" type="submit" className="submit">
-          Submit
-        </Button>
+          <Row>
+            <Button variant="primary" type="submit" className="submit">
+              Submit
+            </Button>
+          </Row>
+        </Form>
       </Grid>
     );
   }

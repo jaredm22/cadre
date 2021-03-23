@@ -1,5 +1,5 @@
 import { Dropdown, Grid, Row } from "carbon-components-react";
-import { parse, getHours, getMinutes, format } from "date-fns";
+import { parseISO, getHours, getMinutes, format } from "date-fns";
 import { et } from "date-fns/locale";
 import React from "react";
 import "../features/calendar/calendar.scss";
@@ -16,8 +16,6 @@ const parseTime = (time) => {
 };
 
 export default function LabCard(props) {
-  console.log(props);
-
   return (
     <div key={props.id} className="lab">
       <div className="course-id">
@@ -28,8 +26,9 @@ export default function LabCard(props) {
         className="fullname-course"
         style={{ display: props.showFull ? "block" : "none" }}
       >
-        <h4>{props.course.courseId + " " + props.course.section}</h4>
+        <h6>{props.course.courseId + " " + props.course.section}</h6>
       </div>
+
       <div className="time">
         <h5>
           {" "}
@@ -43,11 +42,11 @@ export default function LabCard(props) {
             Zoom Link
           </a>
         </h5>
-        <p style={{ display: props.showFull ? "block" : "none" }}>
+        {/* <p style={{ display: props.showFull ? "block" : "none" }}>
           <a target="_blank" rel="noreferrer" href={props.zoomLink}>
             {props.zoomLink}
           </a>
-        </p>
+        </p> */}
       </div>
     </div>
   );
