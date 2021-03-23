@@ -278,7 +278,7 @@ app.post("/changeLecture", async (req, res) => {
       id: courseId,
     },
   });
-  const lecture;
+  const lecture = {};
   if (changeLectureStyle == true && changeZoomLink == true) {
     lecture = await prisma.lecture.create({
       data: {
