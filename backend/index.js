@@ -263,6 +263,77 @@ app.post("/getLecture", async (req, res) => {
   res.json(lecture);
 });
 
+app.post("/changeLecture", async (req, res) => {
+  const {
+    courseId,
+    lectureDate,
+    changeLectureStyle,
+    lectureStyle,
+    changeZoomLink,
+    zoomLink,
+    day,
+  } = req.body;
+  const course = await prisma.course.findUnique({
+    where: {
+      id: courseId,
+    },
+  });
+  const lecture;
+  if (changeLectureStyle == true && changeZoomLink == true) {
+    lecture = await prisma.lecture.create({
+      data: {
+        lectureStyle: lectureStyle,
+        courseId: courseId,
+        zoomLink: zoomLink,
+        day: day,
+        lectureDate: lectureDate,
+        startTime: course.startTime,
+        endTime: course.endTime,
+      },
+    });
+  } else if (changeLectureStyle == true && changeZoomLink == false) {
+    lecture = await prisma.lecture.create({
+      data: {
+        lectureStyle: lectureStyle,
+        courseId: courseId,
+        zoomLink: course.zoomLink,
+        day: day,
+        lectureDate: lectureDate,
+        startTime: course.startTime,
+        endTime: course.endTime,
+      },
+    });
+  } else if (changeLectureStyle == false && changeZoomLink == true) {
+    lecture = await prisma.lecture.create({
+      data: {
+        lectureStyle: course.lectureStyle,
+        courseId: courseId,
+        zoomLink: zoomLink,
+        day: day,
+        lectureDate: lectureDate,
+        startTime: course.startTime,
+        endTime: course.endTime,
+      },
+    });
+  }
+  console.log(lecture);
+  res.json("added lecture");
+});
+
+// Assignments Routes
+// get all assignments
+app.get("/assignments", async (req, res) => {
+  const assignments = await prisma.assignment.findMany({
+    include: {
+      Course: true,
+    },
+  });
+  console.log(assignments);
+  res.json(assignments);
+});
+
+//Change lecture post route
+
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`)
 );
