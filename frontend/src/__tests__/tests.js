@@ -4,6 +4,7 @@ import {
   waitFor,
   fireEvent,
   waitForElement,
+  getAllByLabelText,
 } from "@testing-library/react";
 // import { rest } from 'msw'
 // import { setupServer } from 'msw/node'
@@ -37,17 +38,22 @@ test("renders app", () => {
 
 test("expanded view works", async () => {
   // let [month, date] = new Date().toLocaleDateString("en-US").split("/");
-  render(<CourseCard />)
+  render(<Day />);
   // await screen.findByText(date);
   fireEvent.click(screen.getByLabelText("day"));
 
-  await waitFor(() => expect(screen.getByLabelText("expanded-view-info")).toHaveTextContent(
-    "office hours"
-  ));
-
+  await waitFor(() =>
+    expect(screen.getByLabelText("expanded-view-info")).toHaveTextContent(
+      "office hours"
+    )
+  );
 });
 
-test("day components equal number of days on slider", () => {});
+test("day components equal number of days on slider", () => {
+  render(<Calendar />)
+  const slider = screen.getByRole("presentation")
+  let vale = slider.nodeValue
+});
 
 //   <label for="__carbon-slider_cedp560jnxu\"
 //   class=\"bx--label\" id=\"__carbon-slider_cedp560jnxu-label\"></label><div class=\"bx--slider-container\"><span class=\"bx--slider__range-label\">1</span><div class=\"bx--slider day-slider \" role=\"presentation\" tabindex=\"-1\" value=\"3\">
