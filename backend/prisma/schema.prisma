@@ -38,6 +38,7 @@ model Course {
   startTime    String       @default("12:00")
   endTime      String       @default("12:00")
   lectureStyle lectureStyle @default(Hybrid)
+  piazzaLink   String?
   Assignment   Assignment[]
   Exam         Exam[]
   labs         Lab[]

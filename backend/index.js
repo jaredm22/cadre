@@ -263,6 +263,7 @@ app.post("/getLecture", async (req, res) => {
   res.json(lecture);
 });
 
+// change lecture post route
 app.post("/changeLecture", async (req, res) => {
   const {
     courseId,
@@ -278,7 +279,7 @@ app.post("/changeLecture", async (req, res) => {
       id: courseId,
     },
   });
-  const lecture = {};
+  var lecture;
   if (changeLectureStyle == true && changeZoomLink == true) {
     lecture = await prisma.lecture.create({
       data: {
@@ -320,6 +321,21 @@ app.post("/changeLecture", async (req, res) => {
   res.json("added lecture");
 });
 
+// Lecture delete route
+app.delete("/changeLecture", async (req, res) => {
+  const { courseId, lectureDate } = req.body;
+  const post = await prisma.lecture.delete({
+    where: {
+      lecture_courseId_lectureDate: {
+        courseId: courseId,
+        lectureDate: lectureDate,
+      },
+    },
+  });
+  console.log(post);
+  res.json("deleted lecture");
+});
+
 // Assignments Routes
 // get all assignments
 app.get("/assignments", async (req, res) => {
@@ -332,7 +348,66 @@ app.get("/assignments", async (req, res) => {
   res.json(assignments);
 });
 
-//Change lecture post route
+// gets one assignment
+app.post("/getAssignment", async (req, res) => {
+  const { courseId, name } = req.body;
+  const assignment = await prisma.assignment.findUnique({
+    where: {
+      assignment_courseId_name: {
+        courseId: courseId,
+        name: name,
+      },
+    },
+    include: {
+      Course: true,
+    },
+  });
+  console.log(assignment);
+  res.json(assignment);
+});
+
+// creates an assignment
+app.post("/assignments", async (req, res) => {
+  const {
+    courseId,
+    name,
+    assignmentType,
+    assignedDate,
+    assignedTime,
+    dueDate,
+    dueTime,
+    tags,
+  } = req.body;
+  const assignment = await prisma.assignment.create({
+    data: {
+      courseId,
+      name,
+      assignmentType,
+      assignedDate,
+      assignedTime,
+      dueDate,
+      dueTime,
+      tags,
+    },
+  });
+  console.log(assignment);
+  res.json("assignment created");
+});
+
+//deletes an assignment
+app.delete("/assignments", async (req, res) => {
+  const { courseId, name } = req.body;
+  const post = await prisma.assignment.delete({
+    where: {
+      assignment_courseId_name: {
+        courseId: courseId,
+        name: name,
+      },
+    },
+  });
+  console.log(post);
+  res.json("deleted assignment");
+});
 
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`🚀 Server ready at: http://localhost:${port}`)
