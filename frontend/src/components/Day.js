@@ -87,6 +87,7 @@ class Day extends React.Component {
       //         })}
       //       </Grid>
       <section
+        aria-label="day"
         id={"clndr-col-" + this.props.i}
         className={
           "day-col " +
