@@ -50,6 +50,7 @@ export default function CourseCard(props) {
       </div>
 
       <div
+        aria-label="expanded-view info"
         className="xtra-info"
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
