@@ -39,6 +39,9 @@ model Course {
   startTime    String       @default("12:00")
   endTime      String       @default("12:00")
   lectureStyle lectureStyle @default(Hybrid)
+  piazzaLink   String?
+  Assignment   Assignment[]
+  Exam         Exam[]
   labs         Lab[]
   lectures     Lecture[]
   professor    Professor[]
@@ -80,29 +83,29 @@ model Lecture {
 }
 
 model Assignment {
-  id              Int          @id @default(autoincrement())
-  courseId        Int?
-  name            String       @db.VarChar(100)
-  assignmentType  String?      
-  assignedDate    String?      @default("2021-01-25")
-  assignedTime    String?      @default("12:00")
-  dueDate         String       @default("2021-01-25")
-  dueTime         String       @default("12:00")
-  tags            String[]      
-  course          Course?      @relation(fields: [courseId], references: [id])
+  id             Int      @id @default(autoincrement())
+  courseId       Int?
+  name           String   @db.VarChar(100)
+  assignmentType String?
+  assignedDate   String?  @default("2021-01-25")
+  assignedTime   String?  @default("12:00")
+  dueDate        String   @default("2021-01-25")
+  dueTime        String   @default("12:00")
+  tags           String[]
+  Course         Course?  @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, name], name: "assignment_courseId_name")
 }
 
 model Exam {
-  id              Int          @id @default(autoincrement())
-  courseId        Int?
-  name            String       @db.VarChar(100)
-  examType        String       @default("Exam")
-  dueDate         String       @default("2021-01-25")
-  dueTime         String       @default("12:00")
-  tags            String[]     
-  course          Course?      @relation(fields: [courseId], references: [id])
+  id       Int      @id @default(autoincrement())
+  courseId Int?
+  name     String   @db.VarChar(100)
+  examType String   @default("Exam")
+  dueDate  String   @default("2021-01-25")
+  dueTime  String   @default("12:00")
+  tags     String[]
+  Course   Course?  @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, name], name: "exam_courseId_name")
 }
