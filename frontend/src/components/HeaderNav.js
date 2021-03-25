@@ -3,21 +3,18 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import CreateCoursePage from "../pages/createCourse/CreateCoursePage";
 import LoginPage from "../pages/createCourse/CreateCoursePage";
 import SchedulePage from "../pages/schedule/SchedulePage";
-
-const style = {
-  paddingLeft: "10px",
-};
+import "../features/calendar/calendar.scss";
 
 function HeaderNav() {
   return (
-    <div className="App" style={style}>
+    <div className="App">
       <SideNav
         isFixedNav
         expanded={true}
         isChildOfHeader={false}
         aria-label="Side navigation"
       >
-        <nav>
+        <nav className="nav">
           <ul>
             <li>
               <Link to="/">

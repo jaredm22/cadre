@@ -7,7 +7,7 @@ const parseTime = (time) => {
   const [hours, minutes] = time.split(":");
 
   if (hours == "00" && minutes == "00") {
-    return "Midnight";
+    return "11:59 PM";
   } else if (hours === "12" && minutes === "00") {
     return "Noon";
   } else {
@@ -26,16 +26,16 @@ export default function ExamCard(props) {
 
   return (
     <div key={props.id} className="exam">
+      <div className="time">
+        <h5>{dueTime}</h5>
+      </div>
+
       <div className="course-id">
-        <h4>{props.examType}</h4>
+        <h4>{props.course.courseId + (props.showFull ? " |  Exam" : "")}</h4>
       </div>
 
       <div className="fullname-exam">
-        <h6>{props.course.courseId + " - " + props.name}</h6>
-      </div>
-
-      <div className="time">
-        <h6>{"Date: " + format(dueDate, "MMM dd") + " - " + dueTime}</h6>
+        <h6>{props.name}</h6>
       </div>
 
       <div
@@ -43,7 +43,7 @@ export default function ExamCard(props) {
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
         <ul>
-          <li>{"Tags: " + props.tags.map((tag) => tag).join(", ")}</li>
+          <li>{props.tags.map((tag) => tag).join(", ")}</li>
         </ul>
       </div>
     </div>

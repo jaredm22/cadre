@@ -3,86 +3,107 @@ import { parseISO, getHours, getMinutes, format } from "date-fns";
 import React from "react";
 import "../features/calendar/calendar.scss";
 
-const parseTime = (time) => {
-  const [hours, minutes] = time.split(":");
+const parseTime = (startTime, endTime) => {
+  const [sh, sm] = startTime.split(":");
+  const [eh, em] = endTime.split(":");
 
-  return (
-    (hours >= 13 ? hours - 12 : hours) +
-    ":" +
-    (minutes == 0 ? "00" : minutes) +
-    (hours >= 12 ? " PM" : " AM")
-  );
+  if (sh < 12 && eh >= 12) {
+    return sh + ":" + sm + " AM - " + eh + ":" + em + " PM";
+  } else if (sh < 12) {
+    return sh + ":" + sm + " - " + eh + ":" + em + " AM";
+  } else {
+    return sh - 12 + ":" + sm + " - " + (eh - 12) + ":" + em + " PM";
+  }
 };
 
 export default function LectureCard(props) {
   return (
     <div key={props.id} className="course">
-      <div className="course-id">
-        <h4>{props.courseId}</h4>
+      <div className="time">
+        <h5>{parseTime(props.startTime, props.endTime)} </h5>
+      </div>
+
+      <div className="fullname-course">
+        <h4 className="black">
+          <a target="_blank" rel="noreferrer" href={props.zoomLink}>
+            {props.courseId} {props.showFull ? " | Lecture" : ""}
+          </a>
+        </h4>
       </div>
 
       <div
         className="fullname-course"
-        style={{ display: props.showFull ? "block" : "none" }}
+        // style={{ display: props.showFull ? "block" : "none"}}
       >
-        <h6>{props.courseName + " " + props.section}</h6>
-      </div>
-      <div className="time">
-        <h5>
-          {" "}
-          {parseTime(props.startTime) + " - " + parseTime(props.endTime)}{" "}
+        <h5 className="black">
+          <a target="_blank" rel="noreferrer" href={props.zoomLink}>
+            {props.courseName}
+          </a>
         </h5>
       </div>
 
-      <div className="zoomlink">
-        <h5 className="blue">
+      <br></br>
+
+      {/* <div className="zoomlink">
+        <h6 className="black">
           <a target="_blank" rel="noreferrer" href={props.zoomLink}>
             Zoom Link
           </a>
-        </h5>
-        {/* <p style={{ display: props.showFull ? "block" : "none" }}>
+        </h6>
+        <p style={{ display: props.showFull ? "block" : "none" }}>
           <a target="_blank" rel="noreferrer" href={props.zoomLink}>
             {props.zoomLink}
           </a>
-        </p> */}
-      </div>
+        </p>
+      </div> */}
+
+      {/* <p className="black"  style={{ display: props.showFull ? "block" : "none" }}>
+        <a target="_blank" rel="noreferrer" href="blackboard.com">
+          Lecture Slides
+        </a>
+      </p> */}
 
       {/* Render piazza link for class if exists */}
-      {props.piazzaLink != null ? (
-        <div
-          className="piazzalink"
-          style={{ display: props.showFull ? "block" : "none" }}
-        >
-          <h5 className="blue">
-            <a target="_blank" rel="noreferrer" href={props.piazzaLink}>
-              Piazza
-            </a>
-          </h5>
-        </div>
-      ) : (
-        false
-      )}
-
-      <div
-        className="lectureslideslink"
-        style={{ display: props.showFull ? "block" : "none" }}
-      >
-        <h5 className="blue">
-          <a target="_blank" rel="noreferrer" href="blackboard.com">
-            Lecture Slides
+      {/* {props.piazzaLink != null ? (
+        <p className="black" style={{ display: props.showFull ? "block" : "none" }}>
+          <a target="_blank" rel="noreferrer" href={props.piazzaLink}>
+            Piazza
           </a>
-        </h5>
-      </div>
+        </p>) : false } */}
 
       <div
         className="xtra-info"
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
         <ul>
-          <li>assignments</li>
-          <li>lecture slides</li>
-          <li>office hours</li>
-          <li>other</li>
+          <li>
+            <p
+              className="black"
+              style={{ display: props.showFull ? "block" : "none" }}
+            >
+              <a target="_blank" rel="noreferrer" href="blackboard.com">
+                Lecture Slides
+              </a>
+            </p>
+          </li>
+
+          <li>
+            {props.piazzaLink != null ? (
+              <p
+                className="black"
+                style={{ display: props.showFull ? "block" : "none" }}
+              >
+                <a target="_blank" rel="noreferrer" href={props.piazzaLink}>
+                  Piazza
+                </a>
+              </p>
+            ) : (
+              false
+            )}
+          </li>
+
+          <li>Assignments</li>
+          <li>Office hours</li>
         </ul>
       </div>
     </div>

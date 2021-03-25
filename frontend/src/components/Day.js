@@ -98,10 +98,17 @@ class Day extends React.Component {
         }
         style={css}
       >
-        <div className="date">
-          <h3 className="clndr-day">{this.props.day}</h3>
-          <h4 className="clndr-date">{this.props.date}</h4>
-        </div>
+        {this.props.today ? (
+          <div className="date-today">
+            <h3 className="clndr-day">{this.props.day}</h3>
+            <h4 className="clndr-date">{this.props.date}</h4>
+          </div>
+        ) : (
+          <div className="date">
+            <h3 className="clndr-day">{this.props.day}</h3>
+            <h4 className="clndr-date">{this.props.date}</h4>
+          </div>
+        )}
 
         <div className="courses">
           {lectures.map((course) => {
@@ -110,7 +117,7 @@ class Day extends React.Component {
                 {...course}
                 parseTime={this.parseTime}
                 expand={this.state.expand}
-                showFull={this.props.days < 4}
+                showFull={this.props.days <= 4}
               />
             );
           })}
@@ -130,7 +137,7 @@ class Day extends React.Component {
                 {...assignment}
                 parseTime={(time) => this.parseTime(time)}
                 expand={this.state.expand}
-                showFull={this.props.days < 4}
+                showFull={this.props.days <= 4}
               />
             );
           })}
@@ -140,7 +147,7 @@ class Day extends React.Component {
                 {...exam}
                 parseTime={(time) => this.parseTime(time)}
                 expand={this.state.expand}
-                showFull={this.props.days < 4}
+                showFull={this.props.days <= 4}
               />
             );
           })}

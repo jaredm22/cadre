@@ -7,7 +7,7 @@ const parseTime = (time) => {
   const [hours, minutes] = time.split(":");
 
   if (hours == "00" && minutes == "00") {
-    return "Midnight";
+    return "11:59 PM";
   } else if (hours === "12" && minutes === "00") {
     return "Noon";
   } else {
@@ -21,22 +21,24 @@ const parseTime = (time) => {
 };
 
 export default function AssignmentCard(props) {
+  console.log("re rendered");
   const dueDate = parseISO(props.dueDate, "yyyy-MM-dd", new Date());
   const dueTime = parseTime(props.dueTime);
 
   return (
     <div key={props.id} className="assignment">
+      <div className="time">
+        <h5>{"Due: " + dueTime}</h5>
+      </div>
+
       <div className="homework">
-        <h5>Assignment</h5>
-        {/* <h5>{props.assignmentType}</h5> */}
+        <h4>
+          {props.course.courseId} {props.showFull ? " | Assignment" : ""}
+        </h4>
       </div>
 
       <div className="fullname-assignment">
-        <h6>{props.course.courseId + " - " + props.name}</h6>
-      </div>
-
-      <div className="time">
-        <h6>{"Due: " + format(dueDate, "MMM dd") + " - " + dueTime}</h6>
+        <h6>{props.name}</h6>
       </div>
 
       <div
@@ -44,7 +46,7 @@ export default function AssignmentCard(props) {
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
         <ul>
-          <li>{"Tags: " + props.tags.map((tag) => tag).join(", ")}</li>
+          <li>{props.tags.map((tag) => tag).join(", ")}</li>
         </ul>
       </div>
     </div>

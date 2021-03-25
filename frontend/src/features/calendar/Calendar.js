@@ -124,7 +124,12 @@ class Calendar extends React.Component {
         <Row className="intro">
           {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
           <Column>
-            <h3>Hello, {this.state.student.firstName}</h3>
+            <h3>
+              Hello,{" "}
+              <span className="student-name">
+                {this.state.student.firstName}
+              </span>
+            </h3>
 
             <h4 aria-label="calendar" className="calendar-title">
               {format(this.state.today, "cccc") + ", "}
