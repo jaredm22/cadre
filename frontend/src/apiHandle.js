@@ -110,38 +110,38 @@ const createCourse = async (
 };
 
 const createCourseStudent = async (
-    courseId,
-    courseName,
-    section,
-    school,
-    zoomLink,
-    days,
-    startDate,
-    endDate,
-    startTime,
-    endTime,
-    lectureStyle,
-    studentId
-  ) => {
-    const response = await axios({
-      method: "post",
-      url: "/courses",
-      data: {
-        courseId: courseId,
-        courseName: courseName,
-        section: section,
-        school: school,
-        zoomLink: zoomLink,
-        days: days,
-        startDate: startDate,
-        endDate: endDate,
-        startTime: startTime,
-        endTime: endTime,
-        lectureStyle: lectureStyle,
-        studentId: studentId,
-      },
-    });
-    return response.data;
+  courseId,
+  courseName,
+  section,
+  school,
+  zoomLink,
+  days,
+  startDate,
+  endDate,
+  startTime,
+  endTime,
+  lectureStyle,
+  studentId
+) => {
+  const response = await axios({
+    method: "post",
+    url: "/courses",
+    data: {
+      courseId: courseId,
+      courseName: courseName,
+      section: section,
+      school: school,
+      zoomLink: zoomLink,
+      days: days,
+      startDate: startDate,
+      endDate: endDate,
+      startTime: startTime,
+      endTime: endTime,
+      lectureStyle: lectureStyle,
+      studentId: studentId,
+    },
+  });
+  return response.data;
 };
 
 const getLectures = async () => {

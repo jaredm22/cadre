@@ -5,5 +5,5 @@ export default function CreateCoursePage() {
   const { id } = useParams();
   console.log(id);
 
-  return <CreateCourseForm studentId={id} />
+  return <CreateCourseForm studentId={id} />;
 }

@@ -17,7 +17,6 @@ export default function LoginForm() {
   const history = useHistory();
 
   const submitHandler = (event) => {
-  
     api.getStudentByEmail(email).then((res) => {
       console.log(email);
       if (res != null) {
@@ -45,7 +44,9 @@ export default function LoginForm() {
                 value={email}
                 placeholdertext="Email"
                 labelText={false}
-                onChange={(e) => {handleEmailChange(e.target.value)}}
+                onChange={(e) => {
+                  handleEmailChange(e.target.value);
+                }}
               />
             </FormGroup>
           </Column>

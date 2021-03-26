@@ -137,8 +137,9 @@ export default class CreateCourseForm extends React.Component {
 
       console.log(courseId);
       console.log(courseName);
-      console.log(section)
-      api.createCourseStudent(
+      console.log(section);
+      api
+        .createCourseStudent(
           courseId,
           courseName,
           section,
@@ -150,7 +151,7 @@ export default class CreateCourseForm extends React.Component {
           startTime,
           endTime,
           lectureStyle,
-          this.props.studentId,
+          this.props.studentId
         )
         .then((res) => console.log(res));
 

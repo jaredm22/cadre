@@ -205,8 +205,6 @@ app.post("/getCourse", async (req, res) => {
   res.json(courses);
 });
 
-
-
 app.post("/courses", async (req, res) => {
   const {
     courseId,
@@ -265,10 +263,10 @@ app.post("/addCourseStudent", async (req, res) => {
         section: section,
       },
     },
-    update : {
-      students : {
-        connect: [{id: studentId}]
-      }
+    update: {
+      students: {
+        connect: [{ id: studentId }],
+      },
     },
     create: {
       courseId,
@@ -283,19 +281,16 @@ app.post("/addCourseStudent", async (req, res) => {
       endTime,
       lectureStyle,
       students: {
-        connect: [{id: studentId}]
+        connect: [{ id: studentId }],
       },
-
     },
     include: {
       students: true,
-    }
+    },
   });
   console.log(courses);
   res.json(courses);
 });
-
-
 
 // Lab Routes
 // Lab get all route

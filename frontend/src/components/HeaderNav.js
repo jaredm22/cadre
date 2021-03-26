@@ -23,7 +23,7 @@ function HeaderNav(props) {
               </Link>
             </li>
             <li>
-              <Link to={"/createCourse/"+props.id}>Create Course</Link>
+              <Link to={"/createCourse/" + props.id}>Create Course</Link>
             </li>
             <li>
               <Link to="/login">Login</Link>

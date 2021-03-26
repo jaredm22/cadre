@@ -14,7 +14,7 @@ function SchedulePage(props) {
     <div className="App">
       <HeaderNav id={id} />
       <Content>
-        <Calendar email={email}/>
+        <Calendar email={email} />
       </Content>
     </div>
   );

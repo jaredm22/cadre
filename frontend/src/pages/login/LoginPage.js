@@ -2,6 +2,6 @@ import React from "react";
 import LoginForm from "./LoginForm";
 
 function LoginPage(props) {
-  return <LoginForm/>;
+  return <LoginForm />;
 }
 export default LoginPage;
