@@ -107,6 +107,8 @@
     overflow-wrap: break-word;
 }
 
+
+
 .course-id {
     margin-bottom: -$spacing-01;
 }
@@ -134,6 +136,10 @@
     height: 100%;
     z-index: 999;
     
+}
+
+.is-expanded .course {
+    background-color: fuchsia;
 }
 
 
