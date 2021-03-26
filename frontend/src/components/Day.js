@@ -2,9 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Dropdown, Grid, Row } from "carbon-components-react";
 import api from "../apiHandle";
-import { parse, getHours, getMinutes, format } from "date-fns";
-import CourseCard from "./CourseCard";
+import { parseISO, getHours, getMinutes, isSameDay } from "date-fns";
+import LectureCard from "./LectureCard";
 import LabCard from "./LabCard";
+import AssignmentCard from "./AssignmentCard";
+import ExamCard from "./ExamCard";
 
 class Day extends React.Component {
   constructor(props) {
@@ -13,16 +15,15 @@ class Day extends React.Component {
       lectures: [],
       labs: [],
       assignments: [],
+      exams: [],
       expand: "no-expand", //classname to add to day component to indicate css transition
     };
     this.test = false;
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const lectures = this.props.student.courses.filter((course) => {
       if (course.days.includes(this.props.day)) {
-        course.startDate = parse(course.startDate, "yyyy-MM-dd", new Date());
-        course.endDate = parse(course.endDate, "yyyy-MM-dd", new Date());
         return course;
       }
     });
@@ -33,15 +34,37 @@ class Day extends React.Component {
       }
     });
 
+    const assignments = [];
+    this.props.student.courses.forEach((course) => {
+      course.assignments.forEach((assignment) => {
+        const dueDate = parseISO(assignment.dueDate, "yyyy-MM-dd", new Date());
+        if (isSameDay(dueDate, this.props.fullDate)) {
+          assignments.push(assignment);
+        }
+      });
+    });
+
+    const exams = [];
+    this.props.student.courses.forEach((course) => {
+      course.exams.map((exam) => {
+        const dueDate = parseISO(exam.dueDate, "yyyy-MM-dd", new Date());
+        if (isSameDay(dueDate, this.props.fullDate)) {
+          exams.push(exam);
+        }
+      });
+    });
+
     this.setState({
       lectures: lectures,
       labs: labs,
+      assignments: assignments,
+      exams: exams,
     });
   }
 
-  parseTime(date) {
-    let hours = getHours(date);
-    let minutes = getMinutes(date);
+  parseTime = (time) => {
+    let hours = getHours(time);
+    let minutes = getMinutes(time);
 
     return (
       (hours >= 13 ? hours - 12 : hours) +
@@ -49,10 +72,10 @@ class Day extends React.Component {
       (minutes === 0 ? "00" : minutes) +
       (hours >= 12 ? " PM" : " AM")
     );
-  }
+  };
 
   render() {
-    var { lectures, labs } = this.state;
+    var { lectures, labs, assignments, exams } = this.state;
     let getEWidth = (i) => {
       let e = document.getElementById("clndr-col-" + i);
       console.log(e.clientWidth);
@@ -64,28 +87,8 @@ class Day extends React.Component {
           ? `translateX(-${getEWidth(this.props.i) * this.props.i}px)`
           : `translateX(0px)`,
     };
-    console.log(this.props.expandWidth);
 
     return (
-      //       <Grid className={this.state.expand}>
-      //         <Row>
-      //           <div className={this.props.today ? "blue" : "black"}>
-      //             <h3>{this.props.day}</h3>
-      //           </div>
-      //         </Row>
-
-      //         <Row>
-      //           <div className={this.props.today ? "blue" : "black"}>
-      //             <h4>{this.props.date}</h4>
-      //           </div>
-      //         </Row>
-      //         {lectures.map((course) => {
-      //           return <CourseCard course={course} />;
-      //         })}
-      //         {labs.map((lab) => {
-      //           return <LabCard lab={lab} />;
-      //         })}
-      //       </Grid>
       <section
         id={"clndr-col-" + this.props.i}
         className={
@@ -95,18 +98,26 @@ class Day extends React.Component {
         }
         style={css}
       >
-        <div className="date">
-          <h3 className="clndr-day">{this.props.day}</h3>
-          <h4 className="clndr-date">{this.props.date}</h4>
-        </div>
+        {this.props.today ? (
+          <div className="date-today">
+            <h3 className="clndr-day">{this.props.day}</h3>
+            <h4 className="clndr-date">{this.props.date}</h4>
+          </div>
+        ) : (
+          <div className="date">
+            <h3 className="clndr-day">{this.props.day}</h3>
+            <h4 className="clndr-date">{this.props.date}</h4>
+          </div>
+        )}
 
         <div className="courses">
           {lectures.map((course) => {
             return (
-              <CourseCard
+              <LectureCard
                 {...course}
+                parseTime={this.parseTime}
                 expand={this.state.expand}
-                showFull={this.props.days < 4}
+                showFull={this.props.days <= 4}
               />
             );
           })}
@@ -114,8 +125,29 @@ class Day extends React.Component {
             return (
               <LabCard
                 {...lab}
+                parseTime={(time) => this.parseTime(time)}
                 expand={this.state.expand}
                 showFull={this.props.days < 4}
+              />
+            );
+          })}
+          {assignments.map((assignment) => {
+            return (
+              <AssignmentCard
+                {...assignment}
+                parseTime={(time) => this.parseTime(time)}
+                expand={this.state.expand}
+                showFull={this.props.days <= 4}
+              />
+            );
+          })}
+          {exams.map((exam) => {
+            return (
+              <ExamCard
+                {...exam}
+                parseTime={(time) => this.parseTime(time)}
+                expand={this.state.expand}
+                showFull={this.props.days <= 4}
               />
             );
           })}

@@ -87,6 +87,22 @@ export default class CreateCourseForm extends React.Component {
         text: "Questrom School of Business",
         value: "Questrom School of Business",
       },
+      {
+        text: "College of Engineering",
+        value: "College of Engineering",
+      },
+      {
+        text: "College of Communication",
+        value: "College of Communication",
+      },
+      {
+        text: "College of General Studies",
+        value: "College of General Studies",
+      },
+      {
+        text: "School of Hospitality Administration",
+        value: "School of Hospitality Administration",
+      },
     ];
 
     this.lectureStyleOptions = [

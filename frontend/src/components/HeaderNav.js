@@ -3,70 +3,33 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import CreateCoursePage from "../pages/createCourse/CreateCoursePage";
 import LoginPage from "../pages/createCourse/CreateCoursePage";
 import SchedulePage from "../pages/schedule/SchedulePage";
-
-const style = {
-  paddingLeft: "10px",
-};
+import "../features/calendar/calendar.scss";
 
 function HeaderNav() {
   return (
-    <div className="App" style={style}>
+    <div className="App">
       <SideNav
         isFixedNav
         expanded={true}
         isChildOfHeader={false}
         aria-label="Side navigation"
       >
-        <ul>
-          <li>
-            <h3>Cadre</h3>
-          </li>
-          <br></br>
-
-          <li>
-            <h4>Calendar</h4>
-          </li>
-
-          <li>
-            <h4>Courses</h4>
-          </li>
-
-          <li>
-            <h4>Assignments</h4>
-          </li>
-
-          <li>
-            <h4>Resources</h4>
-          </li>
-
-          <li>
-            <h4>Grades</h4>
-          </li>
-        </ul>
-
-        {/* <Router >
-        <div>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">
-                    <h3>Cadre</h3>
-                    <br></br>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/createCourse">Create Course</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-          
-      </Router>
-         */}
+        <nav className="nav">
+          <ul>
+            <li>
+              <Link to="/">
+                <h3>Cadre</h3>
+                <br></br>
+              </Link>
+            </li>
+            <li>
+              <Link to="/createCourse">Create Course</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        </nav>
       </SideNav>
     </div>
   );

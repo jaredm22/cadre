@@ -3,6 +3,8 @@ globalThis = global;
 const { PrismaClient } = require("@prisma/client");
 const path = require("path");
 const express = require("express");
+const { triggerAsyncId } = require("async_hooks");
+const { transformDocument } = require("@prisma/client/runtime");
 // const { graphqlExpress } = require('apollo-server-express')
 
 const prisma = new PrismaClient();
@@ -46,6 +48,16 @@ app.post("/getStudent", async (req, res) => {
           lectures: true,
           students: true,
           professor: true,
+          assignments: {
+            include: {
+              course: true,
+            },
+          },
+          exams: {
+            include: {
+              course: true,
+            },
+          },
         },
       },
       labs: {
@@ -99,7 +111,7 @@ app.get("/professors", async (req, res) => {
   res.json(professors);
 });
 
-// Get one professor route
+// Get one professor by email route
 app.post("/getProfessor", async (req, res) => {
   const professorEmail = req.body.email;
   const professor = await prisma.professor.findUnique({
@@ -113,6 +125,8 @@ app.post("/getProfessor", async (req, res) => {
           lectures: true,
           students: true,
           professor: true,
+          assignments: true,
+          exams: true,
         },
       },
       labs: {
@@ -183,6 +197,8 @@ app.post("/getCourse", async (req, res) => {
       students: true,
       lectures: true,
       labs: true,
+      assignments: true,
+      exams: true,
     },
   });
   console.log(courses);
@@ -261,6 +277,152 @@ app.post("/getLecture", async (req, res) => {
   });
   console.log(lecture);
   res.json(lecture);
+});
+
+// change lecture post route
+app.post("/changeLecture", async (req, res) => {
+  const {
+    courseId,
+    lectureDate,
+    changeLectureStyle,
+    lectureStyle,
+    changeZoomLink,
+    zoomLink,
+    day,
+  } = req.body;
+  const course = await prisma.course.findUnique({
+    where: {
+      id: courseId,
+    },
+  });
+  var lecture;
+  if (changeLectureStyle == true && changeZoomLink == true) {
+    lecture = await prisma.lecture.create({
+      data: {
+        lectureStyle: lectureStyle,
+        courseId: courseId,
+        zoomLink: zoomLink,
+        day: day,
+        lectureDate: lectureDate,
+        startTime: course.startTime,
+        endTime: course.endTime,
+      },
+    });
+  } else if (changeLectureStyle == true && changeZoomLink == false) {
+    lecture = await prisma.lecture.create({
+      data: {
+        lectureStyle: lectureStyle,
+        courseId: courseId,
+        zoomLink: course.zoomLink,
+        day: day,
+        lectureDate: lectureDate,
+        startTime: course.startTime,
+        endTime: course.endTime,
+      },
+    });
+  } else if (changeLectureStyle == false && changeZoomLink == true) {
+    lecture = await prisma.lecture.create({
+      data: {
+        lectureStyle: course.lectureStyle,
+        courseId: courseId,
+        zoomLink: zoomLink,
+        day: day,
+        lectureDate: lectureDate,
+        startTime: course.startTime,
+        endTime: course.endTime,
+      },
+    });
+  }
+  console.log(lecture);
+  res.json("added lecture");
+});
+
+// Lecture delete route
+app.delete("/changeLecture", async (req, res) => {
+  const { courseId, lectureDate } = req.body;
+  const post = await prisma.lecture.delete({
+    where: {
+      lecture_courseId_lectureDate: {
+        courseId: courseId,
+        lectureDate: lectureDate,
+      },
+    },
+  });
+  console.log(post);
+  res.json("deleted lecture");
+});
+
+// Assignments Routes
+// get all assignments
+app.get("/assignments", async (req, res) => {
+  const assignments = await prisma.assignment.findMany({
+    include: {
+      Course: true,
+    },
+  });
+  console.log(assignments);
+  res.json(assignments);
+});
+
+// gets one assignment
+app.post("/getAssignment", async (req, res) => {
+  const { courseId, name } = req.body;
+  const assignment = await prisma.assignment.findUnique({
+    where: {
+      assignment_courseId_name: {
+        courseId: courseId,
+        name: name,
+      },
+    },
+    include: {
+      Course: true,
+    },
+  });
+  console.log(assignment);
+  res.json(assignment);
+});
+
+// creates an assignment
+app.post("/assignments", async (req, res) => {
+  const {
+    courseId,
+    name,
+    assignmentType,
+    assignedDate,
+    assignedTime,
+    dueDate,
+    dueTime,
+    tags,
+  } = req.body;
+  const assignment = await prisma.assignment.create({
+    data: {
+      courseId,
+      name,
+      assignmentType,
+      assignedDate,
+      assignedTime,
+      dueDate,
+      dueTime,
+      tags,
+    },
+  });
+  console.log(assignment);
+  res.json("assignment created");
+});
+
+//deletes an assignment
+app.delete("/assignments", async (req, res) => {
+  const { courseId, name } = req.body;
+  const post = await prisma.assignment.delete({
+    where: {
+      assignment_courseId_name: {
+        courseId: courseId,
+        name: name,
+      },
+    },
+  });
+  console.log(post);
+  res.json("deleted assignment");
 });
 
 const server = app.listen(process.env.PORT || port, () =>
