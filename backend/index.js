@@ -50,12 +50,12 @@ app.post("/getStudent", async (req, res) => {
           professor: true,
           assignments: {
             include: {
-              course: true,
+              Course: true,
             },
           },
           exams: {
             include: {
-              course: true,
+              Course: true,
             },
           },
         },
@@ -205,6 +205,8 @@ app.post("/getCourse", async (req, res) => {
   res.json(courses);
 });
 
+
+
 app.post("/courses", async (req, res) => {
   const {
     courseId,
@@ -237,6 +239,63 @@ app.post("/courses", async (req, res) => {
   console.log(courses);
   res.json(courses);
 });
+
+app.post("/addCourseStudent", async (req, res) => {
+  const {
+    courseId,
+    courseName,
+    section,
+    school,
+    zoomLink,
+    days,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+    lectureStyle,
+    studentId,
+  } = req.body;
+  console.log(studentId);
+
+  const courses = await prisma.course.upsert({
+    where: {
+      courseId_courseName_section_unique: {
+        courseId: courseId,
+        courseName: courseName,
+        section: section,
+      },
+    },
+    update : {
+      students : {
+        connect: [{id: studentId}]
+      }
+    },
+    create: {
+      courseId,
+      courseName,
+      section,
+      school,
+      zoomLink,
+      days,
+      startDate,
+      endDate,
+      startTime,
+      endTime,
+      lectureStyle,
+      students: {
+        connect: [{id: studentId}]
+      },
+
+    },
+    include: {
+      students: true,
+    }
+  });
+  console.log(courses);
+  res.json(courses);
+});
+
+
 
 // Lab Routes
 // Lab get all route

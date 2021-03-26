@@ -23,6 +23,7 @@ const parseTime = (time) => {
 export default function ExamCard(props) {
   const dueDate = parseISO(props.dueDate, "yyyy-MM-dd", new Date());
   const dueTime = parseTime(props.dueTime);
+  console.log(props);
 
   return (
     <div key={props.id} className="exam">
@@ -31,7 +32,7 @@ export default function ExamCard(props) {
       </div>
 
       <div className="course-id">
-        <h4>{props.course.courseId + (props.showFull ? " |  Exam" : "")}</h4>
+        <h4>{props.Course.courseId + (props.showFull ? " |  Exam" : "")}</h4>
       </div>
 
       <div className="fullname-exam">

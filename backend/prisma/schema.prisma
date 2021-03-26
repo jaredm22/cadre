@@ -32,7 +32,6 @@ model Course {
   section      String?
   school       String?
   zoomLink     String?
-  piazzaLink   String?      
   days         String[]
   startDate    String       @default("2021-01-25")
   endDate      String       @default("2021-04-29")
@@ -40,14 +39,12 @@ model Course {
   endTime      String       @default("12:00")
   lectureStyle lectureStyle @default(Hybrid)
   piazzaLink   String?
-  Assignment   Assignment[]
-  Exam         Exam[]
+  assignments  Assignment[]
+  exams        Exam[]
   labs         Lab[]
   lectures     Lecture[]
   professor    Professor[]
   students     Student[]
-  assignments  Assignment[]
-  exams        Exam[]
 
   @@unique([courseId, courseName, section], name: "courseId_courseName_section_unique")
 }
@@ -92,7 +89,7 @@ model Assignment {
   dueDate        String   @default("2021-01-25")
   dueTime        String   @default("12:00")
   tags           String[]
-  Course         Course?  @relation(fields: [courseId], references: [id])
+  course         Course?  @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, name], name: "assignment_courseId_name")
 }
@@ -105,7 +102,7 @@ model Exam {
   dueDate  String   @default("2021-01-25")
   dueTime  String   @default("12:00")
   tags     String[]
-  Course   Course?  @relation(fields: [courseId], references: [id])
+  course   Course?  @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, name], name: "exam_courseId_name")
 }

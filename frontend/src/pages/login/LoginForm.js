@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormGroup,
@@ -9,68 +9,54 @@ import {
   Column,
 } from "carbon-components-react/";
 import api from "../../apiHandle";
+import { useHistory } from "react-router-dom";
 import "./form.css";
 
-export default class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
+export default function LoginForm() {
+  const [email, handleEmailChange] = useState("");
+  const history = useHistory();
 
-    this.state = {
-      email: "",
-    };
+  const submitHandler = (event) => {
+  
+    api.getStudentByEmail(email).then((res) => {
+      console.log(email);
+      if (res != null) {
+        history.push("/schedule/" + email + "/" + res.id);
+      } else {
+        console.log(null);
+      }
+    });
 
-    this.handleTextInputChange = (event) => {
-      const id = event.target.id;
-      this.setState({ [id]: event.target.value });
-    };
+    event.preventDefault();
+  };
 
-    this.submitHandler = () => {
-      const { email } = this.state;
-      const { history } = this.props.props;
+  return (
+    <Grid className="form">
+      <Form onSubmit={submitHandler}>
+        <Row>
+          <h2>View your Schedule</h2>
+        </Row>
 
-      api.getStudentByEmail(email).then((res) => {
-        if (res != null) {
-          console.log(res);
-          history.push("/schedule" + email);
-        } else {
-          console.log(null);
-        }
-      });
-    };
-  }
+        <Row>
+          <Column>
+            <FormGroup className="email-input" legendText="Email">
+              <TextInput
+                id="email"
+                value={email}
+                placeholdertext="Email"
+                labelText={false}
+                onChange={(e) => {handleEmailChange(e.target.value)}}
+              />
+            </FormGroup>
+          </Column>
+        </Row>
 
-  render() {
-    const { email } = this.state;
-    console.log(this.props);
-
-    return (
-      <Grid className="form">
-        <Form onSubmit={this.submitHandler}>
-          <Row>
-            <h2>View your Schedule</h2>
-          </Row>
-
-          <Row>
-            <Column>
-              <FormGroup className="email-input" legendText="Email">
-                <TextInput
-                  id="email"
-                  value={email}
-                  placeholdertext="Email"
-                  labelText={false}
-                  onChange={this.handleTextInputChange}
-                />
-              </FormGroup>
-            </Column>
-          </Row>
-
-          <Row>
-            <Button variant="primary" type="submit" className="submit">
-              Submit
-            </Button>
-          </Row>
-        </Form>
-      </Grid>
-    );
-  }
+        <Row>
+          <Button variant="primary" type="submit" className="submit">
+            Submit
+          </Button>
+        </Row>
+      </Form>
+    </Grid>
+  );
 }

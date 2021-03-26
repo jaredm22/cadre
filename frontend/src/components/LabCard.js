@@ -18,6 +18,7 @@ const parseTime = (startTime, endTime) => {
 };
 
 export default function LabCard(props) {
+  console.log(props);
   return (
     <div key={props.id} className="lab">
       <div className="time">

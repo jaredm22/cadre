@@ -47,7 +47,7 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    api.getStudentByEmail("jmin@bu.edu").then((student) => {
+    api.getStudentByEmail(this.props.email).then((student) => {
       console.log(student);
       this.setState({
         dataLoaded: true,

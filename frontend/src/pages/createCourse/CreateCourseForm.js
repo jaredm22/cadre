@@ -21,6 +21,7 @@ import "./form.css";
 export default class CreateCourseForm extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       courseId: "",
       courseName: "",
@@ -112,7 +113,7 @@ export default class CreateCourseForm extends React.Component {
       { text: "Remote", value: "Remote" },
     ];
 
-    this.submitHandler = () => {
+    this.submitHandler = (e) => {
       const {
         courseId,
         courseName,
@@ -134,8 +135,10 @@ export default class CreateCourseForm extends React.Component {
         }
       }
 
-      api
-        .createCourse(
+      console.log(courseId);
+      console.log(courseName);
+      console.log(section)
+      api.createCourseStudent(
           courseId,
           courseName,
           section,
@@ -146,15 +149,17 @@ export default class CreateCourseForm extends React.Component {
           endDate,
           startTime,
           endTime,
-          lectureStyle
+          lectureStyle,
+          this.props.studentId,
         )
         .then((res) => console.log(res));
+
+      e.preventDefault();
     };
   }
 
   render() {
     const { courseId, courseName, section, zoomLink } = this.state;
-    console.log(this.state);
 
     return (
       <Grid>
