@@ -25,9 +25,8 @@ export default function LectureCard(props) {
 
       <div className="fullname-course">
         <h4 className="black">
-          <a target="_blank" rel="noreferrer" href={props.zoomLink}>
-            {props.courseId} {props.showFull ? " | Lecture" : ""}
-          </a>
+        {props.courseId} {props.showFull ? " | Lecture" : ""}
+
         </h4>
       </div>
 
@@ -36,15 +35,13 @@ export default function LectureCard(props) {
         // style={{ display: props.showFull ? "block" : "none"}}
       >
         <h5 className="black">
-          <a target="_blank" rel="noreferrer" href={props.zoomLink}>
-            {props.courseName}
-          </a>
+          {props.courseName}
         </h5>
       </div>
 
       <br></br>
 
-      {/* <div className="zoomlink">
+      <div className="zoomlink">
         <h6 className="black">
           <a target="_blank" rel="noreferrer" href={props.zoomLink}>
             Zoom Link
@@ -55,7 +52,7 @@ export default function LectureCard(props) {
             {props.zoomLink}
           </a>
         </p>
-      </div> */}
+      </div>
 
       {/* <p className="black"  style={{ display: props.showFull ? "block" : "none" }}>
         <a target="_blank" rel="noreferrer" href="blackboard.com">

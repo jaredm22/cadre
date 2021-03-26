@@ -89,7 +89,7 @@ model Assignment {
   dueDate        String   @default("2021-01-25")
   dueTime        String   @default("12:00")
   tags           String[]
-  course         Course?  @relation(fields: [courseId], references: [id])
+  Course         Course?  @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, name], name: "assignment_courseId_name")
 }
@@ -102,7 +102,7 @@ model Exam {
   dueDate  String   @default("2021-01-25")
   dueTime  String   @default("12:00")
   tags     String[]
-  course   Course?  @relation(fields: [courseId], references: [id])
+  Course   Course?  @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, name], name: "exam_courseId_name")
 }
