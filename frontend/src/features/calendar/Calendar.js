@@ -1,6 +1,6 @@
 import React from "react";
-import { Slider, Grid, Row, Column } from "carbon-components-react";
-import { addDays, format } from "date-fns";
+import { Slider, Grid, Row, Column, Loading } from "carbon-components-react";
+import { addDays, format, formatISO } from "date-fns";
 import Day from "../../components/Day";
 import "./calendar.scss";
 import api from "../../apiHandle";
@@ -26,6 +26,18 @@ class Calendar extends React.Component {
     console.log(el);
   };
 
+  // Handles day slider change to close any currently expanded days before re-rendering days
+  daySliderHandler = (value) => {
+    if (this.state.expand === "expanded") {
+      this.daysrefs.forEach((day) => {
+        if (day.state.expand === "is-expanded") {
+          day.setState({ expand: "no-expand" });
+        }
+      });
+    }
+    this.setState({ days: value });
+  };
+
   shouldComponentUpdate() {
     return this.state.days > 0;
   }
@@ -35,7 +47,7 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    api.getStudentByEmail("jmin@bu.edu").then((student) => {
+    api.getStudentByEmail(this.props.email).then((student) => {
       console.log(student);
       this.setState({
         dataLoaded: true,
@@ -48,23 +60,54 @@ class Calendar extends React.Component {
   //       var state = this.state;
   //   }
 
-  expandDay(day, index) {
-    // console.log(index)
-    // console.log(day)
+  // toggles the state of the clicked day component and calendar component to expand/no-expand
+  expandDay(index, day) {
+    console.log(index);
+    console.log(day);
     // if (day > 0 && day < 4) {
-    const wrapper = this.daysrefs[day].state;
+    const wrapper = this.daysrefs[index].state;
+    console.log(wrapper);
     // var setexpand;
 
     if (this.state.expand === "no-expand") {
-      this.daysrefs[day].setState({ expand: "is-expanded" });
+      this.daysrefs[index].setState({ expand: "is-expanded" });
       this.setState({ expand: "is-expanded" });
     } else {
       if (wrapper.expand === "is-expanded") {
-        this.daysrefs[day].setState({ expand: "no-expand" });
+        console.log("minize!");
+        this.daysrefs[index].setState({ expand: "no-expand" });
         this.setState({ expand: "no-expand" });
+        console.log(this.state.expand);
       }
       // setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
     }
+  }
+
+  //goes through Day components and find out which index day is expanded
+  findExpandedDay() {
+    let dayidx;
+    for (const [index, val] of this.daysrefs.entries()) {
+      let dayrefState = val.state;
+      if (dayrefState.expand === "is-expanded") {
+        console.log(index);
+        dayidx = index;
+        break;
+      }
+    }
+    return dayidx;
+  }
+
+  changeDayVal(value) {
+    if (this.state.expand === "is-expanded") {
+      let day = this.findExpandedDay();
+      console.log(day);
+      this.expandDay(day, null);
+
+      this.state.expand === "is-expanded" && this.setState({ days: value });
+    }
+    console.log(this.state.expand);
+
+    this.state.expand === "no-expand" && this.setState({ days: value });
   }
 
   render() {
@@ -78,6 +121,7 @@ class Calendar extends React.Component {
               i={i}
               // className="today"
               today={true}
+              fullDate={this.state.today}
               month={format(this.state.today, "LLL")}
               date={this.state.today.getDate()}
               day={format(this.state.today, "EEE")}
@@ -93,6 +137,7 @@ class Calendar extends React.Component {
               i={i}
               // className={this.state.expand}
               today={false}
+              fullDate={addDays(this.state.today, i)}
               month={format(addDays(this.state.today, i), "LLL")}
               date={addDays(this.state.today, i).getDate()}
               day={format(addDays(this.state.today, i), "EEE")}
@@ -112,7 +157,12 @@ class Calendar extends React.Component {
         <Row className="intro">
           {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
           <Column>
-            <h3>Hello, {this.state.student.firstName}</h3>
+            <h3>
+              Hello,{" "}
+              <span className="student-name">
+                {this.state.student.firstName}
+              </span>
+            </h3>
 
             <h4 aria-label="calendar" className="calendar-title">
               {format(this.state.today, "cccc") + ", "}
@@ -131,7 +181,7 @@ class Calendar extends React.Component {
                     max={5}
                     min={1}
                     value={3}
-                    onChange={({ value }) => this.setState({ days: value })}
+                    onChange={({ value }) => this.changeDayVal(value)}
                   />
                 </div>
               </div>
@@ -140,20 +190,18 @@ class Calendar extends React.Component {
         </Row>
 
         <Row className="date-head">
-          {day_list.map((el, index) => {
+          {day_list.map((day, index) => {
             let handleclick = this.expandDay.bind(this, index);
 
             return (
               <Column
-                key={el.props.date}
+                key={day.props.date}
                 // className={'a-day bx--col-lg-' + Math.floor(16 / this.state.days)}
                 className="a-day"
                 lg={Math.floor(16 / this.state.days)}
                 onClick={handleclick}
               >
-                {el}
-
-                {/* {el} */}
+                {day}
               </Column>
             );
           })}

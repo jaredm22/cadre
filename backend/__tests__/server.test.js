@@ -142,3 +142,75 @@ it("deletes professor entry by email", async (done) => {
   expect(check.body).toBe(null);
   done();
 });
+
+it("creates a lecture where zoom link and lecture style are changed", async (done) => {
+  const response = await request.post("/changeLecture").send({
+    courseId: 1,
+    lectureDate: "2021-03-24",
+    changeLectureStyle: true,
+    lectureStyle: "Cancelled",
+    changeZoomLink: true,
+    zoomLink: "https://zoom.us",
+    day: "Wednesday",
+  });
+  const check = await request
+    .post("/getLecture")
+    .send({ courseId: 1, lectureDate: "2021-03-24" });
+  expect(check.status).toBe(200);
+  expect(check.body.lectureStyle).toBe("Cancelled");
+  done();
+});
+
+it("deletes lecture entry by courseId and date", async (done) => {
+  const response = await request
+    .delete("/changeLecture")
+    .send({ courseId: 1, lectureDate: "2021-03-24" });
+  const check = await request
+    .post("/getLecture")
+    .send({ courseId: 1, lectureDate: "2021-03-24" });
+  expect(check.status).toBe(200);
+  expect(check.body).toBe(null);
+  done();
+});
+
+it("gets one assignment based on courseId and name", async (done) => {
+  const response = await request
+    .post("/getAssignment")
+    .send({ courseId: 1, name: "Problem Set 1" });
+  expect(response.status).toBe(200);
+  expect(response.body.assignedDate).toBe("2021-01-25");
+  done();
+});
+
+it("creates an assignment", async (done) => {
+  const response = await request.post("/assignments").send({
+    courseId: 1,
+    name: "Problem Set 2",
+    assignmentType: "Problem Set",
+    assignedDate: "2021-01-25",
+    assignedTime: "12:00",
+    dueDate: "2021-01-25",
+    dueTime: "12:00",
+    tags: ["Ch.2"],
+  });
+  const check = await request.post("/getAssignment").send({
+    courseId: 1,
+    name: "Problem Set 2",
+  });
+  expect(check.status).toBe(200);
+  expect(check.body.assignedDate).toBe("2021-01-25");
+  expect(check.body.assignmentType).toBe("Problem Set");
+  done();
+});
+
+it("deletes lecture entry by courseId and name", async (done) => {
+  const response = await request
+    .delete("/assignments")
+    .send({ courseId: 1, name: "Problem Set 2" });
+  const check = await request
+    .post("/getAssignment")
+    .send({ courseId: 1, name: "Problem Set 2" });
+  expect(check.status).toBe(200);
+  expect(check.body).toBe(null);
+  done();
+});
