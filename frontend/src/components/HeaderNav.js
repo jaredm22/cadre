@@ -5,7 +5,7 @@ import LoginPage from "../pages/createCourse/CreateCoursePage";
 import SchedulePage from "../pages/schedule/SchedulePage";
 import "../features/calendar/calendar.scss";
 
-function HeaderNav() {
+function HeaderNav(props) {
   return (
     <div className="App">
       <SideNav
@@ -23,7 +23,7 @@ function HeaderNav() {
               </Link>
             </li>
             <li>
-              <Link to="/createCourse">Create Course</Link>
+              <Link to={"/createCourse/"+props.id}>Create Course</Link>
             </li>
             <li>
               <Link to="/login">Login</Link>

@@ -1,9 +1,9 @@
-import React from "react";
 import CreateCourseForm from "./CreateCourseForm";
+import { useParams } from "react-router";
 
-class CreateCoursePage extends React.Component {
-  render() {
-    return <CreateCourseForm />;
-  }
+export default function CreateCoursePage() {
+  const { id } = useParams();
+  console.log(id);
+
+  return <CreateCourseForm studentId={id} />
 }
-export default CreateCoursePage;

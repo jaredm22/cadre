@@ -7,13 +7,14 @@ import HeaderNav from "../../components/HeaderNav";
 import { Content } from "carbon-components-react";
 
 function SchedulePage(props) {
-  let { email } = useParams();
+  const { email, id } = useParams();
+  console.log(useParams());
 
   return (
     <div className="App">
-      <HeaderNav />
+      <HeaderNav id={id} />
       <Content>
-        <Calendar email={email} />
+        <Calendar email={email}/>
       </Content>
     </div>
   );
