@@ -1,58 +1,57 @@
-@import 'carbon-components/scss/components/slider/slider';
-@import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
-@import 'carbon-components/scss/globals/scss/vars.scss';
+@import "carbon-components/scss/components/slider/slider";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
 
 .calendar-contain {
-    // margin-top: 3em;
-    padding: 40px;
-    height: 100%;
-    background-color: white;
-    border-radius: 0.5pc;
-    transition: 777ms;
+  // margin-top: 3em;
+  padding: 40px;
+  height: 100%;
+  background-color: white;
+  border-radius: 0.5pc;
+  transition: 777ms;
 }
 
 .student-name {
-    color:rgb(5, 162, 230);
+  color: rgb(5, 162, 230);
 }
 
 .blue a {
-    text-decoration: none;
-    // color: blue
+  text-decoration: none;
+  // color: blue
 }
 
 .black a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .intro {
-    height: $layout-07;
+  height: $layout-07;
 }
 
-.days{
-    text-align: center;
+.days {
+  text-align: center;
 }
 
 .date {
-    margin-bottom: $spacing-05;
+  margin-bottom: $spacing-05;
 }
 
 .date-today {
-    margin-bottom: $spacing-05;
-    color: rgb(5, 162, 230);
+  margin-bottom: $spacing-05;
+  color: rgb(5, 162, 230);
 }
 
-
 .slider {
-    float: right;
+  float: right;
 }
 
 .calendar-title {
-    // margin-top: -$spacing-07;
-    // margin-bottom: $spacing-09;
-    @include carbon--font-family('sans');
+  // margin-top: -$spacing-07;
+  // margin-bottom: $spacing-09;
+  @include carbon--font-family("sans");
 
-    // font-weight: 600;
+  // font-weight: 600;
 }
 
 // .slider-row {
@@ -62,104 +61,106 @@
 // }
 
 @keyframes rollout {
-    0% {
-        transform: translateX(50px);
-    }
-    100% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .a-day {
-    animation: .4s rollout;
-    
+  animation: 0.4s rollout;
 
-    // width: 100%;   
+  // width: 100%;
 }
 
 .date-head {
-    height: calc(100vh - 15rem);
-    overflow-x: hidden;
-    // padding-left: $spacing-01;
-    // padding-right: $spacing-01;
+  height: calc(100vh - 15rem);
+  overflow-x: hidden;
+  // padding-left: $spacing-01;
+  // padding-right: $spacing-01;
 }
 
 .clndr-today {
-    background-color: aliceblue
+  background-color: aliceblue;
 }
 
 .clndr-day {
-    margin-bottom: -$spacing-01;
-    transition: width 777ms;
+  margin-bottom: -$spacing-01;
+  transition: width 777ms;
 }
 
 .day-col {
-    padding: $layout-02;
-    transition: all 777ms;
+  padding: $layout-02;
+  transition: all 777ms;
 }
 
-.clndr-today > .clndr-day, .clndr-today > .clndr-date {
-    color: blue
+.clndr-today > .clndr-day,
+.clndr-today > .clndr-date {
+  color: blue;
 }
 
 .shadow {
-    box-shadow: 0px 8px 24px 1px #f0f0f0;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  box-shadow: 0px 8px 24px 1px #f0f0f0;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 // .courses {
 //     overflow-y: scroll;
 //     height: calc(100% - 20rem);
 // }
 .course {
-    border-left: 3px solid black;
-    margin-bottom: $spacing-07;
-    padding: $spacing-05;
-    width: 100%;
-    height: 100%;
-    background-color: none;
-    min-height: 80px;
-    overflow-wrap: break-word;
+  border-left: 3px solid black;
+  margin-bottom: $spacing-07;
+  padding: $spacing-05;
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  min-height: 80px;
+  overflow-wrap: break-word;
 }
 
 .lab {
-    border-left: 3px solid rgb(198, 33, 198);
-    margin-bottom: $spacing-07;
-    padding: $spacing-05;
-    width: 100%;
-    height: 100%;
-    background-color: none;
-    min-height: 60px;
-    overflow-wrap: break-word;
+  border-left: 3px solid rgb(198, 33, 198);
+  margin-bottom: $spacing-07;
+  padding: $spacing-05;
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  min-height: 60px;
+  overflow-wrap: break-word;
 }
 
 .assignment {
-    border-left: 3px solid red;
-    margin-bottom: $spacing-07;
-    padding: $spacing-05;
-    width: 100%;
-    height: 100%;
-    background-color: none;
-    min-height: 60px;
-    overflow-wrap: break-word;
+  border-left: 3px solid red;
+  margin-bottom: $spacing-07;
+  padding: $spacing-05;
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  min-height: 60px;
+  overflow-wrap: break-word;
 }
 
 .exam {
-    border-left: 3px solid rgb(86, 220, 86);
-    margin-bottom: $spacing-07;
-    padding: $spacing-05;
-    width: 100%;
-    height: 100%;
-    background-color: none;
-    min-height: 60px;
-    overflow-wrap: break-word;
+  border-left: 3px solid rgb(86, 220, 86);
+  margin-bottom: $spacing-07;
+  padding: $spacing-05;
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  min-height: 60px;
+  overflow-wrap: break-word;
 }
 
 .course-id {
-    margin-bottom: -$spacing-01;
+  margin-bottom: -$spacing-01;
 }
 
-.fullname-course, .fullname-assignment, .fullname-exam {
-    margin-bottom: $spacing-02;
+.fullname-course,
+.fullname-assignment,
+.fullname-exam {
+  margin-bottom: $spacing-02;
 }
 
 // .zoomlink, .piazzalink, .lectureslideslink {
@@ -167,22 +168,24 @@
 // }
 
 .is-expanded {
-    // padding-left: 10% !important;
-    // padding-right: 10% !important;
-    // opacity: 0.7;
-    background-color: white;
-    // flex-grow: 12;
-    position: relative;
-    // left: 0 !important;
-    // right: 0;
-    margin: 0 auto;
-    width: calc(100vw - 18.5em) !important;
-    height: 100%;
-    z-index: 999;
-    
+  // padding-left: 10% !important;
+  // padding-right: 10% !important;
+  // opacity: 0.7;
+  background-color: white;
+  // flex-grow: 12;
+  position: relative;
+  // left: 0 !important;
+  // right: 0;
+  margin: 0 auto;
+  width: calc(100vw - 18.5em) !important;
+  height: 100%;
+  z-index: 999;
 }
 
-
+.is-expanded .course {
+  // width: 50%;
+  // background-color: #f0f0f0;
+}
 
 // .calendar-contain .bx--row {
 //     justify-content: center;
@@ -190,26 +193,26 @@
 
 //Carbon UI Overrides
 .bx--grid {
-    margin-right: 0;
-    transition: width 777ms;
+  margin-right: 0;
+  transition: width 777ms;
 }
-.bx--content{
-    background-color: transparent;
+.bx--content {
+  background-color: transparent;
 }
 .bx--text-input.bx--slider-text-input {
-    display: none; //ugly number indicator in slider code
+  display: none; //ugly number indicator in slider code
 }
 .bx--slider__thumb {
-    height: $spacing-05;
-    width: $spacing-05;
+  height: $spacing-05;
+  width: $spacing-05;
 }
 
 .date-head .bx--col:first-child {
-    padding-left: $spacing-01;
-    // padding-right: $spacing-01;
+  padding-left: $spacing-01;
+  // padding-right: $spacing-01;
 }
 
 .date-head .bx--col:last-child {
-    // padding-left: $spacing-01;
-    padding-right: $spacing-01;
+  // padding-left: $spacing-01;
+  padding-right: $spacing-01;
 }
