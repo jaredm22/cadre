@@ -25,8 +25,7 @@ export default function LectureCard(props) {
 
       <div className="fullname-course">
         <h4 className="black">
-        {props.courseId} {props.showFull ? " | Lecture" : ""}
-
+          {props.courseId} {props.showFull ? " | Lecture" : ""}
         </h4>
       </div>
 
@@ -34,9 +33,7 @@ export default function LectureCard(props) {
         className="fullname-course"
         // style={{ display: props.showFull ? "block" : "none"}}
       >
-        <h5 className="black">
-          {props.courseName}
-        </h5>
+        <h5 className="black">{props.courseName}</h5>
       </div>
 
       <br></br>

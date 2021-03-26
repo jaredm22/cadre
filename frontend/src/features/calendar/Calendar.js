@@ -62,11 +62,11 @@ class Calendar extends React.Component {
 
   // toggles the state of the clicked day component and calendar component to expand/no-expand
   expandDay(index, day) {
-    console.log(index)
-    console.log(day)
+    console.log(index);
+    console.log(day);
     // if (day > 0 && day < 4) {
     const wrapper = this.daysrefs[index].state;
-    console.log(wrapper)
+    console.log(wrapper);
     // var setexpand;
 
     if (this.state.expand === "no-expand") {
@@ -74,40 +74,38 @@ class Calendar extends React.Component {
       this.setState({ expand: "is-expanded" });
     } else {
       if (wrapper.expand === "is-expanded") {
-        console.log("minize!")
+        console.log("minize!");
         this.daysrefs[index].setState({ expand: "no-expand" });
         this.setState({ expand: "no-expand" });
-        console.log(this.state.expand)
+        console.log(this.state.expand);
       }
       // setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
     }
   }
 
   //goes through Day components and find out which index day is expanded
-  findExpandedDay(){
+  findExpandedDay() {
     let dayidx;
     for (const [index, val] of this.daysrefs.entries()) {
       let dayrefState = val.state;
       if (dayrefState.expand === "is-expanded") {
-        console.log(index)
-        dayidx = index
+        console.log(index);
+        dayidx = index;
         break;
       }
     }
-    return dayidx
+    return dayidx;
   }
 
-
-  changeDayVal(value){
-
-    if (this.state.expand === "is-expanded"){
+  changeDayVal(value) {
+    if (this.state.expand === "is-expanded") {
       let day = this.findExpandedDay();
       console.log(day);
-      this.expandDay(day, null)
-      
+      this.expandDay(day, null);
+
       this.state.expand === "is-expanded" && this.setState({ days: value });
     }
-    console.log(this.state.expand)
+    console.log(this.state.expand);
 
     this.state.expand === "no-expand" && this.setState({ days: value });
   }
