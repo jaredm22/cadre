@@ -48,23 +48,56 @@ class Calendar extends React.Component {
   //       var state = this.state;
   //   }
 
-  expandDay(day, index) {
-    // console.log(index)
-    // console.log(day)
+  // toggles the state of the clicked day component and calendar component to expand/no-expand
+  expandDay(index, day) {
+    console.log(index)
+    console.log(day)
     // if (day > 0 && day < 4) {
-    const wrapper = this.daysrefs[day].state;
+    const wrapper = this.daysrefs[index].state;
+    console.log(wrapper)
     // var setexpand;
 
     if (this.state.expand === "no-expand") {
-      this.daysrefs[day].setState({ expand: "is-expanded" });
+      this.daysrefs[index].setState({ expand: "is-expanded" });
       this.setState({ expand: "is-expanded" });
     } else {
       if (wrapper.expand === "is-expanded") {
-        this.daysrefs[day].setState({ expand: "no-expand" });
+        console.log("minize!")
+        this.daysrefs[index].setState({ expand: "no-expand" });
         this.setState({ expand: "no-expand" });
+        console.log(this.state.expand)
       }
       // setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
     }
+  }
+
+  //goes through Day components and find out which index day is expanded
+  findExpandedDay(){
+    let dayidx;
+    for (const [index, val] of this.daysrefs.entries()) {
+      let dayrefState = val.state;
+      if (dayrefState.expand === "is-expanded") {
+        console.log(index)
+        dayidx = index
+        break;
+      }
+    }
+    return dayidx
+  }
+
+
+  changeDayVal(value){
+
+    if (this.state.expand === "is-expanded"){
+      let day = this.findExpandedDay();
+      console.log(day);
+      this.expandDay(day, null)
+      
+      this.state.expand === "is-expanded" && this.setState({ days: value });
+    }
+    console.log(this.state.expand)
+
+    this.state.expand === "no-expand" && this.setState({ days: value });
   }
 
   render() {
@@ -131,7 +164,7 @@ class Calendar extends React.Component {
                     max={5}
                     min={1}
                     value={3}
-                    onChange={({ value }) => this.setState({ days: value })}
+                    onChange={({ value }) => this.changeDayVal(value)}
                   />
                 </div>
               </div>
