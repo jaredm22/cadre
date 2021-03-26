@@ -2,7 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Dropdown, Grid, Row } from "carbon-components-react";
 import api from "../apiHandle";
-import { parseISO, getHours, getMinutes, isSameDay } from "date-fns";
+import {
+  parseISO,
+  getHours,
+  getMinutes,
+  isSameDay,
+  compareAsc,
+} from "date-fns";
 import LectureCard from "./LectureCard";
 import LabCard from "./LabCard";
 import AssignmentCard from "./AssignmentCard";
@@ -87,6 +93,8 @@ class Day extends React.Component {
           ? `translateX(-${getEWidth(this.props.i) * this.props.i}px)`
           : `translateX(0px)`,
     };
+    console.log(exams);
+    console.log(exams.sort((e1, e2) => e1.dueTime > e2.dueTime));
 
     return (
       <section
@@ -111,46 +119,56 @@ class Day extends React.Component {
         )}
 
         <div className="courses">
-          {lectures.map((course) => {
-            return (
-              <LectureCard
-                {...course}
-                parseTime={this.parseTime}
-                expand={this.state.expand}
-                showFull={this.props.days <= 4}
-              />
-            );
-          })}
-          {labs.map((lab) => {
-            return (
+          {assignments
+            .sort((a1, a2) => a1.dueTime > a2.dueTime)
+            .map((assignment) => {
+              return (
+                <AssignmentCard
+                  {...assignment}
+                  parseTime={(time) => this.parseTime(time)}
+                  expand={this.state.expand}
+                  showFull={this.props.days <= 4}
+                />
+              );
+            })}
+          {exams
+            .sort((e1, e2) => e1.dueTime > e2.dueTime)
+            .map((exam) => {
+              return (
+                <ExamCard
+                  {...exam}
+                  parseTime={(time) => this.parseTime(time)}
+                  expand={this.state.expand}
+                  showFull={this.props.days <= 4}
+                />
+              );
+            })}
+          {lectures
+            .concat(labs)
+            .sort((l1, l2) => l1.startTime > l2.startTime)
+            .map((course) => {
+              return (
+                <LectureCard
+                  {...course}
+                  parseTime={this.parseTime}
+                  expand={this.state.expand}
+                  showFull={this.props.days <= 4}
+                />
+              );
+            })}
+
+          {/* {labs
+            .sort((lab1,lab2) => lab1.startTime > lab2.startTime)
+            .map((lab) => {
+              return (
               <LabCard
                 {...lab}
                 parseTime={(time) => this.parseTime(time)}
                 expand={this.state.expand}
-                showFull={this.props.days < 4}
-              />
-            );
-          })}
-          {assignments.map((assignment) => {
-            return (
-              <AssignmentCard
-                {...assignment}
-                parseTime={(time) => this.parseTime(time)}
-                expand={this.state.expand}
                 showFull={this.props.days <= 4}
               />
-            );
-          })}
-          {exams.map((exam) => {
-            return (
-              <ExamCard
-                {...exam}
-                parseTime={(time) => this.parseTime(time)}
-                expand={this.state.expand}
-                showFull={this.props.days <= 4}
-              />
-            );
-          })}
+              );
+            })} */}
         </div>
       </section>
     );

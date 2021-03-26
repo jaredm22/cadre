@@ -1,5 +1,6 @@
 import CreateCourseForm from "./CreateCourseForm";
 import { useParams } from "react-router";
+import "./form.scss";
 
 export default function CreateCoursePage() {
   const { id } = useParams();

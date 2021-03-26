@@ -10,7 +10,7 @@ import {
 } from "carbon-components-react/";
 import api from "../../apiHandle";
 import { useHistory } from "react-router-dom";
-import "./form.css";
+import "./form.scss";
 
 export default function LoginForm() {
   const [email, handleEmailChange] = useState("");
@@ -30,11 +30,12 @@ export default function LoginForm() {
   };
 
   return (
-    <Grid className="form">
+    <Grid className="login-form">
       <Form onSubmit={submitHandler}>
         <Row>
-          <h2>View your Schedule</h2>
+          <h2>Welcome to Cadre</h2>
         </Row>
+        <br></br>
 
         <Row>
           <Column>
@@ -43,6 +44,7 @@ export default function LoginForm() {
                 id="email"
                 value={email}
                 placeholdertext="Email"
+                helperText="Please enter your email to view your schedule."
                 labelText={false}
                 onChange={(e) => {
                   handleEmailChange(e.target.value);

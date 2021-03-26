@@ -12,22 +12,39 @@ const parseTime = (startTime, endTime) => {
   } else if (sh < 12) {
     return sh + ":" + sm + " - " + eh + ":" + em + " AM";
   } else {
-    return sh - 12 + ":" + sm + " - " + (eh - 12) + ":" + em + " PM";
+    return (
+      (sh == 12 ? sh : sh - 12) +
+      ":" +
+      sm +
+      " - " +
+      (eh == 12 ? eh : eh - 12) +
+      ":" +
+      em +
+      " PM"
+    );
   }
 };
 
 export default function LectureCard(props) {
+  console.log(props);
+
   return (
     <div key={props.id} className="course">
       <div className="time">
         <h5>{parseTime(props.startTime, props.endTime)} </h5>
       </div>
 
-      <div className="fullname-course">
-        <h4 className="black">
-          {props.courseId} {props.showFull ? " | Lecture" : ""}
-        </h4>
-      </div>
+      {props.school ? (
+        <div className="fullname-course">
+          <h4 className="black">
+            {props.courseId} {props.showFull ? " | Lecture" : ""}
+          </h4>
+        </div>
+      ) : (
+        <div className="fullname-course">
+          <h4 className="black">{props.course.courseId + " | Lab"}</h4>
+        </div>
+      )}
 
       <div
         className="fullname-course"
@@ -39,7 +56,7 @@ export default function LectureCard(props) {
       <br></br>
 
       <div className="zoomlink">
-        <h6 className="black">
+        <h6 className="blue">
           <a target="_blank" rel="noreferrer" href={props.zoomLink}>
             Zoom Link
           </a>
@@ -50,20 +67,6 @@ export default function LectureCard(props) {
           </a>
         </p>
       </div>
-
-      {/* <p className="black"  style={{ display: props.showFull ? "block" : "none" }}>
-        <a target="_blank" rel="noreferrer" href="blackboard.com">
-          Lecture Slides
-        </a>
-      </p> */}
-
-      {/* Render piazza link for class if exists */}
-      {/* {props.piazzaLink != null ? (
-        <p className="black" style={{ display: props.showFull ? "block" : "none" }}>
-          <a target="_blank" rel="noreferrer" href={props.piazzaLink}>
-            Piazza
-          </a>
-        </p>) : false } */}
 
       <div
         className="xtra-info"

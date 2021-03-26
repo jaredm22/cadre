@@ -6,18 +6,12 @@ import "../features/calendar/calendar.scss";
 const parseTime = (time) => {
   const [hours, minutes] = time.split(":");
 
-  if (hours == "00" && minutes == "00") {
-    return "11:59 PM";
-  } else if (hours === "12" && minutes === "00") {
-    return "Noon";
-  } else {
-    return (
-      (hours >= 13 ? hours - 12 : hours) +
-      ":" +
-      (minutes == 0 ? "00" : minutes) +
-      (hours >= 12 ? " PM" : " AM")
-    );
-  }
+  return (
+    (hours >= 13 ? hours - 12 : hours) +
+    ":" +
+    (minutes == 0 ? "00" : minutes) +
+    (hours >= 12 ? " PM" : " AM")
+  );
 };
 
 export default function ExamCard(props) {

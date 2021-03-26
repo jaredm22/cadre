@@ -6,9 +6,7 @@ import "../features/calendar/calendar.scss";
 const parseTime = (time) => {
   const [hours, minutes] = time.split(":");
 
-  if (hours == "00" && minutes == "00") {
-    return "11:59 PM";
-  } else if (hours === "12" && minutes === "00") {
+  if (hours === "12" && minutes === "00") {
     return "Noon";
   } else {
     return (

@@ -28,6 +28,19 @@ export default function LabCard(props) {
       <div className="fullname-course">
         <h4>{props.course.courseId + " | Lab"}</h4>
       </div>
+
+      <div className="zoomlink">
+        <h6 className="blue">
+          <a target="_blank" rel="noreferrer" href={props.zoomLink}>
+            Zoom Link
+          </a>
+        </h6>
+        <p style={{ display: props.showFull ? "block" : "none" }}>
+          <a target="_blank" rel="noreferrer" href={props.zoomLink}>
+            {props.zoomLink}
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
