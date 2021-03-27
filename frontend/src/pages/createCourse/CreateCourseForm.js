@@ -176,7 +176,9 @@ export default class CreateCourseForm extends React.Component {
         )
         .then((res) => {
           if (res == null) {
-            alert("Unable to create course. Please screenshot form and send to dev team.");
+            alert(
+              "Unable to create course. Please screenshot form and send to dev team."
+            );
             console.log("Unable to create course.");
           } else {
             alert("Course succesfully created.");
