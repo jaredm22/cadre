@@ -239,23 +239,25 @@ app.post("/courses", async (req, res) => {
 });
 
 app.post("/addCourseStudent", async (req, res) => {
-  const {
-    courseId,
-    courseName,
-    section,
-    school,
-    zoomLink,
-    days,
-    startDate,
-    endDate,
-    startTime,
-    endTime,
-    lectureStyle,
-    studentId,
-  } = req.body;
-  console.log(studentId);
-
-  const courses = await prisma.course.upsert({
+  const { courseId, courseName, section, studentId } = req.body;
+  const course = await prisma.course.findUnique({
+    where: {
+      courseId_courseName_section_unique: {
+        courseId: courseId,
+        courseName: courseName,
+        section: section,
+      },
+    },
+    include: {
+      professor: true,
+      students: true,
+      lectures: true,
+      labs: true,
+      assignments: true,
+      exams: true,
+    },
+  });
+  const updatedCourse = await prisma.course.upsert({
     where: {
       courseId_courseName_section_unique: {
         courseId: courseId,
@@ -269,17 +271,17 @@ app.post("/addCourseStudent", async (req, res) => {
       },
     },
     create: {
-      courseId,
-      courseName,
-      section,
-      school,
-      zoomLink,
-      days,
-      startDate,
-      endDate,
-      startTime,
-      endTime,
-      lectureStyle,
+      courseId: course.courseId,
+      courseName: course.courseName,
+      section: course.section,
+      school: course.school,
+      zoomLink: course.zoomLink,
+      days: course.days,
+      startDate: course.startDate,
+      endDate: course.endDate,
+      startTime: course.startTime,
+      endTime: course.endTime,
+      lectureStyle: course.lectureStyle,
       students: {
         connect: [{ id: studentId }],
       },
@@ -288,8 +290,8 @@ app.post("/addCourseStudent", async (req, res) => {
       students: true,
     },
   });
-  console.log(courses);
-  res.json(courses);
+  console.log(updatedCourse);
+  res.json("student added");
 });
 
 // Lab Routes
