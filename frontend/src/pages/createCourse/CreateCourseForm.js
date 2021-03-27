@@ -38,7 +38,9 @@ export default class CreateCourseForm extends React.Component {
       startDate: "2021-01-25",
       endDate: "2021-04-29",
       startTime: "",
+      startTimeSelect: "",
       endTime: "",
+      endTimeSelect: "",
       lectureStyle: "Hybrid",
     };
 
@@ -62,8 +64,12 @@ export default class CreateCourseForm extends React.Component {
       this.setState({ [id]: event.target.value });
     };
 
-    this.handleEndTimeInput = (endTime) => {
-      this.setState({ endTime });
+    this.onStartTimeSelect = (event) => {
+      this.setState({ startTimeSelect: event.target.value });
+    };
+
+    this.onEndTimeSelect = (event) => {
+      this.setState({ endTimeSelect: event.target.value });
     };
 
     this.handleDaySelect = (checked, id, event) => {
@@ -114,7 +120,7 @@ export default class CreateCourseForm extends React.Component {
     ];
 
     this.submitHandler = (e) => {
-      const {
+      var {
         courseId,
         courseName,
         section,
@@ -124,7 +130,9 @@ export default class CreateCourseForm extends React.Component {
         startDate,
         endDate,
         startTime,
+        startTimeSelect,
         endTime,
+        endTimeSelect,
         lectureStyle,
       } = this.state;
 
@@ -135,11 +143,25 @@ export default class CreateCourseForm extends React.Component {
         }
       }
 
+      if (startTimeSelect == "PM") {
+        const [sh, sm] = startTime.split(":");
+        if (sh != 12) {
+          startTime = 12 + +sh + ":" + sm;
+        }
+      }
+
+      if (endTimeSelect == "PM") {
+        const [eh, em] = endTime.split(":");
+        if (eh != 12) {
+          endTime = 12 + +eh + ":" + em;
+        }
+      }
+
       console.log(courseId);
       console.log(courseName);
       console.log(section);
       api
-        .createCourseStudent(
+        .createCourse(
           courseId,
           courseName,
           section,
@@ -150,17 +172,33 @@ export default class CreateCourseForm extends React.Component {
           endDate,
           startTime,
           endTime,
-          lectureStyle,
-          this.props.studentId
+          lectureStyle
         )
-        .then((res) => console.log(res));
+        .then((res) => {
+          if (res == null) {
+            alert("Unable to create course. Please screenshot form and send to dev team.");
+            console.log("Unable to create course.");
+          } else {
+            alert("Course succesfully created.");
+            console.log("Course created.");
+            console.log(res);
+          }
+        });
 
       e.preventDefault();
     };
   }
 
   render() {
-    const { courseId, courseName, section, zoomLink } = this.state;
+    const {
+      courseId,
+      courseName,
+      section,
+      zoomLink,
+      startTimeSelect,
+      endTimeSelect,
+    } = this.state;
+    console.log(this.state);
 
     return (
       <div>
@@ -203,7 +241,7 @@ export default class CreateCourseForm extends React.Component {
                   <TextInput
                     id="section"
                     value={section}
-                    helperText="Please provide the course section"
+                    helperText="Please provide the course section (i.e. A1)"
                     onChange={this.handleTextInputChange}
                   />
                 </FormGroup>
@@ -249,7 +287,12 @@ export default class CreateCourseForm extends React.Component {
                     onChange={this.handleTimeInput}
                     placeholder="hh:mm"
                   >
-                    <TimePickerSelect id="time-picker-select">
+                    <TimePickerSelect
+                      id="time-picker-select"
+                      value={startTimeSelect}
+                      labelText={"Time of day"}
+                      onChange={this.onStartTimeSelect}
+                    >
                       <SelectItem value="AM" text="AM" />
                       <SelectItem value="PM" text="PM" />
                     </TimePickerSelect>
@@ -258,10 +301,7 @@ export default class CreateCourseForm extends React.Component {
               </Column>
 
               <Column>
-                <FormGroup
-                  label="start-time-input"
-                  legendText="Lecture End Time"
-                >
+                <FormGroup label="end-time-input" legendText="Lecture End Time">
                   <TimePicker
                     id="endTime"
                     onChange={this.handleTimeInput}
@@ -270,7 +310,9 @@ export default class CreateCourseForm extends React.Component {
                   >
                     <TimePickerSelect
                       id="time-picker-select"
-                      onChange={this.handleTimeInput}
+                      labelText={"Time of day"}
+                      value={endTimeSelect}
+                      onChange={this.onEndTimeSelect}
                     >
                       <SelectItem value="AM" text="AM" />
                       <SelectItem value="PM" text="PM" />
