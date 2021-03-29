@@ -50,7 +50,7 @@ it("gets lectures endpoint", async (done) => {
 it("gets one student based on email", async (done) => {
   const response = await request
     .post("/getStudent")
-    .send({ email: "mlin@bu.edu" });
+    .send({ email: "mlin2022@bu.edu" });
   expect(response.status).toBe(200);
   expect(response.body.firstName).toBe("Melissa");
   expect(response.body.lastName).toBe("Lin");
