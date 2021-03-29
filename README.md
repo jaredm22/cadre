@@ -65,7 +65,7 @@ If you would like to use the exisiting database url for this project, please con
 
 4. Start the server
 ```bash
-$ npm start
+$ node index.js
 ```
 The server should be running on [http://0.0.0.0:5000](http://0.0.0.0:5000)
 
