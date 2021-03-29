@@ -83,7 +83,7 @@ app.post("/students", async (req, res) => {
     },
   });
   console.log(post);
-  res.json("created student");
+  res.json(post);
 });
 
 // Student delete route
@@ -151,7 +151,7 @@ app.post("/professors", async (req, res) => {
     },
   });
   console.log(post);
-  res.json("created professor");
+  res.json(post);
 });
 
 // Professor delete route

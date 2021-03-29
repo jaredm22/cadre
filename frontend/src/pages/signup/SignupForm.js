@@ -14,32 +14,30 @@ import api from "../../apiHandle";
 import { useHistory } from "react-router-dom";
 import "./form.scss";
 
-export default function LoginForm() {
+export default function SignupForm() {
   const [email, handleEmailChange] = useState("");
+  const [firstName, handleFirstNameChange] = useState("");
+  const [lastName, handleLastNameChange] = useState("");
   const [user, handleUserSelect] = useState("Student");
   const history = useHistory();
 
   const submitHandler = (event) => {
     if (user == "Student") {
-      api.getStudentByEmail(email).then((res) => {
+      api.createStudent(email, firstName, lastName).then((res) => {
         if (res != null) {
           console.log(res);
           history.push("/schedule/student/" + email + "/" + res.id);
         } else {
-          alert("No user found. Redirecting to create account page.");
-          history.push("/signup");
-          console.log("Unable to find student with this email.");
+          console.log("Unable to create student.");
           console.log(res);
         }
       });
     } else if (user == "Professor") {
-      api.getProfessorByEmail(email).then((res) => {
+      api.createProfessor(email, firstName, lastName).then((res) => {
         if (res != null) {
           history.push("/schedule/professor/" + email + "/" + res.id);
         } else {
-          alert("No user found. Redirecting to create account page.");
-          history.push("/signup");
-          console.log("Unable to find professor with this email.");
+          console.log("Unable to create professor.");
           console.log(res);
         }
       });
@@ -54,18 +52,11 @@ export default function LoginForm() {
   ];
 
   return (
-    <Grid className="login-form">
+    <Grid className="signup-form">
       <Form onSubmit={submitHandler}>
         <Row>
-          <Column>
-            <h2>Welcome to Cadre</h2>
-            <br></br>
-            <p>To view an example schedule, enter</p>
-            <p>email jmin@bu.edu and select Student.</p>
-          </Column>
+          <h2>Create an account</h2>
         </Row>
-        <br></br>
-        <br></br>
         <br></br>
 
         <Row>
@@ -79,6 +70,38 @@ export default function LoginForm() {
                 labelText={false}
                 onChange={(e) => {
                   handleEmailChange(e.target.value);
+                }}
+              />
+            </FormGroup>
+          </Column>
+        </Row>
+
+        <Row>
+          <Column>
+            <FormGroup className="firstname-input" legendText="First Name">
+              <TextInput
+                id="firstName"
+                value={firstName}
+                placeholdertext="First Name"
+                helperText="Please enter your first name."
+                labelText={false}
+                onChange={(e) => {
+                  handleFirstNameChange(e.target.value);
+                }}
+              />
+            </FormGroup>
+          </Column>
+
+          <Column>
+            <FormGroup className="lastName-input" legendText="Last Name">
+              <TextInput
+                id="lastName"
+                value={lastName}
+                placeholdertext="Last Name"
+                helperText="Please enter your last name."
+                labelText={false}
+                onChange={(e) => {
+                  handleLastNameChange(e.target.value);
                 }}
               />
             </FormGroup>
