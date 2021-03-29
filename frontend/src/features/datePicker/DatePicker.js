@@ -1,5 +1,3 @@
-import React from 'react';
+import React from "react";
 
-export default class DatePicker extends React.Component {
-    
-}
+export default class DatePicker extends React.Component {}
