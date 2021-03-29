@@ -12,7 +12,7 @@ class Calendar extends React.Component {
       today: new Date(),
       days: 3,
       dataLoaded: false,
-      user: [],
+      user: props.user,
       expand: "no-expand",
     };
     this.date = format(this.state.today, "d");
@@ -47,33 +47,11 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    const { user, email } = this.props;
-
-    if (user == "student") {
-      api.getStudentByEmail(email).then((student) => {
-        if (student != null) {
-          this.setState({
-            dataLoaded: true,
-            user: student,
-          });
-        } else {
-          console.log("Unable to find student with this email.");
-          console.log(student);
-        }
-      });
-    } else if (user == "professor") {
-      api.getProfessorByEmail(email).then((professor) => {
-        if (professor != null) {
-          this.setState({
-            dataLoaded: true,
-            user: professor,
-          });
-        } else {
-          console.log("Unable to find professor with this email.");
-          console.log(professor);
-        }
-      });
-    }
+    console.log(this.props);
+    this.setState({
+      user: this.props.user,
+      dataLoaded: true,
+    });
   }
 
   //   componentWillUnmount() {
@@ -172,7 +150,7 @@ class Calendar extends React.Component {
       }
     }
 
-    return this.state.dataLoaded ? (
+    return (
       <Grid id="calendar" className="bx--grid calendar-contain" narrow={true}>
         <Row className="intro">
           {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
@@ -209,26 +187,28 @@ class Calendar extends React.Component {
           </Column>
         </Row>
 
-        <Row className="date-head">
-          {day_list.map((day, index) => {
-            let handleclick = this.expandDay.bind(this, index);
+        {this.state.dataLoaded ? (
+          <Row className="date-head">
+            {day_list.map((day, index) => {
+              let handleclick = this.expandDay.bind(this, index);
 
-            return (
-              <Column
-                key={day.props.date}
-                // className={'a-day bx--col-lg-' + Math.floor(16 / this.state.days)}
-                className="a-day"
-                lg={Math.floor(16 / this.state.days)}
-                onClick={handleclick}
-              >
-                {day}
-              </Column>
-            );
-          })}
-        </Row>
+              return (
+                <Column
+                  key={day.props.date}
+                  // className={'a-day bx--col-lg-' + Math.floor(16 / this.state.days)}
+                  className="a-day"
+                  lg={Math.floor(16 / this.state.days)}
+                  onClick={handleclick}
+                >
+                  {day}
+                </Column>
+              );
+            })}
+          </Row>
+        ) : (
+          false
+        )}
       </Grid>
-    ) : (
-      <p>loading</p>
     );
   }
 }

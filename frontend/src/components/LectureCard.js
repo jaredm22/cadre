@@ -34,7 +34,7 @@ export default function LectureCard(props) {
         <h5>{parseTime(props.startTime, props.endTime)} </h5>
       </div>
 
-      {props.school ? (
+      {props.courseName != null ? (
         <div className="fullname-course">
           <h4 className="black">
             {props.courseId} {props.showFull ? " | Lecture" : ""}

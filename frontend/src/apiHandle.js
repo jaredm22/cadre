@@ -125,7 +125,7 @@ const createCourseStudent = async (
 ) => {
   const response = await axios({
     method: "post",
-    url: "/courses",
+    url: "/addCourseStudent",
     data: {
       courseId: courseId,
       courseName: courseName,
@@ -163,6 +163,33 @@ const getLabs = async () => {
   return response.data;
 };
 
+const createAssignment = async (
+  courseId,
+  name,
+  assignmentType,
+  assignedDate,
+  assignedTime,
+  dueDate,
+  dueTime,
+  tags
+) => {
+  const response = await axios({
+    method: "post",
+    url: "/courses",
+    data: {
+      courseId,
+      name,
+      assignmentType,
+      assignedDate,
+      assignedTime,
+      dueDate,
+      dueTime,
+      tags,
+    },
+  });
+  return response.data;
+};
+
 export default {
   getStudents,
   getStudentByEmail,
@@ -178,4 +205,5 @@ export default {
   getLectures,
   getModifiedLecture,
   getLabs,
+  createAssignment,
 };

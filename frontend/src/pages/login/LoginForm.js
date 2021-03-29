@@ -24,7 +24,10 @@ export default function LoginForm() {
       api.getStudentByEmail(email).then((res) => {
         if (res != null) {
           console.log(res);
-          history.push("/schedule/student/" + email + "/" + res.id);
+          history.push({
+            pathname: "/schedule/student",
+            state: { user: res },
+          });
         } else {
           alert("No user found. Redirecting to create account page.");
           history.push("/signup");
@@ -35,7 +38,10 @@ export default function LoginForm() {
     } else if (user == "Professor") {
       api.getProfessorByEmail(email).then((res) => {
         if (res != null) {
-          history.push("/schedule/professor/" + email + "/" + res.id);
+          history.push({
+            pathname: "/schedule/professor",
+            state: { user: res },
+          });
         } else {
           alert("No user found. Redirecting to create account page.");
           history.push("/signup");

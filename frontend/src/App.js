@@ -17,12 +17,9 @@ function App() {
           <Route exact path="/" component={LoginPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/createCourse/:id" component={CreateCoursePage} />
-          <Route
-            path="/createAssignment/:id"
-            component={CreateAssignmentPage}
-          />
-          <Route path="/schedule/:user/:email/:id" component={SchedulePage} />
+          <Route path="/createCourse" component={CreateCoursePage} />
+          <Route path="/createAssignment" component={CreateAssignmentPage} />
+          <Route path="/schedule" component={SchedulePage} />
         </Switch>
       </Router>
     </div>

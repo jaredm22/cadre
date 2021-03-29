@@ -155,19 +155,6 @@ class Day extends React.Component {
                 />
               );
             })}
-
-          {/* {labs
-            .sort((lab1,lab2) => lab1.startTime > lab2.startTime)
-            .map((lab) => {
-              return (
-              <LabCard
-                {...lab}
-                parseTime={(time) => this.parseTime(time)}
-                expand={this.state.expand}
-                showFull={this.props.days <= 4}
-              />
-              );
-            })} */}
         </div>
       </section>
     );

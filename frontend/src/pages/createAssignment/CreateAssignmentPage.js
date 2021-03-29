@@ -1,10 +1,9 @@
 import CreateAssignmentForm from "./CreateAssignmentForm";
-import { useParams } from "react-router";
+import { useLocation } from "react-router";
 import "./form.scss";
 
 export default function CreateAssignmentPage() {
-  const { id } = useParams();
-  console.log(id);
+  const location = useLocation();
 
-  return <CreateAssignmentForm studentId={id} />;
+  return <CreateAssignmentForm user={location.state.user} />;
 }

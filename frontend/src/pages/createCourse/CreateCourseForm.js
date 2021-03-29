@@ -136,7 +136,7 @@ export default class CreateCourseForm extends React.Component {
         lectureStyle,
       } = this.state;
 
-      const parsedDays = [];
+      let parsedDays = [];
       for (const day in this.state.days) {
         if (days[day]) {
           parsedDays.push(day.slice(0, 3));
@@ -157,11 +157,11 @@ export default class CreateCourseForm extends React.Component {
         }
       }
 
-      console.log(courseId);
-      console.log(courseName);
-      console.log(section);
+      // console.log(courseId);
+      // console.log(courseName);
+      // console.log(section);
       api
-        .createCourse(
+        .createCourseStudent(
           courseId,
           courseName,
           section,
@@ -172,7 +172,8 @@ export default class CreateCourseForm extends React.Component {
           endDate,
           startTime,
           endTime,
-          lectureStyle
+          lectureStyle,
+          this.props.studentId
         )
         .then((res) => {
           if (res == null) {
@@ -201,6 +202,7 @@ export default class CreateCourseForm extends React.Component {
       endTimeSelect,
     } = this.state;
     console.log(this.state);
+    console.log(this.props);
 
     return (
       <div>

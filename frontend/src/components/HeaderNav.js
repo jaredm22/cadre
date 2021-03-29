@@ -34,13 +34,29 @@ function HeaderNav(props) {
             </Row>
 
             <Row>
-              <Link className="nav-link" to={"/createCourse/" + props.id}>
+              <Link
+                className="nav-link"
+                to={{
+                  pathname: "/createCourse",
+                  state: {
+                    user: props.user,
+                  },
+                }}
+              >
                 <h4>Create Course</h4>
               </Link>
             </Row>
 
             <Row>
-              <Link className="nav-link" to={"/createAssignment/" + props.id}>
+              <Link
+                className="nav-link"
+                to={{
+                  pathname: "/createAssignment",
+                  state: {
+                    user: props.user,
+                  },
+                }}
+              >
                 <h4>Create Assignment</h4>
               </Link>
             </Row>
