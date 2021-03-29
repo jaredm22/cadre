@@ -12,7 +12,7 @@ class Calendar extends React.Component {
       today: new Date(),
       days: 3,
       dataLoaded: false,
-      student: [],
+      user: [],
       expand: "no-expand",
     };
     this.date = format(this.state.today, "d");
@@ -47,13 +47,33 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    api.getStudentByEmail(this.props.email).then((student) => {
-      console.log(student);
-      this.setState({
-        dataLoaded: true,
-        student: student,
+    const { user, email } = this.props;
+
+    if (user == "student") {
+      api.getStudentByEmail(email).then((student) => {
+        if (student != null) {
+          this.setState({
+            dataLoaded: true,
+            user: student,
+          });
+        } else {
+          console.log("Unable to find student with this email.");
+          console.log(student);
+        }
       });
-    });
+    } else if (user == "professor") {
+      api.getProfessorByEmail(email).then((professor) => {
+        if (professor != null) {
+          this.setState({
+            dataLoaded: true,
+            user: professor,
+          });
+        } else {
+          console.log("Unable to find professor with this email.");
+          console.log(professor);
+        }
+      });
+    }
   }
 
   //   componentWillUnmount() {
@@ -129,7 +149,7 @@ class Calendar extends React.Component {
               ref={(ref) => (this.daysrefs[i] = ref)}
               expand="no-expand"
               // expandWidth={document.getElementById('calendar').clientWidth}
-              student={this.state.student}
+              user={this.state.user}
             />
           ) : (
             <Day
@@ -145,7 +165,7 @@ class Calendar extends React.Component {
               ref={(ref) => (this.daysrefs[i] = ref)}
               expand="no-expand"
               // expandWidth={document.getElementById('calendar').clientWidth}
-              student={this.state.student}
+              user={this.state.user}
             />
           );
         day_list.push(day);
@@ -159,8 +179,8 @@ class Calendar extends React.Component {
           <Column>
             <h3>
               Hello,{" "}
-              <span className="student-name">
-                {this.state.student.firstName}
+              <span className="user-first-name">
+                {this.state.user.firstName}
               </span>
             </h3>
 
