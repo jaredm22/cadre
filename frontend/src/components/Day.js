@@ -80,6 +80,12 @@ class Day extends React.Component {
     );
   };
 
+  setLectureRef = (el) => {
+    this.expandRef = el;
+    this.daysrefs.push(this.showMoreRef);
+    console.log(el);
+  };
+
   render() {
     var { lectures, labs, assignments, exams } = this.state;
     let getEWidth = (i) => {
@@ -146,7 +152,8 @@ class Day extends React.Component {
           {lectures
             .concat(labs)
             .sort((l1, l2) => l1.startTime > l2.startTime)
-            .map((course) => {
+            .map((course, i) => {
+
               return (
                 <LectureCard
                   {...course}
