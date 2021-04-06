@@ -1,29 +1,31 @@
 ## Sprint Plan
-Our forecast for this week (Mar 23 - Mar 29) is to complete user story(ies):
-- View assignments details in expanded day view
+Our forecast for this week (Mar 30 - April 5) is to complete user story(ies):
+- Add syllabus right hand view in expanded view
+- Professor upload course functionality
+- Catch up to UI mockups
 Melissa, Jared, and Chinwe particpated in this activity.
 
-## Daily Scrum - 03 / 26 / 2021
+## Daily Scrum - 04 / 04 / 2021
 What We did:
-- Jared: sorted the events on calendar by time
-- Chinwe: fixed slider bug (changing day view in expanded view)
-- Melissa: Create modified lecture POST route
+- Jared: forms for professor to add assignment to class
+- Chinwe: click inside expanded view for popup
+- Melissa: endpoint for professor to add student to course
 
 What We Will Work On:
-- Jared: Finished all tasks this sprint
-- Chinwe: Frontend tests
-- Melissa: Finished all tasks this sprint
+- Jared: pass data from calendar component t
+- Chinwe: UI design development
+- Melissa: Look into real login 
 
 Blockers:
-- Chinwe: writing frontend tests
+- Chinwe & Jared & Melissa: school
 
 ## Mob Programming 
-[Check us out mob programming ooo](./spark!sprintReports!/images/mob4.png)
+<!-- [Forgor to save photo of the mob program but look at collaborative pr's](./spark!sprintReports!/images/mob4.png) -->
 
-<!-- ## Sprint Review
-[Check us out reviewing our not-yet-done sprint ooo](./spark!sprintReports!/images/stakeholder2.png)  -->
+## Sprint Review
+[Check us out reviewing our sprint](../spark!sprintReports!/images/stakeholder3.png)
 
 ## Sprint Retrospective
-- involve design team in sprint tasks
-- work in checkpoints: figure out which part of functionality of the app you want fully working
-- do ladder diagrams to understand the exchange between frontend and backend info
+- time to start making app that works end-to-end for our MVP
+
+
