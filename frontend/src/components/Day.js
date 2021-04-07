@@ -10,7 +10,6 @@ import {
   compareAsc,
 } from "date-fns";
 import LectureCard from "./LectureCard";
-import LabCard from "./LabCard";
 import AssignmentCard from "./AssignmentCard";
 import ExamCard from "./ExamCard";
 
@@ -28,20 +27,20 @@ class Day extends React.Component {
   }
 
   componentDidMount() {
-    const lectures = this.props.student.courses.filter((course) => {
+    const lectures = this.props.user.courses.filter((course) => {
       if (course.days.includes(this.props.day)) {
         return course;
       }
     });
 
-    const labs = this.props.student.labs.filter((lab) => {
+    const labs = this.props.user.labs.filter((lab) => {
       if (lab.days.includes(this.props.day)) {
         return lab;
       }
     });
 
     const assignments = [];
-    this.props.student.courses.forEach((course) => {
+    this.props.user.courses.forEach((course) => {
       course.assignments.forEach((assignment) => {
         const dueDate = parseISO(assignment.dueDate, "yyyy-MM-dd", new Date());
         if (isSameDay(dueDate, this.props.fullDate)) {
@@ -51,7 +50,7 @@ class Day extends React.Component {
     });
 
     const exams = [];
-    this.props.student.courses.forEach((course) => {
+    this.props.user.courses.forEach((course) => {
       course.exams.map((exam) => {
         const dueDate = parseISO(exam.dueDate, "yyyy-MM-dd", new Date());
         if (isSameDay(dueDate, this.props.fullDate)) {
@@ -163,19 +162,6 @@ class Day extends React.Component {
                 />
               );
             })}
-
-          {/* {labs
-            .sort((lab1,lab2) => lab1.startTime > lab2.startTime)
-            .map((lab) => {
-              return (
-              <LabCard
-                {...lab}
-                parseTime={(time) => this.parseTime(time)}
-                expand={this.state.expand}
-                showFull={this.props.days <= 4}
-              />
-              );
-            })} */}
         </div>
       </section>
     );

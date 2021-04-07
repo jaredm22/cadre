@@ -1,35 +1,79 @@
-import { SideNav } from "carbon-components-react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import CreateCoursePage from "../pages/createCourse/CreateCoursePage";
-import LoginPage from "../pages/createCourse/CreateCoursePage";
-import SchedulePage from "../pages/schedule/SchedulePage";
+import { SideNav, Row, Column, Grid } from "carbon-components-react";
+import { Link } from "react-router-dom";
 import "../features/calendar/calendar.scss";
+import logo from "./logo.png";
 
 function HeaderNav(props) {
   return (
     <div className="App">
       <SideNav
+        className="nav"
         isFixedNav
         expanded={true}
         isChildOfHeader={false}
         aria-label="Side navigation"
       >
-        <nav className="nav">
-          <ul>
-            <li>
-              <Link to="/">
-                <h3>Cadre</h3>
-                <br></br>
+        <Grid>
+          <Column>
+            <Row className="title">
+              <Column>
+                <img
+                  className="logo"
+                  src={logo}
+                  width="80px"
+                  height="80px"
+                ></img>
+              </Column>
+
+              <Column>
+                <Link className="nav-link-home" to="/">
+                  <h3>Cadre</h3>
+                  <br></br>
+                </Link>
+              </Column>
+            </Row>
+
+            <Row>
+              <Link
+                className="nav-link"
+                to={{
+                  pathname: "/createCourse",
+                  state: {
+                    user: props.user,
+                  },
+                }}
+              >
+                <h4>Create Course</h4>
               </Link>
-            </li>
-            <li>
-              <Link to={"/createCourse/" + props.id}>Create Course</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </nav>
+            </Row>
+
+            <Row>
+              <Link
+                className="nav-link"
+                to={{
+                  pathname: "/createAssignment",
+                  state: {
+                    user: props.user,
+                  },
+                }}
+              >
+                <h4>Create Assignment</h4>
+              </Link>
+            </Row>
+
+            <Row>
+              <Link className="nav-link" to="/signup">
+                <h4>Signup</h4>
+              </Link>
+            </Row>
+
+            <Row>
+              <Link className="nav-link" to="/login">
+                <h4>Login</h4>
+              </Link>
+            </Row>
+          </Column>
+        </Grid>
       </SideNav>
     </div>
   );

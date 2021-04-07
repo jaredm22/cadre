@@ -72,6 +72,44 @@ app.post("/getStudent", async (req, res) => {
   res.json(student);
 });
 
+// Get Student by id
+app.post("/getStudentById", async (req, res) => {
+  const studentId = req.body.id;
+  const student = await prisma.student.findUnique({
+    where: {
+      id: studentId,
+    },
+    include: {
+      courses: {
+        include: {
+          labs: true,
+          lectures: true,
+          students: true,
+          professor: true,
+          assignments: {
+            include: {
+              Course: true,
+            },
+          },
+          exams: {
+            include: {
+              Course: true,
+            },
+          },
+        },
+      },
+      labs: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+
+  console.log(student);
+  res.json(student);
+});
+
 // Student post route
 app.post("/students", async (req, res) => {
   const { email, firstName, lastName } = req.body;
@@ -83,7 +121,7 @@ app.post("/students", async (req, res) => {
     },
   });
   console.log(post);
-  res.json("created student");
+  res.json(post);
 });
 
 // Student delete route
@@ -151,7 +189,7 @@ app.post("/professors", async (req, res) => {
     },
   });
   console.log(post);
-  res.json("created professor");
+  res.json(post);
 });
 
 // Professor delete route
@@ -461,7 +499,35 @@ app.post("/assignments", async (req, res) => {
     },
   });
   console.log(assignment);
-  res.json("assignment created");
+  res.json(assignment);
+});
+
+// creates an assignment
+app.post("/createAssignment", async (req, res) => {
+  const {
+    courseId,
+    name,
+    assignmentType,
+    assignedDate,
+    assignedTime,
+    dueDate,
+    dueTime,
+    tags,
+  } = req.body;
+  const assignment = await prisma.assignment.create({
+    data: {
+      courseId,
+      name,
+      assignmentType,
+      assignedDate,
+      assignedTime,
+      dueDate,
+      dueTime,
+      tags,
+    },
+  });
+  console.log(assignment);
+  res.json(assignment);
 });
 
 //deletes an assignment

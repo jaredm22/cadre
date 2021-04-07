@@ -12,7 +12,7 @@ class Calendar extends React.Component {
       today: new Date(),
       days: 3,
       dataLoaded: false,
-      student: [],
+      user: props.user,
       expand: "no-expand",
     };
     this.date = format(this.state.today, "d");
@@ -47,12 +47,10 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    api.getStudentByEmail(this.props.email).then((student) => {
-      console.log(student);
-      this.setState({
-        dataLoaded: true,
-        student: student,
-      });
+    console.log(this.props);
+    this.setState({
+      user: this.props.user,
+      dataLoaded: true,
     });
   }
 
@@ -129,7 +127,7 @@ class Calendar extends React.Component {
               ref={(ref) => (this.daysrefs[i] = ref)}
               expand="no-expand"
               // expandWidth={document.getElementById('calendar').clientWidth}
-              student={this.state.student}
+              user={this.state.user}
             />
           ) : (
             <Day
@@ -145,22 +143,22 @@ class Calendar extends React.Component {
               ref={(ref) => (this.daysrefs[i] = ref)}
               expand="no-expand"
               // expandWidth={document.getElementById('calendar').clientWidth}
-              student={this.state.student}
+              user={this.state.user}
             />
           );
         day_list.push(day);
       }
     }
 
-    return this.state.dataLoaded ? (
+    return (
       <Grid id="calendar" className="bx--grid calendar-contain" narrow={true}>
         <Row className="intro">
           {/*TODO: do a terneary operation is addDay.month == this.date.month ? show new month after emdash : don't show month */}
           <Column>
             <h3>
               Hello,{" "}
-              <span className="student-name">
-                {this.state.student.firstName}
+              <span className="user-first-name">
+                {this.state.user.firstName}
               </span>
             </h3>
 
@@ -189,26 +187,28 @@ class Calendar extends React.Component {
           </Column>
         </Row>
 
-        <Row className="date-head">
-          {day_list.map((day, index) => {
-            let handleclick = this.expandDay.bind(this, index);
+        {this.state.dataLoaded ? (
+          <Row className="date-head">
+            {day_list.map((day, index) => {
+              let handleclick = this.expandDay.bind(this, index);
 
-            return (
-              <Column
-                key={day.props.date}
-                // className={'a-day bx--col-lg-' + Math.floor(16 / this.state.days)}
-                className="a-day"
-                lg={Math.floor(16 / this.state.days)}
-                onClick={handleclick}
-              >
-                {day}
-              </Column>
-            );
-          })}
-        </Row>
+              return (
+                <Column
+                  key={day.props.date}
+                  // className={'a-day bx--col-lg-' + Math.floor(16 / this.state.days)}
+                  className="a-day"
+                  lg={Math.floor(16 / this.state.days)}
+                  onClick={handleclick}
+                >
+                  {day}
+                </Column>
+              );
+            })}
+          </Row>
+        ) : (
+          false
+        )}
       </Grid>
-    ) : (
-      <p>loading</p>
     );
   }
 }
