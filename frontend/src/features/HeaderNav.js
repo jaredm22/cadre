@@ -1,7 +1,7 @@
 import { SideNav, Row, Column, Grid } from "carbon-components-react";
 import { Link } from "react-router-dom";
 import "../features/calendar/calendar.scss";
-import logo from "./logo.png";
+import logo from "../assets/logo.png";
 
 function HeaderNav(props) {
   return (

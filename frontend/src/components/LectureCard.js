@@ -1,6 +1,8 @@
 import { Dropdown, Grid, Row } from "carbon-components-react";
 import { parseISO, getHours, getMinutes, format } from "date-fns";
-import React, { useState } from "react";
+// import React, { useState } from "react";
+import React from "react";
+
 import "../features/calendar/calendar.scss";
 
 const parseTime = (startTime, endTime) => {
@@ -25,29 +27,20 @@ const parseTime = (startTime, endTime) => {
   }
 };
 
-var showExtra = false;
-
 
 
 export default function LectureCard(props) {
-  const [syllabusView, setView] = useState(false);
-  console.log(props);
+  // const [syllabusView, setView] = useState(false);
+  // console.log(props);
 
   //need to add 'button' to these things
-  function showMore(e) {
-    if (props.expand === 'is-expanded'){
-      console.log(e)
-      e.stopPropagation();
-      setView( !syllabusView )
-      console.log(showExtra)
-    }
-  }
+  
 
   return (
     <div 
     key={props.id} 
     className="course"
-    onClick={showMore}
+    onClick={props.handleclick}
     >
       <div className="time">
         <h5>{parseTime(props.startTime, props.endTime)} </h5>
@@ -123,7 +116,8 @@ export default function LectureCard(props) {
         </ul>
 
         <div 
-          style={{ display: syllabusView ? "block" : "none" }}>
+          className="right-side"
+          style={{ display: props.syllabusView ? "block" : "none" }}>
             <h1>HI</h1>
             <h1>showExtra</h1>
         </div>

@@ -60,11 +60,11 @@ class Calendar extends React.Component {
 
   // toggles the state of the clicked day component and calendar component to expand/no-expand
   expandDay(index, day) {
-    console.log(index);
-    console.log(day);
-    // if (day > 0 && day < 4) {
+    // console.log(index);
+    // console.log(day);
+
     const wrapper = this.daysrefs[index].state;
-    console.log(wrapper);
+    // console.log(wrapper);
     // var setexpand;
 
     if (this.state.expand === "no-expand") {
@@ -72,10 +72,10 @@ class Calendar extends React.Component {
       this.setState({ expand: "is-expanded" });
     } else {
       if (wrapper.expand === "is-expanded") {
-        console.log("minize!");
+        // console.log("minize!");
         this.daysrefs[index].setState({ expand: "no-expand" });
         this.setState({ expand: "no-expand" });
-        console.log(this.state.expand);
+        // console.log(this.state.expand);
       }
       // setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
     }

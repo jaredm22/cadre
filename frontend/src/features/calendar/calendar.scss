@@ -62,20 +62,6 @@ $blue: rgb(5, 162, 230);
 //     border-bottom: 1px solid #20202020;
 // }
 
-@keyframes rollout {
-  0% {
-    transform: translateX(50px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-.a-day {
-  animation: 0.4s rollout;
-
-  // width: 100%;
-}
 
 .logo {
   border-radius: 13%;
@@ -104,8 +90,26 @@ $blue: rgb(5, 162, 230);
   // padding-right: $spacing-01;
 }
 
-.clndr-today {
+
+
+// DAY COMPONENT SECTION STYLES
+.day-col {
+  padding: $layout-02;
+  transition: transform 777ms;
+  // display: flex;
+}
+
+.day-col:hover {
+  // transition: 777ms;
   background-color: aliceblue;
+}
+
+.day-col.is-expanded:hover {
+  background-color: white;
+}
+
+.clndr-today {
+  // background-color: aliceblue;
 }
 
 .clndr-day {
@@ -113,14 +117,9 @@ $blue: rgb(5, 162, 230);
   transition: width 777ms;
 }
 
-.day-col {
-  padding: $layout-02;
-  transition: all 777ms;
-}
-
 .clndr-today > .clndr-day,
 .clndr-today > .clndr-date {
-  color: blue;
+  color: fuchsia;
 }
 
 .shadow {
@@ -202,6 +201,7 @@ $blue: rgb(5, 162, 230);
   width: calc(100vw - 18.5em) !important;
   height: 100%;
   z-index: 999;
+  transition: 777ms;
 }
 
 .is-expanded .course {
