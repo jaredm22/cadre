@@ -142,58 +142,59 @@ class Day extends React.Component {
           </div>
         )}
 
-        <div className="courses">
-          {assignments
-            .sort((a1, a2) => a1.dueTime > a2.dueTime)
-            .map((assignment) => {
-              return (
-                <AssignmentCard
-                  {...assignment}
-                  parseTime={(time) => this.parseTime(time)}
-                  expand={this.state.expand} //bool to toggle expanded view
-                  showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                  handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
-                  syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
-                />
-              );
-            })}
-          {exams
-            .sort((e1, e2) => e1.dueTime > e2.dueTime)
-            .map((exam) => {
-              return (
-                <ExamCard
-                  {...exam}
-                  parseTime={(time) => this.parseTime(time)}
-                  expand={this.state.expand}
-                  showFull={this.props.days <= 4}
-                />
-              );
-            })}
-          {lectures
-            .concat(labs)
-            .sort((l1, l2) => l1.startTime > l2.startTime)
-            .map((course, i) => {
+        <div className={this.state.expand === 'is-expanded' ? 'flex' : ''}>
+          <div className="courses">
+            {assignments
+              .sort((a1, a2) => a1.dueTime > a2.dueTime)
+              .map((assignment) => {
+                return (
+                  <AssignmentCard
+                    {...assignment}
+                    parseTime={(time) => this.parseTime(time)}
+                    expand={this.state.expand} //bool to toggle expanded view
+                    showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
+                    handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
+                    syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
+                  />
+                );
+              })}
+            {exams
+              .sort((e1, e2) => e1.dueTime > e2.dueTime)
+              .map((exam) => {
+                return (
+                  <ExamCard
+                    {...exam}
+                    parseTime={(time) => this.parseTime(time)}
+                    expand={this.state.expand}
+                    showFull={this.props.days <= 4}
+                  />
+                );
+              })}
+            {lectures
+              .concat(labs)
+              .sort((l1, l2) => l1.startTime > l2.startTime)
+              .map((course, i) => {
 
-              return (
-                <LectureCard
-                  {...course}
-                  parseTime={(time) => this.parseTime(time)}
-                  expand={this.state.expand} //bool to toggle expanded view
-                  showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                  handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
-                  syllabusView={this.state.syllabusView} //bool to toggle right-hand side details                  expand={this.state.expand}
-                />
-              );
-            })}
+                return (
+                  <LectureCard
+                    {...course}
+                    parseTime={(time) => this.parseTime(time)}
+                    expand={this.state.expand} //bool to toggle expanded view
+                    showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
+                    handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
+                    syllabusView={this.state.syllabusView} //bool to toggle right-hand side details                  expand={this.state.expand}
+                  />
+                );
+              })}
+          </div>
+          <div
+            className = "right-side"
+            style={right_side_css}
+          > 
+            RIGHT_SIDE_VIEW
+          
+          </div>
         </div>
-        <div
-          className = "right-side"
-          style={right_side_css}
-        > 
-          RIGHT_SIDE_VIEW
-        
-        </div>
-
       </section>
     );
   }

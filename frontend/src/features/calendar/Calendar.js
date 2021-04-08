@@ -81,7 +81,7 @@ class Calendar extends React.Component {
     }
   }
 
-  //goes through Day components and find out which index day is expanded
+  //goes through Day components and finds out which index day is expanded
   findExpandedDay() {
     let dayidx;
     for (const [index, val] of this.daysrefs.entries()) {

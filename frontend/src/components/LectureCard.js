@@ -115,12 +115,12 @@ export default function LectureCard(props) {
           <li>Office hours</li>
         </ul>
 
-        <div 
+        {/* <div 
           className="right-side"
           style={{ display: props.syllabusView ? "block" : "none" }}>
             <h1>HI</h1>
             <h1>showExtra</h1>
-        </div>
+        </div> */}
       </div>
 
     </div>
