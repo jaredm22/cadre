@@ -169,4 +169,3 @@ cython_debug/
 .flaskenv
 
 #frontend mocks without react
-code-snips
