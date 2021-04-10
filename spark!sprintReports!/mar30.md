@@ -1,5 +1,5 @@
 ## Sprint Plan
-Our forecast for this week (April 6 - April 12) is to complete user story(ies):
+Our forecast for this week (Mar 30 - April 5) is to complete user story(ies):
 - Add syllabus right hand view in expanded view
 - Professor upload course functionality
 - Catch up to UI mockups
