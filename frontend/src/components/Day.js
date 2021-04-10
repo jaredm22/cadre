@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Dropdown, Grid, Row } from "carbon-components-react";
+import { Dropdown, Grid, Row, Column } from "carbon-components-react";
 import api from "../apiHandle";
 import {
   parseISO,
   getHours,
   getMinutes,
   isSameDay,
+  isSameWeek,
   compareAsc,
+  isThisHour,
 } from "date-fns";
 import LectureCard from "./LectureCard";
 import AssignmentCard from "./AssignmentCard";
@@ -20,6 +22,7 @@ class Day extends React.Component {
       lectures: [],
       labs: [],
       assignments: [],
+      all: [],
       exams: [],
       expand: "no-expand",  //classname to add to day component to indicate css transition
       syllabusView: false
@@ -38,6 +41,13 @@ class Day extends React.Component {
       if (lab.days.includes(this.props.day)) {
         return lab;
       }
+    });
+
+    const all = [];
+    this.props.user.courses.forEach((course) => {
+      course.assignments.forEach((assignment) => {
+        all.push(assignment);
+      });
     });
 
     const assignments = [];
@@ -65,6 +75,7 @@ class Day extends React.Component {
       labs: labs,
       assignments: assignments,
       exams: exams,
+      all: all
     });
   }
 
@@ -120,6 +131,7 @@ class Day extends React.Component {
     // console.log(exams);
     // console.log(exams.sort((e1, e2) => e1.dueTime > e2.dueTime));
 
+    console.log(this.state.all)
     return (
       <section
         id={"clndr-col-" + this.props.i}
@@ -187,13 +199,81 @@ class Day extends React.Component {
                 );
               })}
           </div>
-          <div
+          
+            <div
+              className="right_side"
+              style={right_side_css}
+            >
+              <div
+                style={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}
+              >
+                <div 
+                  className="syllabus-column"
+                  style={{ margin: "40px", marginTop: "0px", overflow: "auto"}}
+                >
+                  <h4>Due This Week</h4>
+                  {this.state.length == 0 ? 
+                    <p>No assigments due this week.</p> :
+                    this.state.all.map(assignment => {
+                      const dueDate = parseISO(assignment.dueDate, "yyyy-MM-dd", new Date());
+                      if (isSameWeek(dueDate, this.props.fullDate)) {
+                        return(
+                          
+                          <AssignmentCard
+                            {...assignment}
+                            parseTime={(time) => this.parseTime(time)}
+                            expand={this.state.expand} //bool to toggle expanded view
+                            showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
+                            handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
+                            syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
+                          />
+                        )
+                      }
+                    })}
+                </div>
+
+                
+                <div
+                  style={{display: "flex", flexDirection: "column"}}
+                >
+                  <h4>Upcoming Assignments</h4>
+                  {this.state.length == 0 ? 
+                    <p>No assigments due this week.</p> :
+                    this.state.all.map(assignment => {
+                    const dueDate = parseISO(assignment.dueDate, "yyyy-MM-dd", new Date());
+                    if (!isSameWeek(dueDate, this.props.fullDate)) {
+                      return(
+                        <AssignmentCard
+                          {...assignment}
+                          parseTime={(time) => this.parseTime(time)}
+                          expand={this.state.expand} //bool to toggle expanded view
+                          showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
+                          handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
+                          syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
+                        />
+                      )
+                    }
+                  })}
+                </div>
+              </div>
+            </div>
+          
+          {/* <SyllabusView
+            style={right_side_css}
+            className="right_side"
+            viewType="assignments"
+            user={this.props.user}
+            expand={this.state.expand} //bool to toggle expanded view
+            showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
+            handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
+          /> */}
+          {/* <div
             className = "right-side"
             style={right_side_css}
           > 
             RIGHT_SIDE_VIEW
           
-          </div>
+          </div> */}
         </div>
       </section>
     );
@@ -201,3 +281,32 @@ class Day extends React.Component {
 }
 
 export default Day;
+
+
+function SyllabusView(props) {
+  var viewType = props.viewType;
+  const user = props.user;
+
+  const assignments = [];
+    user.courses.forEach((course) => {
+      course.assignments.forEach((assignment) => {
+        assignments.push(assignment);
+      });
+    });
+
+  return (
+    <div className="syllabus-view" style={props.right_side_css}>
+      {assignments.map( assignment => {
+        <AssignmentCard
+          {...assignment}
+          parseTime={(time) => this.parseTime(time)}
+          expand={props.expand} //bool to toggle expanded view
+          showFull={props.days <= 4} //show full zoom link when schedule is on 3-day view and below
+          handleclick={props.showMore} //show right hand side when clicked inside expanded view
+          syllabusView={props.syllabusView} //bool to toggle right-hand side details
+        />
+      })}
+      RIGHT_SIDE_VIEW
+    </div>
+  );
+}
