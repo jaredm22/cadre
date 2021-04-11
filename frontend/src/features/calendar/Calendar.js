@@ -16,22 +16,28 @@ class Calendar extends React.Component {
       expand: "no-expand",
     };
     this.date = format(this.state.today, "d");
-    this.expandRef = React.createRef();
     this.daysrefs = [];
+    // this.expandRef = React.createRef();
+    
   }
 
-  setDayRef = (el) => {
-    this.expandRef = el;
-    this.daysrefs.push(this.expandRef);
-    console.log(el);
-  };
+  // setDayRef = (el) => {
+  //   this.expandRef = el;
+  //   this.daysrefs.push(this.expandRef);
+  //   console.log(el);
+  // };
 
   // Handles day slider change to close any currently expanded days before re-rendering days
   daySliderHandler = (value) => {
     if (this.state.expand === "expanded") {
       this.daysrefs.forEach((day) => {
         if (day.state.expand === "is-expanded") {
-          day.setState({ expand: "no-expand" });
+          day.setState( prevState => {
+            return { 
+              expand: "no-expand",
+              prevExpand: prevState.expand
+            }
+          });
         }
       });
     }
@@ -68,17 +74,28 @@ class Calendar extends React.Component {
     // var setexpand;
 
     if (this.state.expand === "no-expand") {
-      this.daysrefs[index].setState({ expand: "is-expanded" });
+      this.daysrefs[index].setState( prevState => {
+        return { 
+          expand: "is-expanded",
+          prevExpand: prevState.expand
+        }
+      });
       this.setState({ expand: "is-expanded" });
     } else {
       if (wrapper.expand === "is-expanded") {
         // console.log("minize!");
-        this.daysrefs[index].setState({ expand: "no-expand" });
+        this.daysrefs[index].setState( prevState => {
+          return { 
+            expand: "no-expand",
+            prevExpand: prevState.expand
+          }
+        });
         this.setState({ expand: "no-expand" });
-        // console.log(this.state.expand);
       }
+      
       // setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
     }
+    console.log(wrapper.expand);
   }
 
   //goes through Day components and finds out which index day is expanded

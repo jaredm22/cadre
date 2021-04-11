@@ -28,8 +28,7 @@ const parseTime = (startTime, endTime) => {
 };
 
 
-
-export default function LectureCard(props) {
+const LectureCard = React.forwardRef((props, ref) => {
   // const [syllabusView, setView] = useState(false);
   // console.log(props);
 
@@ -41,6 +40,7 @@ export default function LectureCard(props) {
     key={props.id} 
     className="course"
     onClick={props.handleclick}
+    ref={ref}
     >
       <div className="time">
         <h5>{parseTime(props.startTime, props.endTime)} </h5>
@@ -125,4 +125,9 @@ export default function LectureCard(props) {
 
     </div>
   );
-}
+})
+
+export default LectureCard
+
+
+
