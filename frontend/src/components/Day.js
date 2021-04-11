@@ -119,19 +119,38 @@ class Day extends React.Component {
   
 
   render() {
+    console.log(this.state.expand)
     var { lectures, labs, assignments, exams } = this.state;
     let getEWidth = (i) => {
       let e = document.getElementById("clndr-col-" + i);
       console.log(e.clientWidth);
       return e.clientWidth;
     };
-    
-    var section_css = this.state.expand === "is-expanded" && this.state.expand !== this.state.prevExpand 
-    ? {
-      transform: this.state.expand === "no-expand" 
-        ? `translateX(0px)`
-        : `translateX(-${getEWidth(this.props.i) * this.props.i}px)`
-    } : {};
+    var section_css;
+    if (this.state.expand === "is-expanded" && this.state.expand !== this.state.prevExpand){
+      
+      section_css = {
+        transform: `translateX(-${getEWidth(this.props.i) * this.props.i}px)`
+      }
+    } 
+    //because we translateX relative to initial position, everytime we update state we start from 0 of component's init position
+    //solution: have to pass the previous translate value to state and use that value on this condition URGHHHHH 
+    else if (this.state.expand === "is-expanded" && this.state.syllabusView) {
+      section_css = {
+        transform: `translateX(-218px)`
+      }
+    } 
+    else if (this.state.expand === "no-expand" && this.state.expand !== this.state.prevExpand) {
+      section_css = {
+        transform: `translateX(0px)`
+      }
+    }
+    // var section_css =  
+    // ? {
+    //   transform: this.state.expand === "no-expand" 
+    //     ? `translateX(0px)`
+    //     : `translateX(-${getEWidth(this.props.i) * this.props.i}px)`
+    // } : {};
 
     var right_side_css = {
       display: this.state.expand === "is-expanded" && this.state.syllabusView ? "block" : "none"

@@ -95,7 +95,7 @@ class Calendar extends React.Component {
       
       // setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
     }
-    console.log(wrapper.expand);
+    // console.log(wrapper.expand);
   }
 
   //goes through Day components and finds out which index day is expanded
