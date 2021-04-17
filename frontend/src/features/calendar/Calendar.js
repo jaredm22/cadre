@@ -10,7 +10,7 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       today: new Date(),
-      days: 3,
+      days: 3, //number of days shown in schedule page
       dataLoaded: false,
       user: props.user,
       expand: "no-expand",

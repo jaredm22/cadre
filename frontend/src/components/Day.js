@@ -24,12 +24,22 @@ class Day extends React.Component {
       expand: "no-expand",  //classname to add to day component to indicate css transition
       prevExpand: "no-expand", //set previous state of expansion to prevent repeated events into expanded view
       syllabusView: false,
-      rightSide: {}
+      rightSide: {},
+      colWidth: 0
     };
     this.test = false;
     this.courserefs =[] //array of refs to data in a lecture card 
   }
 
+  componentDidUpdate(){
+    if (this.state.expand === 'is-expanded'){
+      let width = this.getEWidth()
+      width !== this.state.colWidth && 
+      this.setState({
+        colWidth: width
+      })
+    }    
+  }
 
   componentDidMount() {
     const lectures = this.props.user.courses.filter((course) => {
@@ -69,6 +79,7 @@ class Day extends React.Component {
       labs: labs,
       assignments: assignments,
       exams: exams,
+      colWidth: this.getEWidth()
     });
   }
 
@@ -90,19 +101,16 @@ class Day extends React.Component {
     console.log(el);
   };
 
-  populateRightSide = (lecture) => {
-
-
-  }
 
   //On-Click function that shows right hand side expanded view for class on 
   //course card clikck
   showMore(index, e) {
     if (this.state.expand === 'is-expanded'){
-      console.log(index)
-      let lecture = this.courserefs[index]
-      console.log(lecture)
-      console.log("^ from show more")
+      // console.log(index)
+      // let lecture = this.courserefs[index]
+      // console.log(this.state.lectures[index])
+      // this.populateRightSide(lecture)
+      // // console.log("^ from show more")
 
       e.stopPropagation();
       this.setState( prevState => {
@@ -116,41 +124,37 @@ class Day extends React.Component {
     }
   }
 
+  getEWidth() {
+    let elem;
+    if (this.props.days > 1){
+      elem = document.querySelector('.no-expand')
+    }
+    let width = this.props.days > 1 ? elem.clientWidth : 0;
+    
+    // let e = document.getElementById("clndr-col-" + i);
+    // console.log(elem);
+    // console.log(this.state.colWidth)
+
+    
+    return width;
+  };
+
   
 
   render() {
-    console.log(this.state.expand)
+    // console.log("expad: " + this.state.expand)
+    // console.log("prev expand: " + this.state.prevExpand)
+    // console.log("colWid: " + this.state.colWidth)
+
     var { lectures, labs, assignments, exams } = this.state;
-    let getEWidth = (i) => {
-      let e = document.getElementById("clndr-col-" + i);
-      console.log(e.clientWidth);
-      return e.clientWidth;
-    };
-    var section_css;
-    if (this.state.expand === "is-expanded" && this.state.expand !== this.state.prevExpand){
-      
-      section_css = {
-        transform: `translateX(-${getEWidth(this.props.i) * this.props.i}px)`
-      }
+    
+
+    var section_css = this.state.expand === "is-expanded" 
+    ? {
+      transform: `translateX(calc(-${this.state.colWidth * this.props.i}px - calc(1rem *  ${this.props.i})))`
     } 
-    //because we translateX relative to initial position, everytime we update state we start from 0 of component's init position
-    //solution: have to pass the previous translate value to state and use that value on this condition URGHHHHH 
-    else if (this.state.expand === "is-expanded" && this.state.syllabusView) {
-      section_css = {
-        transform: `translateX(-218px)`
-      }
-    } 
-    else if (this.state.expand === "no-expand" && this.state.expand !== this.state.prevExpand) {
-      section_css = {
-        transform: `translateX(0px)`
-      }
-    }
-    // var section_css =  
-    // ? {
-    //   transform: this.state.expand === "no-expand" 
-    //     ? `translateX(0px)`
-    //     : `translateX(-${getEWidth(this.props.i) * this.props.i}px)`
-    // } : {};
+    : { transform: `translateX(0px)`}
+
 
     var right_side_css = {
       display: this.state.expand === "is-expanded" && this.state.syllabusView ? "block" : "none"
@@ -231,7 +235,10 @@ class Day extends React.Component {
             className = "right-side"
             style={right_side_css}
           > 
-            RIGHT_SIDE_VIEW
+            
+            <div>
+              <h1>HI this right hand side</h1>
+            </div>
           
           </div>
         </div>

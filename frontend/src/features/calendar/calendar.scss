@@ -143,6 +143,10 @@ $blue: rgb(5, 162, 230);
   overflow-wrap: break-word;
 }
 
+.course:hover {
+  background-color: aqua;
+}
+
 .lab {
   border-left: 3px solid rgb(198, 33, 198);
   margin-bottom: $spacing-07;
