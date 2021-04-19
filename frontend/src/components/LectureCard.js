@@ -42,15 +42,10 @@ export default function LectureCard(props) {
     className="course"
     onClick={props.handleclick}
     >
-      <div className="time">
-        <h5>{parseTime(props.startTime, props.endTime)} </h5>
-      </div>
 
       {props.courseName != null ? (
         <div className="fullname-course">
-          <h4 className="black">
-            {props.courseId} {props.showFull ? " | Lecture" : ""}
-          </h4>
+          <h4 className="black"> {props.courseId} </h4>
         </div>
       ) : (
         <div className="fullname-course">
@@ -62,8 +57,14 @@ export default function LectureCard(props) {
         className="fullname-course"
         // style={{ display: props.showFull ? "block" : "none"}}
       >
-        <h5 className="black">{props.courseName}</h5>
+        <h4 className="black">{props.courseName}</h4>
       </div>
+
+      <div className="time">
+        <h5>{parseTime(props.startTime, props.endTime)} </h5>
+      </div>
+
+      
 
       <br></br>
 
@@ -73,11 +74,6 @@ export default function LectureCard(props) {
             Zoom Link
           </a>
         </h6>
-        <p style={{ display: props.showFull ? "block" : "none" }}>
-          <a target="_blank" rel="noreferrer" href={props.zoomLink}>
-            {props.zoomLink}
-          </a>
-        </p>
       </div>
 
       <div

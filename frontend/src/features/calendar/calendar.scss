@@ -28,7 +28,7 @@ $blue: rgb(5, 162, 230);
 }
 
 .intro {
-  height: $layout-07;
+  height: $layout-06;
 }
 
 .days {
@@ -86,7 +86,7 @@ $blue: rgb(5, 162, 230);
 }
 
 .date-head {
-  height: calc(100vh - 15rem);
+  height: calc(100vh - 10rem);
   overflow-x: hidden;
   // padding-left: $spacing-01;
   // padding-right: $spacing-01;
@@ -132,14 +132,43 @@ $blue: rgb(5, 162, 230);
 //     overflow-y: scroll;
 //     height: calc(100% - 20rem);
 // }
+
+
+
+.badge:hover {
+  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.4);
+}
+
+.badge {
+  width: 100%;
+  border: none;
+  border-radius: 25px;
+  margin-bottom: $spacing-05;
+}
+
+.exams {
+  background: lightblue;
+}
+
+.assignments {
+  background: orange;
+}
+
+// .badge .assignments {
+//   width: 100%;
+//   background: orange;
+//   border: none;
+//   border-radius: 25px;
+//   margin-bottom: $spacing-05;
+// }
+
 .course {
   border-left: 3px solid black;
   margin-bottom: $spacing-07;
   padding: $spacing-05;
   width: 100%;
-  height: 100%;
   background-color: none;
-  min-height: 80px;
+  min-height: fit-content;
   overflow-wrap: break-word;
 }
 
@@ -157,15 +186,14 @@ $blue: rgb(5, 162, 230);
 .assignment {
   border: 1px solid lightblue;
   background: lightblue;
-  border-radius: 5% 6% 6% 5%;
-  max-height: 30%;
+  border-radius: 25px;
   margin-bottom: $spacing-07;
   padding: $spacing-05;
   // width: 100%;
   // height: 100%;
   width: 100%;
   background-color: none;
-  min-height: 20%;
+  min-height: fit-content;
   overflow-wrap: break-word;
 }
 
@@ -214,6 +242,10 @@ $blue: rgb(5, 162, 230);
   // width: 50%;
   // background-color: #f0f0f0;
 }
+
+.right-side {
+  width: 100%
+};
 
 // .calendar-contain .bx--row {
 //     justify-content: center;

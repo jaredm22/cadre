@@ -30,11 +30,11 @@ export default function AssignmentCard(props) {
         <h5>{"Due: " + dueTime}</h5>
       </div>
 
-      <div className="homework">
+      {/* <div className="homework">
         <h4>
           {props.Course.courseId} {props.showFull ? " | Assignment" : ""}
         </h4>
-      </div>
+      </div> */}
 
       <div className="fullname-assignment">
         <h6>{props.name}</h6>

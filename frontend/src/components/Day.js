@@ -15,6 +15,60 @@ import LectureCard from "./LectureCard";
 import AssignmentCard from "./AssignmentCard";
 import ExamCard from "./ExamCard";
 
+// function SyllabusView(props) {
+//   var viewType = props.viewType;
+//   const user = props.user;
+
+//   const assignments = [];
+//     user.courses.forEach((course) => {
+//       course.assignments.forEach((assignment) => {
+//         assignments.push(assignment);
+//       });
+//     });
+
+//   return (
+//     <div className="syllabus-view" style={props.right_side_css}>
+//       {assignments.map( assignment => {
+//         <AssignmentCard
+//           {...assignment}
+//           parseTime={(time) => this.parseTime(time)}
+//           expand={props.expand} //bool to toggle expanded view
+//           showFull={props.days <= 4} //show full zoom link when schedule is on 3-day view and below
+//           handleclick={props.showMore} //show right hand side when clicked inside expanded view
+//           syllabusView={props.syllabusView} //bool to toggle right-hand side details
+//         />
+//       })}
+//       RIGHT_SIDE_VIEW
+//     </div>
+//   );
+// }
+
+
+function Badge(props){
+  console.log(props);
+  if (props.type === "assignments") {
+    if (props.assignments.length != 0)  {
+      return (
+        <button className="badge assignments">
+          <h6>{props.assignments.length} Assignment{props.assignments.length == 1 ? false : 's' } Due</h6>
+        </button>
+      )
+    } else {
+      return null;
+    }
+  } else if (props.type === "exams") {
+    if (props.exams.length != 0)  {
+      return (
+        <button className="badge exams">
+          <h6>{props.exams.length} Exam{props.exams.length == 1 ? false : 's' }</h6>
+        </button>
+      )
+    } else {
+      return null;
+    }
+  }
+}
+
 class Day extends React.Component {
   constructor(props) {
     super(props);
@@ -63,6 +117,7 @@ class Day extends React.Component {
     const exams = [];
     this.props.user.courses.forEach((course) => {
       course.exams.map((exam) => {
+        console.log(exam);
         const dueDate = parseISO(exam.dueDate, "yyyy-MM-dd", new Date());
         if (isSameDay(dueDate, this.props.fullDate)) {
           exams.push(exam);
@@ -156,7 +211,15 @@ class Day extends React.Component {
 
         <div className={this.state.expand === 'is-expanded' ? 'flex' : ''}>
           <div className="courses">
-            {assignments
+
+            {/* Exams badge */}            
+            <Badge type="exams" exams={this.state.exams}></Badge>
+            {/* Assignments badge */}
+            <Badge type="assignments" assignments={this.state.assignments}></Badge>
+            
+            
+            
+            {/* {assignments
               .sort((a1, a2) => a1.dueTime > a2.dueTime)
               .map((assignment) => {
                 return (
@@ -169,7 +232,7 @@ class Day extends React.Component {
                     syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
                   />
                 );
-              })}
+              })} 
             {exams
               .sort((e1, e2) => e1.dueTime > e2.dueTime)
               .map((exam) => {
@@ -181,7 +244,8 @@ class Day extends React.Component {
                     showFull={this.props.days <= 4}
                   />
                 );
-              })}
+              })}*/}
+
             {lectures
               .concat(labs)
               .sort((l1, l2) => l1.startTime > l2.startTime)
@@ -198,18 +262,19 @@ class Day extends React.Component {
                   />
                 );
               })}
+              
           </div>
           
             <div
-              className="right_side"
+              className="right-side"
               style={right_side_css}
             >
               <div
-                style={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}
+                style={{display: "flex", flexDirection: "row"}}
               >
                 <div 
                   className="syllabus-column"
-                  style={{ margin: "40px", marginTop: "0px", overflow: "auto"}}
+                  style={{margin: "40px", marginTop: "0px", overflow: "auto"}}
                 >
                   <h4>Due This Week</h4>
                   {this.state.length == 0 ? 
@@ -234,7 +299,7 @@ class Day extends React.Component {
 
                 
                 <div
-                  style={{display: "flex", flexDirection: "column"}}
+                  style={{display: "flex", flexDirection: "column", textAlign: "center"}}
                 >
                   <h4>Upcoming Assignments</h4>
                   {this.state.length == 0 ? 
@@ -282,31 +347,3 @@ class Day extends React.Component {
 
 export default Day;
 
-
-function SyllabusView(props) {
-  var viewType = props.viewType;
-  const user = props.user;
-
-  const assignments = [];
-    user.courses.forEach((course) => {
-      course.assignments.forEach((assignment) => {
-        assignments.push(assignment);
-      });
-    });
-
-  return (
-    <div className="syllabus-view" style={props.right_side_css}>
-      {assignments.map( assignment => {
-        <AssignmentCard
-          {...assignment}
-          parseTime={(time) => this.parseTime(time)}
-          expand={props.expand} //bool to toggle expanded view
-          showFull={props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-          handleclick={props.showMore} //show right hand side when clicked inside expanded view
-          syllabusView={props.syllabusView} //bool to toggle right-hand side details
-        />
-      })}
-      RIGHT_SIDE_VIEW
-    </div>
-  );
-}
