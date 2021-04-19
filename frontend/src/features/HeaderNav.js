@@ -37,6 +37,20 @@ function HeaderNav(props) {
               <Link
                 className="nav-link"
                 to={{
+                  pathname: "/assignments",
+                  state: {
+                    user: props.user,
+                  },
+                }}
+              >
+                <h4>Assignments</h4>
+              </Link>
+            </Row>
+
+            <Row>
+              <Link
+                className="nav-link"
+                to={{
                   pathname: "/createCourse",
                   state: {
                     user: props.user,

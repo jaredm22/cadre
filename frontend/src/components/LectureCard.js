@@ -49,7 +49,7 @@ const LectureCard = React.forwardRef((props, ref) => {
         </div>
       ) : (
         <div className="fullname-course">
-          <h4 className="black">{props.course.courseId + " | Lab"}</h4>
+          <h5 className="black">{props.course.courseId + " | Lab"}</h5>
         </div>
       )}
 
@@ -57,7 +57,7 @@ const LectureCard = React.forwardRef((props, ref) => {
         className="fullname-course"
         // style={{ display: props.showFull ? "block" : "none"}}
       >
-        <h4 className="black">{props.courseName}</h4>
+        <h5 className="black">{props.courseName}</h5>
       </div>
 
       <div className="time">

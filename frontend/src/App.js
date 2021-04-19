@@ -6,6 +6,7 @@ import LoginPage from "./pages/login/LoginPage";
 import SignupPage from "./pages/signup/SignupPage";
 import CreateCoursePage from "./pages/createCourse/CreateCoursePage";
 import CreateAssignmentPage from "./pages/createAssignment/CreateAssignmentPage";
+import AssignmentsPage from "./pages/assignments/AssignmentsPage";
 import HomePage from "./pages/home/HomePage";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/createCourse" component={CreateCoursePage} />
           <Route path="/createAssignment" component={CreateAssignmentPage} />
           <Route path="/schedule" component={SchedulePage} />
+          <Route path="/assignments" component={AssignmentsPage} />
         </Switch>
       </Router>
     </div>

@@ -81,7 +81,7 @@ function DayHeader(props){
   if (props.expand === "is-expanded") { 
     style={"text-align": "left", "display" : "flex", "flex-direction" : "row"};
     return (<div className={props.today ? "date-today" : "date"} style={style}>
-              <h3 className="clndr-day">{format(props.fullDate, "eeee',' LLLL do")}</h3>
+              <h4 className="clndr-day">{format(props.fullDate, "eeee',' LLLL do")}</h4>
             </div>)
   } 
   else { 
@@ -236,8 +236,6 @@ class Day extends React.Component {
     // console.log("colWid: " + this.state.colWidth)
 
     var { lectures, labs, assignments, exams } = this.state;
-    console.log(this.props)
-    
 
     var section_css = this.state.expand === "is-expanded" 
     ? {
@@ -264,7 +262,7 @@ class Day extends React.Component {
         style={section_css}
       >
         {this.state.expand === "is-expanded" ?
-        
+          
           (<div className="breadcrumbs">
             <Breadcrumbs aria-label="breadcrumb">
               <Link color="inherit" onClick={() => {this.setState({expand:"no-expand"})}}>
@@ -273,7 +271,6 @@ class Day extends React.Component {
               <Link color="textPrimary" >
                 CS320 - Concepts of Programming Languages
               </Link>
-              {/* <Link href=""><a onClick={() => {this.setState({expand:"no-expand"})}}>Weekly Overview</a></Link> */}
             </Breadcrumbs>
           </div>): 
           false
@@ -281,13 +278,16 @@ class Day extends React.Component {
 
         <DayHeader expand={this.state.expand} today={this.props.today} day={this.props.day} date={this.props.date} fullDate={this.props.fullDate}/>
 
+        {/* Exams badge */}            
+        <Badge type="exams" exams={this.state.exams}></Badge>
+        {/* Assignments badge */}
+        <Badge type="assignments" assignments={this.state.assignments}></Badge>
+  
         <div className={this.state.expand === 'is-expanded' ? 'flex' : ''}>
+          
           <div className="courses">
 
-            {/* Exams badge */}            
-            <Badge type="exams" exams={this.state.exams}></Badge>
-            {/* Assignments badge */}
-            <Badge type="assignments" assignments={this.state.assignments}></Badge>
+            
             
             
             

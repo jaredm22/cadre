@@ -1,0 +1,9 @@
+.assignments-container {
+
+}
+
+.bx--content {
+  margin-left: auto;
+  width: calc(100% - 16rem);
+  padding: 20px;
+}
