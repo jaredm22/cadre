@@ -18,8 +18,6 @@ const parseTime = (time) => {
   }
 };
 
-
-
 export default function AssignmentCard(props) {
   // const dueDate = format(props.dueDate, "yyyy-MM-dd", new Date());
   const dueTime = parseTime(props.dueTime);
@@ -39,14 +37,16 @@ export default function AssignmentCard(props) {
       <div className="fullname-assignment">
         <h5>{props.Course.courseId}</h5>
         <h6>{props.name}</h6>
-        <h6>{"Due: "  + dueTime}</h6>
+        <h6>{"Due: " + dueTime}</h6>
       </div>
 
       <div
         className="xtra-info"
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
-        {props.tags.map((t) => {return (<button className="tag">{t}</button>)})}
+        {props.tags.map((t) => {
+          return <button className="tag">{t}</button>;
+        })}
       </div>
     </div>
   );

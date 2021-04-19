@@ -18,7 +18,6 @@ class Calendar extends React.Component {
     this.date = format(this.state.today, "d");
     this.daysrefs = [];
     // this.expandRef = React.createRef();
-    
   }
 
   // setDayRef = (el) => {
@@ -32,11 +31,11 @@ class Calendar extends React.Component {
     if (this.state.expand === "expanded") {
       this.daysrefs.forEach((day) => {
         if (day.state.expand === "is-expanded") {
-          day.setState( prevState => {
-            return { 
+          day.setState((prevState) => {
+            return {
               expand: "no-expand",
-              prevExpand: prevState.expand
-            }
+              prevExpand: prevState.expand,
+            };
           });
         }
       });
@@ -74,25 +73,25 @@ class Calendar extends React.Component {
     // var setexpand;
 
     if (this.state.expand === "no-expand") {
-      this.daysrefs[index].setState( prevState => {
-        return { 
+      this.daysrefs[index].setState((prevState) => {
+        return {
           expand: "is-expanded",
-          prevExpand: prevState.expand
-        }
+          prevExpand: prevState.expand,
+        };
       });
       this.setState({ expand: "is-expanded" });
     } else {
       if (wrapper.expand === "is-expanded") {
         // console.log("minize!");
-        this.daysrefs[index].setState( prevState => {
-          return { 
+        this.daysrefs[index].setState((prevState) => {
+          return {
             expand: "no-expand",
-            prevExpand: prevState.expand
-          }
+            prevExpand: prevState.expand,
+          };
         });
         this.setState({ expand: "no-expand" });
       }
-      
+
       // setexpand = (wrapper.expand === "no-expand") ? 'is-expanded' : 'no-expand'
     }
     // console.log(wrapper.expand);

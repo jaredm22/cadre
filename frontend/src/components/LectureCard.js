@@ -27,22 +27,19 @@ const parseTime = (startTime, endTime) => {
   }
 };
 
-
 const LectureCard = React.forwardRef((props, ref) => {
   // const [syllabusView, setView] = useState(false);
   // console.log(props);
 
   //need to add 'button' to these things
-  
 
   return (
-    <div 
-    key={props.id} 
-    className="course"
-    onClick={props.handleclick}
-    ref={ref}
+    <div
+      key={props.id}
+      className="course"
+      onClick={props.handleclick}
+      ref={ref}
     >
-
       {props.courseName != null ? (
         <div className="fullname-course">
           <h4 className="black"> {props.courseId} </h4>
@@ -63,8 +60,6 @@ const LectureCard = React.forwardRef((props, ref) => {
       <div className="time">
         <h5>{parseTime(props.startTime, props.endTime)} </h5>
       </div>
-
-      
 
       <br></br>
 
@@ -118,12 +113,8 @@ const LectureCard = React.forwardRef((props, ref) => {
             <h1>showExtra</h1>
         </div> */}
       </div>
-
     </div>
   );
-})
+});
 
-export default LectureCard
-
-
-
+export default LectureCard;

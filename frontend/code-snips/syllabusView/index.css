@@ -2,43 +2,47 @@ body {
 }
 
 .container {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    background-color: #f0f0f0;
-    padding: 7em;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  background-color: #f0f0f0;
+  padding: 7em;
 }
 .header {
-    width: 100%;
-    background-color:linen;
+  width: 100%;
+  background-color: linen;
 }
-.day, .xtra-info {
-    margin: 3%;
-    height: 100%;
-    overflow-y: scroll;
+.day,
+.xtra-info {
+  margin: 3%;
+  height: 100%;
+  overflow-y: scroll;
 }
 .red {
-    color:darkred;
+  color: darkred;
 }
 
-h2,h3,h4,h5 {
-    margin: 0;
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
 }
 
 .day {
-    background-color:gainsboro;
-    padding: 1em;
+  background-color: gainsboro;
+  padding: 1em;
 }
 
 .card {
-    background-color:darkseagreen;
-    margin: 30px 0 20px;
-    padding: 1rem;
+  background-color: darkseagreen;
+  margin: 30px 0 20px;
+  padding: 1rem;
 }
 
 .true {
-    display: block;
+  display: block;
 }
 
 .false {
-    display: none;
+  display: none;
 }
