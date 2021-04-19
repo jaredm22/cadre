@@ -79,9 +79,23 @@ class Day extends React.Component {
       all: [],
       exams: [],
       expand: "no-expand",  //classname to add to day component to indicate css transition
-      syllabusView: false
+      prevExpand: "no-expand", //set previous state of expansion to prevent repeated events into expanded view
+      syllabusView: false,
+      rightSide: {},
+      colWidth: 0
     };
     this.test = false;
+    this.courserefs =[] //array of refs to data in a lecture card 
+  }
+
+  componentDidUpdate(){
+    if (this.state.expand === 'is-expanded'){
+      let width = this.getEWidth()
+      width !== this.state.colWidth && 
+      this.setState({
+        colWidth: width
+      })
+    }    
   }
 
   componentDidMount() {
@@ -130,7 +144,7 @@ class Day extends React.Component {
       labs: labs,
       assignments: assignments,
       exams: exams,
-      all: all
+      colWidth: this.getEWidth()
     });
   }
 
@@ -152,33 +166,60 @@ class Day extends React.Component {
     console.log(el);
   };
 
+
   //On-Click function that shows right hand side expanded view for class on 
   //course card clikck
-  showMore(e) {
+  showMore(index, e) {
     if (this.state.expand === 'is-expanded'){
-      console.log(e)
-      console.log("^ from show more")
+      // console.log(index)
+      // let lecture = this.courserefs[index]
+      // console.log(this.state.lectures[index])
+      // this.populateRightSide(lecture)
+      // // console.log("^ from show more")
+
       e.stopPropagation();
+      this.setState( prevState => {
+        return { 
+          expand: "is-expanded",
+          prevExpand: prevState.expand
+        }
+      });
       this.setState({syllabusView: !this.state.syllabusView})
       // console.log(showExtra)
     }
   }
 
+  getEWidth() {
+    let elem;
+    if (this.props.days > 1){
+      elem = document.querySelector('.no-expand')
+    }
+    let width = this.props.days > 1 ? elem.clientWidth : 0;
+    
+    // let e = document.getElementById("clndr-col-" + i);
+    // console.log(elem);
+    // console.log(this.state.colWidth)
+
+    
+    return width;
+  };
+
   
 
   render() {
+    // console.log("expad: " + this.state.expand)
+    // console.log("prev expand: " + this.state.prevExpand)
+    // console.log("colWid: " + this.state.colWidth)
+
     var { lectures, labs, assignments, exams } = this.state;
-    let getEWidth = (i) => {
-      let e = document.getElementById("clndr-col-" + i);
-      console.log(e.clientWidth);
-      return e.clientWidth;
-    };
-    var section_css = {
-      transform:
-        this.state.expand === "is-expanded"
-          ? `translateX(-${getEWidth(this.props.i) * this.props.i}px)`
-          : `translateX(0px)`,
-    };
+    
+
+    var section_css = this.state.expand === "is-expanded" 
+    ? {
+      transform: `translateX(calc(-${this.state.colWidth * this.props.i}px - calc(1rem *  ${this.props.i})))`
+    } 
+    : { transform: `translateX(0px)`}
+
 
     var right_side_css = {
       display: this.state.expand === "is-expanded" && this.state.syllabusView ? "block" : "none"
@@ -223,6 +264,7 @@ class Day extends React.Component {
               .sort((a1, a2) => a1.dueTime > a2.dueTime)
               .map((assignment) => {
                 return (
+                  //***IMPORTANT*** WILL NOT SHOW ASSIGNMENT OR EXAM CARD COMPONENT IN SCHEDULE, ONLY IN EXPANDED VIEW
                   <AssignmentCard
                     {...assignment}
                     parseTime={(time) => this.parseTime(time)}
@@ -257,8 +299,9 @@ class Day extends React.Component {
                     parseTime={(time) => this.parseTime(time)}
                     expand={this.state.expand} //bool to toggle expanded view
                     showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                    handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
-                    syllabusView={this.state.syllabusView} //bool to toggle right-hand side details                  expand={this.state.expand}
+                    handleclick={this.showMore.bind(this, i)} //show right hand side when clicked inside expanded view
+                    syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
+                    ref = {ref => this.courserefs[i] = ref}
                   />
                 );
               })}
@@ -336,7 +379,10 @@ class Day extends React.Component {
             className = "right-side"
             style={right_side_css}
           > 
-            RIGHT_SIDE_VIEW
+            
+            <div>
+              <h1>HI this right hand side</h1>
+            </div>
           
           </div> */}
         </div>
