@@ -1,15 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Dropdown, Grid, Row, Column } from "carbon-components-react";
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 import api from "../apiHandle";
 import {
   parseISO,
   getHours,
   getMinutes,
+  getDate,
+  getMonth,
+  getDay,
   isSameDay,
   isSameWeek,
   compareAsc,
   isThisHour,
+  format,
+  formatRelative,
 } from "date-fns";
 import LectureCard from "./LectureCard";
 import AssignmentCard from "./AssignmentCard";
@@ -66,6 +72,24 @@ function Badge(props){
     } else {
       return null;
     }
+  }
+}
+
+function DayHeader(props){
+  let style = {};
+  let date = "";
+  if (props.expand === "is-expanded") { 
+    style={"text-align": "left", "display" : "flex", "flex-direction" : "row"};
+    return (<div className={props.today ? "date-today" : "date"} style={style}>
+              <h3 className="clndr-day">{format(props.fullDate, "eeee',' LLLL do")}</h3>
+            </div>)
+  } 
+  else { 
+    style={"text-align": "center",}
+    return (<div className={props.today ? "date-today" : "date"} style={style}>
+              <h3 className="clndr-day">{format(props.fullDate, "eee")}</h3>
+              <h4 className="clndr-date">{format(props.fullDate, "dd")}</h4>
+            </div>)
   }
 }
 
@@ -212,6 +236,7 @@ class Day extends React.Component {
     // console.log("colWid: " + this.state.colWidth)
 
     var { lectures, labs, assignments, exams } = this.state;
+    console.log(this.props)
     
 
     var section_css = this.state.expand === "is-expanded" 
@@ -238,17 +263,23 @@ class Day extends React.Component {
         }
         style={section_css}
       >
-        {this.props.today ? (
-          <div className="date-today">
-            <h3 className="clndr-day">{this.props.day}</h3>
-            <h4 className="clndr-date">{this.props.date}</h4>
-          </div>
-        ) : (
-          <div className="date">
-            <h3 className="clndr-day">{this.props.day}</h3>
-            <h4 className="clndr-date">{this.props.date}</h4>
-          </div>
-        )}
+        {this.state.expand === "is-expanded" ?
+        
+          (<div className="breadcrumbs">
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link color="inherit" onClick={() => {this.setState({expand:"no-expand"})}}>
+                Weekly Overview
+              </Link>
+              <Link color="textPrimary" >
+                CS320 - Concepts of Programming Languages
+              </Link>
+              {/* <Link href=""><a onClick={() => {this.setState({expand:"no-expand"})}}>Weekly Overview</a></Link> */}
+            </Breadcrumbs>
+          </div>): 
+          false
+        }
+
+        <DayHeader expand={this.state.expand} today={this.props.today} day={this.props.day} date={this.props.date} fullDate={this.props.fullDate}/>
 
         <div className={this.state.expand === 'is-expanded' ? 'flex' : ''}>
           <div className="courses">

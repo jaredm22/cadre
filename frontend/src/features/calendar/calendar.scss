@@ -2,7 +2,7 @@
 @import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
 @import "carbon-components/scss/globals/scss/vars.scss";
 
-$blue: rgb(5, 162, 230);
+// $blue: rgb(5, 162, 230);
 
 .calendar-contain {
   // margin-top: 3em;
@@ -14,7 +14,7 @@ $blue: rgb(5, 162, 230);
 }
 
 .student-name {
-  color: rgb(5, 162, 230);
+  color: lightblue;
 }
 
 .blue a {
@@ -27,6 +27,11 @@ $blue: rgb(5, 162, 230);
   color: black;
 }
 
+.breadcrumbs {
+  color: black;
+  margin-bottom: $spacing-07
+}
+
 .intro {
   height: $layout-06;
 }
@@ -37,11 +42,12 @@ $blue: rgb(5, 162, 230);
 
 .date {
   margin-bottom: $spacing-05;
+  text-align: center;
 }
 
 .date-today {
   margin-bottom: $spacing-05;
-  color: rgb(5, 162, 230);
+  color: lightblue;
 }
 
 .slider {
@@ -82,7 +88,7 @@ $blue: rgb(5, 162, 230);
 .nav-link-home {
   text-decoration: none;
   padding: 4em;
-  color: rgb(5, 162, 230);
+  color: white;
 }
 
 .date-head {
@@ -121,7 +127,7 @@ $blue: rgb(5, 162, 230);
 
 .clndr-today > .clndr-day,
 .clndr-today > .clndr-date {
-  color: fuchsia;
+  color: rgb(83, 77, 83);
 }
 
 .shadow {
