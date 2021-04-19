@@ -285,27 +285,8 @@ class Day extends React.Component {
   
         <div className={this.state.expand === 'is-expanded' ? 'flex' : ''}>
           
-          <div className="courses">
-
-            
-            
-            
-            
-            {/* {assignments
-              .sort((a1, a2) => a1.dueTime > a2.dueTime)
-              .map((assignment) => {
-                return (
-                  //***IMPORTANT*** WILL NOT SHOW ASSIGNMENT OR EXAM CARD COMPONENT IN SCHEDULE, ONLY IN EXPANDED VIEW
-                  <AssignmentCard
-                    {...assignment}
-                    parseTime={(time) => this.parseTime(time)}
-                    expand={this.state.expand} //bool to toggle expanded view
-                    showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                    handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
-                    syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
-                  />
-                );
-              })} 
+          <div className="courses"> 
+            {/*
             {exams
               .sort((e1, e2) => e1.dueTime > e2.dueTime)
               .map((exam) => {
@@ -348,12 +329,12 @@ class Day extends React.Component {
               >
                 <div 
                   className="syllabus-column"
-                  style={{margin: "40px", marginTop: "0px", overflow: "auto"}}
+                  style={{margin: "40px", marginTop: "0px", overflow: "auto",  textAlign: "center"}}
                 >
                   <h4>Due This Week</h4>
-                  {this.state.length == 0 ? 
-                    <p>No assigments due this week.</p> :
-                    this.state.all.map(assignment => {
+                  {this.state.assignments.length == 0 ? 
+                    <p>No assignments due this week.</p> :
+                    this.state.assignments.map(assignment => {
                       const dueDate = parseISO(assignment.dueDate, "yyyy-MM-dd", new Date());
                       if (isSameWeek(dueDate, this.props.fullDate)) {
                         return(

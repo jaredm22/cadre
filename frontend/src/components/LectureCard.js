@@ -55,7 +55,7 @@ const LectureCard = React.forwardRef((props, ref) => {
 
       <div
         className="fullname-course"
-        // style={{ display: props.showFull ? "block" : "none"}}
+        // style={{ overflow: "hidden"}}
       >
         <h5 className="black">{props.courseName}</h5>
       </div>
