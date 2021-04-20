@@ -227,7 +227,6 @@ class Day extends React.Component {
   }
 
   componentDidMount() {
-    
     const lectures = this.props.user.courses.filter((course) => {
       if (course.days.includes(this.props.day)) {
         return course;
@@ -273,7 +272,7 @@ class Day extends React.Component {
 
     this.setState({
       lectures: lectures,
-      labs: labs, 
+      labs: labs,
       assignments: assignments,
       exams: exams,
       colWidth: this.getEWidth(),
