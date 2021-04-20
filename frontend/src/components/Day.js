@@ -20,35 +20,6 @@ import {
 } from "date-fns";
 import LectureCard from "./LectureCard";
 import AssignmentCard from "./AssignmentCard";
-import ExamCard from "./ExamCard";
-
-// function SyllabusView(props) {
-//   var viewType = props.viewType;
-//   const user = props.user;
-
-//   const assignments = [];
-//     user.courses.forEach((course) => {
-//       course.assignments.forEach((assignment) => {
-//         assignments.push(assignment);
-//       });
-//     });
-
-//   return (
-//     <div className="syllabus-view" style={props.right_side_css}>
-//       {assignments.map( assignment => {
-//         <AssignmentCard
-//           {...assignment}
-//           parseTime={(time) => this.parseTime(time)}
-//           expand={props.expand} //bool to toggle expanded view
-//           showFull={props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-//           handleclick={props.showMore} //show right hand side when clicked inside expanded view
-//           syllabusView={props.syllabusView} //bool to toggle right-hand side details
-//         />
-//       })}
-//       RIGHT_SIDE_VIEW
-//     </div>
-//   );
-// }
 
 function Badge(props) {
   console.log(props);
@@ -122,6 +93,109 @@ function DayHeader(props) {
       </div>
     );
   }
+}
+
+function SyllabusView(props) {
+  var right_side_css = {
+    display:
+      props.expand === "is-expanded" && props.syllabusView ? "block" : "none",
+  };
+  const course = props.course;
+
+  return course ? (
+    <div className="right-side" style={right_side_css}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div
+          className="syllabus-column"
+          style={{
+            margin: "40px",
+            marginTop: "0px",
+            overflow: "auto",
+            textAlign: "left",
+            padding: "1%",
+          }}
+        >
+          <h4>
+            All Assignments for{" "}
+            <span style={{ color: "orange" }}>{course.courseId}</span>:{" "}
+          </h4>
+          <br></br>
+
+          {course.assignments.length == 0 ? (
+            <p>No assignments for this course.</p>
+          ) : (
+            course.assignments.map((assignment) => {
+              return <AssignmentCard {...assignment} />;
+            })
+          )}
+        </div>
+      </div>
+    </div>
+  ) : (
+    false
+  );
+
+  // (<div className="right-side" style={right_side_css}>
+  //       <div style={{ display: "flex", flexDirection: "row" }}>
+  //         <div
+  //           className="syllabus-column"
+  //           style={{
+  //             margin: "40px",
+  //             marginTop: "0px",
+  //             overflow: "auto",
+  //             textAlign: "center",
+  //           }}
+  //         >
+  //           <h4>Due This Week</h4>
+  //           {course.assignments.length == 0 ? (
+  //             <p>No assignments due this week.</p>
+  //           ) : (
+  //             course.assignments.map((assignment) => {
+  //               const dueDate = parseISO(
+  //                 assignment.dueDate,
+  //                 "yyyy-MM-dd",
+  //                 new Date()
+  //               );
+  //               if (isSameWeek(dueDate, props.fullDate)) {
+  //                 return (
+  //                   <AssignmentCard
+  //                     {...assignment}
+  //                   />
+  //                 );
+  //               }
+  //             })
+  //           )}
+  //         </div>
+
+  //         <div
+  //           style={{
+  //             display: "flex",
+  //             flexDirection: "column",
+  //             textAlign: "center",
+  //           }}
+  //         >
+  //           <h4>Upcoming Assignments</h4>
+  //           {course.assignments.length == 0 ? (
+  //             <p>No assigments due this week.</p>
+  //           ) : (
+  //             course.assignments.map((assignment) => {
+  //               const dueDate = parseISO(
+  //                 assignment.dueDate,
+  //                 "yyyy-MM-dd",
+  //                 new Date()
+  //               );
+  //               if (!isSameWeek(dueDate, props.fullDate)) {
+  //                 return (
+  //                   <AssignmentCard
+  //                     {...assignment}
+  //                   />
+  //                 );
+  //               }
+  //             })
+  //           )}
+  //         </div>
+  //       </div>
+  //     </div>) : false)
 }
 
 class Day extends React.Component {
@@ -223,7 +297,8 @@ class Day extends React.Component {
 
   //On-Click function that shows right hand side expanded view for class on
   //course card clikck
-  showMore(index, e) {
+  showMore(index, e, course) {
+    console.log(course);
     if (this.state.expand === "is-expanded") {
       // console.log(index)
       // let lecture = this.courserefs[index]
@@ -273,16 +348,8 @@ class Day extends React.Component {
           }
         : { transform: `translateX(0px)` };
 
-    var right_side_css = {
-      display:
-        this.state.expand === "is-expanded" && this.state.syllabusView
-          ? "block"
-          : "none",
-    };
-    // console.log(exams);
-    // console.log(exams.sort((e1, e2) => e1.dueTime > e2.dueTime));
-
     console.log(this.state.all);
+    console.log(this.state.expandedCourse);
     return (
       <section
         id={"clndr-col-" + this.props.i}
@@ -304,9 +371,26 @@ class Day extends React.Component {
               >
                 Weekly Overview
               </LinkUI>
-              <LinkUI color="textPrimary">
+
+              <LinkUI color="inherit">
                 {format(this.props.fullDate, "E',' LLL do")}
               </LinkUI>
+
+              {this.state.expandedCourse ? (
+                <LinkUI color="inherit">
+                  {this.state.expandedCourse.courseId +
+                    " - " +
+                    this.state.expandedCourse.courseName}
+                </LinkUI>
+              ) : (
+                false
+              )}
+
+              {this.state.expandedCourse ? (
+                <LinkUI color="textPrimary">Assignments</LinkUI>
+              ) : (
+                false
+              )}
             </Breadcrumbs>
           </div>
         ) : (
@@ -336,20 +420,6 @@ class Day extends React.Component {
 
         <div className={this.state.expand === "is-expanded" ? "flex" : ""}>
           <div className="courses">
-            {/*
-            {exams
-              .sort((e1, e2) => e1.dueTime > e2.dueTime)
-              .map((exam) => {
-                return (
-                  <ExamCard
-                    {...exam}
-                    parseTime={(time) => this.parseTime(time)}
-                    expand={this.state.expand}
-                    showFull={this.props.days <= 4}
-                  />
-                );
-              })}*/}
-
             {lectures
               .concat(labs)
               .sort((l1, l2) => l1.startTime > l2.startTime)
@@ -360,7 +430,31 @@ class Day extends React.Component {
                     parseTime={(time) => this.parseTime(time)}
                     expand={this.state.expand} //bool to toggle expanded view
                     showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                    handleclick={this.showMore.bind(this, i)} //show right hand side when clicked inside expanded view
+                    handleclick={(e) => {
+                      console.log(course);
+                      if (this.state.expand === "is-expanded") {
+                        e.stopPropagation();
+                        this.setState((prevState) => {
+                          return {
+                            expand: "is-expanded",
+                            prevExpand: prevState.expand,
+                          };
+                        });
+                        if (this.state.syllabusView) {
+                          course.courseId !== this.state.expandedCourse.courseId
+                            ? this.setState({ expandedCourse: course })
+                            : this.setState({
+                                syllabusView: !this.state.syllabusView,
+                                expandedCourse: null,
+                              });
+                        } else {
+                          this.setState({
+                            syllabusView: !this.state.syllabusView,
+                            expandedCourse: course,
+                          });
+                        }
+                      }
+                    }}
                     syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
                     ref={(ref) => (this.courserefs[i] = ref)}
                   />
@@ -368,97 +462,13 @@ class Day extends React.Component {
               })}
           </div>
 
-          <div className="right-side" style={right_side_css}>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <div
-                className="syllabus-column"
-                style={{
-                  margin: "40px",
-                  marginTop: "0px",
-                  overflow: "auto",
-                  textAlign: "center",
-                }}
-              >
-                <h4>Due This Week</h4>
-                {this.state.assignments.length == 0 ? (
-                  <p>No assignments due this week.</p>
-                ) : (
-                  this.state.assignments.map((assignment) => {
-                    const dueDate = parseISO(
-                      assignment.dueDate,
-                      "yyyy-MM-dd",
-                      new Date()
-                    );
-                    if (isSameWeek(dueDate, this.props.fullDate)) {
-                      return (
-                        <AssignmentCard
-                          {...assignment}
-                          parseTime={(time) => this.parseTime(time)}
-                          expand={this.state.expand} //bool to toggle expanded view
-                          showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                          handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
-                          syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
-                        />
-                      );
-                    }
-                  })
-                )}
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  textAlign: "center",
-                }}
-              >
-                <h4>Upcoming Assignments</h4>
-                {this.state.length == 0 ? (
-                  <p>No assigments due this week.</p>
-                ) : (
-                  this.state.all.map((assignment) => {
-                    const dueDate = parseISO(
-                      assignment.dueDate,
-                      "yyyy-MM-dd",
-                      new Date()
-                    );
-                    if (!isSameWeek(dueDate, this.props.fullDate)) {
-                      return (
-                        <AssignmentCard
-                          {...assignment}
-                          parseTime={(time) => this.parseTime(time)}
-                          expand={this.state.expand} //bool to toggle expanded view
-                          showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                          handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
-                          syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
-                        />
-                      );
-                    }
-                  })
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* <SyllabusView
-            style={right_side_css}
-            className="right_side"
-            viewType="assignments"
-            user={this.props.user}
-            expand={this.state.expand} //bool to toggle expanded view
-            showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-            handleclick={this.showMore.bind(this)} //show right hand side when clicked inside expanded view
-          /> */}
-          {/* <div
-            className = "right-side"
-            style={right_side_css}
-          > 
-            
-            <div>
-              <h1>HI this right hand side</h1>
-            </div>
-          
-          </div> */}
+          <SyllabusView
+            course={this.state.expandedCourse}
+            fullDate={this.props.fullDate}
+            expand={this.state.expand}
+            showFull={this.props.days <= 4}
+            syllabusView={this.state.syllabusView}
+          />
         </div>
       </section>
     );

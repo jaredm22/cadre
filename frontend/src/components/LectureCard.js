@@ -85,7 +85,7 @@ const LectureCard = React.forwardRef((props, ref) => {
               style={{ display: props.showFull ? "block" : "none" }}
               target="_blank"
               rel="noreferrer"
-              href="blackboard.com"
+              // href="blackboard.com"
             >
               Lecture Slides
             </a>
@@ -98,16 +98,17 @@ const LectureCard = React.forwardRef((props, ref) => {
                 style={{ display: props.showFull ? "block" : "none" }}
                 target="_blank"
                 rel="noreferrer"
-                href={props.piazzaLink}
+                // href={props.piazzaLink}
               >
-                Piazza
+                Piazza Page
               </a>
             ) : (
               false
             )}
           </li>
-
+          {/* <li>Course Page</li> */}
           <li>Assignments</li>
+          {/* <li>Exams</li> */}
           <li>Office hours</li>
         </ul>
 
