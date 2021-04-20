@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SideNav, Row, Column, Grid } from "carbon-components-react";
 import { Link } from "react-router-dom";
 import "../pages/schedule/calendar.scss";
@@ -6,8 +6,14 @@ import logo from "../assets/logo.png";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Calendar from 'react-calendar';
 
 function HeaderNav(props) {
+  const [date, setDate] = useState(new Date());
+  const printDay = async (day) => {
+    setDate(day);
+    console.log(date)
+  }
   return (
     <div className="App">
       <SideNav
@@ -130,8 +136,13 @@ function HeaderNav(props) {
                 <h4>Login</h4>
               </Link>
             </Row>
-
             <Row></Row>
+            <Row>
+            <Calendar
+        onChange={(value) => printDay(value)}
+        value={date}
+      />
+            </Row>
           </Column>
         </Grid>
       </SideNav>
