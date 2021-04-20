@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Link from "@material-ui/core/Link";
+import LinkUI from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 import api from "../apiHandle";
 import {
   parseISO,
@@ -55,10 +56,20 @@ function Badge(props) {
     if (props.assignments.length != 0) {
       return (
         <button className="badge assignments">
-          <h6>
-            {props.assignments.length} Assignment
-            {props.assignments.length == 1 ? false : "s"} Due
-          </h6>
+          <Link
+            className="badge link"
+            to={{
+              pathname: "/assignments",
+              state: {
+                user: props.user,
+              },
+            }}
+          >
+            <h6>
+              {props.assignments.length} Assignment
+              {props.assignments.length == 1 ? false : "s"} Due
+            </h6>
+          </Link>
         </button>
       );
     } else {
@@ -68,9 +79,20 @@ function Badge(props) {
     if (props.exams.length != 0) {
       return (
         <button className="badge exams">
-          <h6>
-            {props.exams.length} Exam{props.exams.length == 1 ? false : "s"}
-          </h6>
+          <Link
+            className="badge link"
+            to={{
+              pathname: "/exams",
+              state: {
+                user: props.user,
+              },
+            }}
+          >
+            <h6>
+              {props.exams.length} Exam
+              {props.exams.length == 1 ? false : "s"} Due
+            </h6>
+          </Link>
         </button>
       );
     } else {
@@ -273,18 +295,18 @@ class Day extends React.Component {
       >
         {this.state.expand === "is-expanded" ? (
           <div className="breadcrumbs">
-            <Breadcrumbs aria-label="breadcrumb">
-              <Link
+            <Breadcrumbs aria-label="breadcrumb" className="bc">
+              <LinkUI
                 color="inherit"
                 onClick={() => {
                   this.setState({ expand: "no-expand" });
                 }}
               >
                 Weekly Overview
-              </Link>
-              <Link color="textPrimary">
+              </LinkUI>
+              <LinkUI color="textPrimary">
                 {format(this.props.fullDate, "E',' LLL do")}
-              </Link>
+              </LinkUI>
             </Breadcrumbs>
           </div>
         ) : (
@@ -300,9 +322,17 @@ class Day extends React.Component {
         />
 
         {/* Exams badge */}
-        <Badge type="exams" exams={this.state.exams}></Badge>
+        <Badge
+          type="exams"
+          exams={this.state.exams}
+          user={this.props.user}
+        ></Badge>
         {/* Assignments badge */}
-        <Badge type="assignments" assignments={this.state.assignments}></Badge>
+        <Badge
+          type="assignments"
+          assignments={this.state.assignments}
+          user={this.props.user}
+        ></Badge>
 
         <div className={this.state.expand === "is-expanded" ? "flex" : ""}>
           <div className="courses">

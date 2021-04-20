@@ -17,19 +17,24 @@
   color: lightblue;
 }
 
-.blue a {
+.blue {
   text-decoration: none;
   // color: blue
 }
 
-.black a {
+
+.black {
   text-decoration: none;
   color: black;
 }
 
 .breadcrumbs {
   color: black;
-  margin-bottom: $spacing-07
+  margin-bottom: $spacing-07;
+}
+
+.bc {
+  text-decoration: none;
 }
 
 .intro {
@@ -141,8 +146,6 @@
   width: 100%;
 }
 
-
-
 .badge:hover {
   box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.4);
 }
@@ -153,6 +156,13 @@
   border: none;
   border-radius: 25px;
   margin-bottom: $spacing-05;
+  text-decoration: none;
+  color: black;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
 }
 
 .exams {
@@ -162,6 +172,8 @@
 .assignments {
   background: orange;
 }
+
+
 
 // .badge .assignments {
 //   width: 100%;
@@ -242,7 +254,8 @@
 }
 
 // .zoomlink, .piazzalink, .lectureslideslink {
-//     margin-top: $spacing-03
+//     padding: none;
+//     margin: none;
 // }
 
 .is-expanded {

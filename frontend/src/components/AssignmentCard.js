@@ -28,12 +28,11 @@ export default function AssignmentCard(props) {
   return (
     <div key={props.id} className="assignment">
       <div>
-        <h4>{props.Course.courseId}</h4>
-        <h6>{props.Course.courseName}</h6>
+        <h6>{props.Course.courseId}</h6>
+        {/* <h6>{props.Course.courseName}</h6> */}
+        <h4>{props.name}</h4>
         <br></br>
-        <h6>{props.name}</h6>
-        <h6>{"Due: " + dueTime}</h6>
-        <h6>{dueDate}</h6>
+        <h6>{"Due: " + dueDate + " - " + dueTime}</h6>
       </div>
 
       <div

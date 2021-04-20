@@ -64,11 +64,14 @@ const LectureCard = React.forwardRef((props, ref) => {
       <br></br>
 
       <div className="zoomlink">
-        <h6 className="blue">
-          <a target="_blank" rel="noreferrer" href={props.zoomLink}>
-            Zoom Link
-          </a>
-        </h6>
+        <a
+          className="blue"
+          target="_blank"
+          rel="noreferrer"
+          href={props.zoomLink}
+        >
+          Zoom Link
+        </a>
       </div>
 
       <div
@@ -77,26 +80,28 @@ const LectureCard = React.forwardRef((props, ref) => {
       >
         <ul>
           <li>
-            <p
+            <a
               className="black"
               style={{ display: props.showFull ? "block" : "none" }}
+              target="_blank"
+              rel="noreferrer"
+              href="blackboard.com"
             >
-              <a target="_blank" rel="noreferrer" href="blackboard.com">
-                Lecture Slides
-              </a>
-            </p>
+              Lecture Slides
+            </a>
           </li>
 
           <li>
             {props.piazzaLink != null ? (
-              <p
+              <a
                 className="black"
                 style={{ display: props.showFull ? "block" : "none" }}
+                target="_blank"
+                rel="noreferrer"
+                href={props.piazzaLink}
               >
-                <a target="_blank" rel="noreferrer" href={props.piazzaLink}>
-                  Piazza
-                </a>
-              </p>
+                Piazza
+              </a>
             ) : (
               false
             )}
