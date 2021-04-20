@@ -227,10 +227,21 @@ class Day extends React.Component {
   }
 
   componentDidMount() {
+    
     const lectures = this.props.user.courses.filter((course) => {
       if (course.days.includes(this.props.day)) {
         return course;
       }
+      // api.getModifiedLecture(course.id, format(this.props.fullDate, "yyyy-MM-dd"))
+      //   .then(res => {
+      //     if ( res == null && course.days.includes(this.props.day)) {
+      //       console.log(course);
+      //       return course;
+      //     } else if (res != null) {
+      //       modifiedLecture = res;
+      //     }
+      //   }
+      // );
     });
 
     const labs = this.props.user.labs.filter((lab) => {
@@ -239,9 +250,32 @@ class Day extends React.Component {
       }
     });
 
+    const assignments = [];
+    this.props.user.courses.forEach((course) => {
+      course.assignments.forEach((assignment) => {
+        const dueDate = parseISO(assignment.dueDate, "yyyy-MM-dd", new Date());
+        if (isSameDay(dueDate, this.props.fullDate)) {
+          assignments.push(assignment);
+        }
+      });
+    });
+
+    const exams = [];
+    this.props.user.courses.forEach((course) => {
+      course.exams.map((exam) => {
+        console.log(exam);
+        const dueDate = parseISO(exam.dueDate, "yyyy-MM-dd", new Date());
+        if (isSameDay(dueDate, this.props.fullDate)) {
+          exams.push(exam);
+        }
+      });
+    });
+
     this.setState({
       lectures: lectures,
-      labs: labs,
+      labs: labs, 
+      assignments: assignments,
+      exams: exams,
       colWidth: this.getEWidth(),
     });
   }
