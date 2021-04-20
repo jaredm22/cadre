@@ -1,0 +1,29 @@
+@import "carbon-components/scss/components/slider/slider";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+.class-container {
+  margin-left: auto;
+  width: calc(100% - 16rem);
+  height: 100%;
+  padding: 20px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.breadcrumbs {
+  color: black;
+  margin-bottom: $spacing-07
+}
+
+.class-column {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.class-column h5 {
+  margin-bottom: $spacing-07;
+}

@@ -283,7 +283,7 @@ class Day extends React.Component {
                 Weekly Overview
               </Link>
               <Link color="textPrimary">
-                CS320 - Concepts of Programming Languages
+                {format(this.props.fullDate, "E',' LLL do")}
               </Link>
             </Breadcrumbs>
           </div>

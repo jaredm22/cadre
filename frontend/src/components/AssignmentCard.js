@@ -1,7 +1,7 @@
 import { Dropdown, Grid, Row } from "carbon-components-react";
-import { parseISO, getDate, getMonth, format } from "date-fns";
+import { parseISO, getDate, getMonth, format, parse } from "date-fns";
 import React from "react";
-import "../features/calendar/calendar.scss";
+import "../pages/schedule/calendar.scss";
 
 const parseTime = (time) => {
   const [hours, minutes] = time.split(":");
@@ -19,25 +19,21 @@ const parseTime = (time) => {
 };
 
 export default function AssignmentCard(props) {
-  // const dueDate = format(props.dueDate, "yyyy-MM-dd", new Date());
+  const dueDate = format(
+    parse(props.dueDate, "yyyy-MM-d", new Date()),
+    "MMM do"
+  );
   const dueTime = parseTime(props.dueTime);
 
   return (
     <div key={props.id} className="assignment">
-      {/* <div className="time">
-        <h5>{"Due: " + dueTime}</h5>
-      </div> */}
-
-      {/* <div className="homework">
-        <h4>
-          {props.Course.courseId} {props.showFull ? " | Assignment" : ""}
-        </h4>
-      </div> */}
-
-      <div className="fullname-assignment">
-        <h5>{props.Course.courseId}</h5>
+      <div>
+        <h4>{props.Course.courseId}</h4>
+        <h6>{props.Course.courseName}</h6>
+        <br></br>
         <h6>{props.name}</h6>
         <h6>{"Due: " + dueTime}</h6>
+        <h6>{dueDate}</h6>
       </div>
 
       <div

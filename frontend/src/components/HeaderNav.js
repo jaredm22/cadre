@@ -1,7 +1,11 @@
+import React from "react";
 import { SideNav, Row, Column, Grid } from "carbon-components-react";
 import { Link } from "react-router-dom";
-import "../features/calendar/calendar.scss";
+import "../pages/schedule/calendar.scss";
 import logo from "../assets/logo.png";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 function HeaderNav(props) {
   return (
@@ -15,6 +19,18 @@ function HeaderNav(props) {
       >
         <Grid>
           <Column>
+            {/* <div style={{display: "flex", flexDirection: "row"}}>
+              <img
+                  className="logo"
+                  src={logo}
+                  width="80px"
+                  height="80px"
+                ></img>
+                <Link className="nav-link-home" to="/">
+                  <h3>Cadre</h3>
+                  <br></br>
+                </Link>
+            </div> */}
             <Row className="title">
               <Column>
                 <img
@@ -31,6 +47,20 @@ function HeaderNav(props) {
                   <br></br>
                 </Link>
               </Column>
+            </Row>
+
+            <Row>
+              <Link
+                className="nav-link"
+                to={{
+                  pathname: "/schedule/student",
+                  state: {
+                    user: props.user,
+                  },
+                }}
+              >
+                <h4>Schedule</h4>
+              </Link>
             </Row>
 
             <Row>
@@ -86,6 +116,8 @@ function HeaderNav(props) {
                 <h4>Login</h4>
               </Link>
             </Row>
+
+            <Row></Row>
           </Column>
         </Grid>
       </SideNav>

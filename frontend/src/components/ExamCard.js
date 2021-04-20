@@ -1,7 +1,7 @@
 import { Dropdown, Grid, Row } from "carbon-components-react";
 import { parseISO, format } from "date-fns";
 import React from "react";
-import "../features/calendar/calendar.scss";
+import "../pages/schedule/calendar.scss";
 
 const parseTime = (time) => {
   const [hours, minutes] = time.split(":");

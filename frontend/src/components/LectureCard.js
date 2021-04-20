@@ -3,7 +3,7 @@ import { parseISO, getHours, getMinutes, format } from "date-fns";
 // import React, { useState } from "react";
 import React from "react";
 
-import "../features/calendar/calendar.scss";
+import "../pages/schedule/calendar.scss";
 
 const parseTime = (startTime, endTime) => {
   const [sh, sm] = startTime.split(":");
