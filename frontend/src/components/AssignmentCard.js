@@ -37,7 +37,7 @@ export default function AssignmentCard(props) {
 
       <div
         className="xtra-info"
-        style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
+        // style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
         {props.tags.map((t) => {
           return <button className="tag">{t}</button>;

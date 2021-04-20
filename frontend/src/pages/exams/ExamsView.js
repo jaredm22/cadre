@@ -13,7 +13,7 @@ function ClassColumn(props) {
       <h5>{props.courseName}</h5>
       {props.exams.length !== 0 ? (
         props.exams
-          .sort((e1, e2) => e1.dueTime > e2.dueTime)
+          .sort((e1, e2) => e1.dueDate > e2.dueDate)
           .map((exam) => {
             return <ExamCard {...exam} expand="is-expanded" />;
           })
