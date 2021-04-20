@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import LinkUI from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
-import api from "../apiHandle";
+import api from "../../apiHandle";
 import {
   parseISO,
   getHours,
@@ -18,11 +18,10 @@ import {
   format,
   formatRelative,
 } from "date-fns";
-import LectureCard from "./LectureCard";
-import AssignmentCard from "./AssignmentCard";
+import LectureCard from "../../components/LectureCard";
+import AssignmentCard from "../../components/AssignmentCard";
 
 function Badge(props) {
-  console.log(props);
   if (props.type === "assignments") {
     if (props.assignments.length != 0) {
       return (
@@ -74,7 +73,6 @@ function Badge(props) {
 
 function DayHeader(props) {
   let style = {};
-  let date = "";
   if (props.expand === "is-expanded") {
     style = { "text-align": "left", display: "flex", "flex-direction": "row" };
     return (
@@ -101,6 +99,7 @@ function SyllabusView(props) {
       props.expand === "is-expanded" && props.syllabusView ? "block" : "none",
   };
   const course = props.course;
+  console.log(course);
 
   return course ? (
     <div className="right-side" style={right_side_css}>
@@ -240,39 +239,9 @@ class Day extends React.Component {
       }
     });
 
-    const all = [];
-    this.props.user.courses.forEach((course) => {
-      course.assignments.forEach((assignment) => {
-        all.push(assignment);
-      });
-    });
-
-    const assignments = [];
-    this.props.user.courses.forEach((course) => {
-      course.assignments.forEach((assignment) => {
-        const dueDate = parseISO(assignment.dueDate, "yyyy-MM-dd", new Date());
-        if (isSameDay(dueDate, this.props.fullDate)) {
-          assignments.push(assignment);
-        }
-      });
-    });
-
-    const exams = [];
-    this.props.user.courses.forEach((course) => {
-      course.exams.map((exam) => {
-        console.log(exam);
-        const dueDate = parseISO(exam.dueDate, "yyyy-MM-dd", new Date());
-        if (isSameDay(dueDate, this.props.fullDate)) {
-          exams.push(exam);
-        }
-      });
-    });
-
     this.setState({
       lectures: lectures,
       labs: labs,
-      assignments: assignments,
-      exams: exams,
       colWidth: this.getEWidth(),
     });
   }
@@ -337,7 +306,7 @@ class Day extends React.Component {
     // console.log("prev expand: " + this.state.prevExpand)
     // console.log("colWid: " + this.state.colWidth)
 
-    var { lectures, labs, assignments, exams } = this.state;
+    var { lectures, labs } = this.state;
 
     var section_css =
       this.state.expand === "is-expanded"
@@ -348,8 +317,6 @@ class Day extends React.Component {
           }
         : { transform: `translateX(0px)` };
 
-    console.log(this.state.all);
-    console.log(this.state.expandedCourse);
     return (
       <section
         id={"clndr-col-" + this.props.i}
@@ -432,6 +399,7 @@ class Day extends React.Component {
                     showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
                     handleclick={(e) => {
                       console.log(course);
+                      var toExpand = course;
                       if (this.state.expand === "is-expanded") {
                         e.stopPropagation();
                         this.setState((prevState) => {
@@ -441,8 +409,9 @@ class Day extends React.Component {
                           };
                         });
                         if (this.state.syllabusView) {
-                          course.courseId !== this.state.expandedCourse.courseId
-                            ? this.setState({ expandedCourse: course })
+                          toExpand.courseId !==
+                          this.state.expandedCourse.courseId
+                            ? this.setState({ expandedCourse: toExpand })
                             : this.setState({
                                 syllabusView: !this.state.syllabusView,
                                 expandedCourse: null,
@@ -450,7 +419,23 @@ class Day extends React.Component {
                         } else {
                           this.setState({
                             syllabusView: !this.state.syllabusView,
-                            expandedCourse: course,
+                            expandedCourse: toExpand,
+                          });
+                        }
+                      } else {
+                        if (this.state.syllabusView) {
+                          toExpand.courseId !==
+                          this.state.expandedCourse.courseId
+                            ? this.setState({ expandedCourse: toExpand })
+                            : this.setState({
+                                syllabusView: !this.state.syllabusView,
+                                expandedCourse: null,
+                              });
+                        } else {
+                          this.setState({
+                            expand: "is-expanded",
+                            syllabusView: !this.state.syllabusView,
+                            expandedCourse: toExpand,
                           });
                         }
                       }
@@ -462,13 +447,17 @@ class Day extends React.Component {
               })}
           </div>
 
-          <SyllabusView
-            course={this.state.expandedCourse}
-            fullDate={this.props.fullDate}
-            expand={this.state.expand}
-            showFull={this.props.days <= 4}
-            syllabusView={this.state.syllabusView}
-          />
+          {this.state.syllabusView ? (
+            <SyllabusView
+              course={this.state.expandedCourse}
+              fullDate={this.props.fullDate}
+              expand={this.state.expand}
+              showFull={this.props.days <= 4}
+              syllabusView={this.state.syllabusView}
+            />
+          ) : (
+            false
+          )}
         </div>
       </section>
     );

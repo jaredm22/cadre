@@ -2,7 +2,7 @@ import React from "react";
 // import {HomePage} from './home/HomePage'
 import { useParams, useLocation } from "react-router-dom";
 import Calendar from "./Calendar";
-import HeaderNav from "../../components/HeaderNav";
+import HeaderNav from "../../components/NestedList";
 import { Content } from "carbon-components-react";
 
 function SchedulePage(props) {

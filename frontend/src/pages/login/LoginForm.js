@@ -60,62 +60,45 @@ export default function LoginForm() {
   ];
 
   return (
-    <Grid className="login-form">
-      <Form onSubmit={submitHandler}>
-        <Row>
-          <Column>
-            <h2>Welcome to Cadre</h2>
-            <br></br>
-            <p>To view an example schedule, enter</p>
-            <p>email jmin@bu.edu and select Student.</p>
-          </Column>
-        </Row>
-        <br></br>
-        <br></br>
-        <br></br>
+    <Form onSubmit={submitHandler} className="login-page">
+      <h2>Welcome to Cadre</h2>
+      <br></br>
+      <p>To view an example schedule, enter</p>
+      <p>email jmin@bu.edu and select Student.</p>
+      <br></br>
+      <br></br>
+      <br></br>
 
-        <Row>
-          <Column>
-            <FormGroup className="email-input" legendText="Email">
-              <TextInput
-                id="email"
-                value={email}
-                placeholdertext="Email"
-                helperText="Please enter your email to view your schedule."
-                labelText={false}
-                onChange={(e) => {
-                  handleEmailChange(e.target.value);
-                }}
-              />
-            </FormGroup>
-          </Column>
-        </Row>
+      <FormGroup className="email-input" legendText="Email">
+        <TextInput
+          id="email"
+          value={email}
+          placeholdertext="Email"
+          helperText="Please enter your email to view your schedule."
+          labelText={false}
+          onChange={(e) => {
+            handleEmailChange(e.target.value);
+          }}
+        />
+      </FormGroup>
 
-        <Row>
-          <Column>
-            <FormGroup label="user-type-select" legendText="Account Type">
-              <Select
-                value={user}
-                onChange={(e) => {
-                  handleUserSelect(e.target.value);
-                }}
-                hideLabel={true}
-                id="lectureStyle"
-              >
-                {userTypeOptions.map((option) => (
-                  <SelectItem text={option.text} value={option.value} />
-                ))}
-              </Select>
-            </FormGroup>
-          </Column>
-        </Row>
-
-        <Row>
-          <Button variant="primary" type="submit" className="submit">
-            Submit
-          </Button>
-        </Row>
-      </Form>
-    </Grid>
+      <FormGroup label="user-type-select" legendText="Account Type">
+        <Select
+          value={user}
+          onChange={(e) => {
+            handleUserSelect(e.target.value);
+          }}
+          hideLabel={true}
+          id="lectureStyle"
+        >
+          {userTypeOptions.map((option) => (
+            <SelectItem text={option.text} value={option.value} />
+          ))}
+        </Select>
+      </FormGroup>
+      <Button variant="primary" type="submit" className="submit">
+        Submit
+      </Button>
+    </Form>
   );
 }
