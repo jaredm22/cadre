@@ -1,5 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbSkeleton,
+} from "carbon-components-react";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import LinkUI from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
@@ -35,10 +40,10 @@ function Badge(props) {
               },
             }}
           >
-            <h6>
+            <p>
               {props.assignments.length} Assignment
               {props.assignments.length == 1 ? false : "s"} Due
-            </h6>
+            </p>
           </Link>
         </button>
       );
@@ -58,10 +63,10 @@ function Badge(props) {
               },
             }}
           >
-            <h6>
+            <p>
               {props.exams.length} Exam
               {props.exams.length == 1 ? false : "s"} Due
-            </h6>
+            </p>
           </Link>
         </button>
       );
@@ -405,18 +410,22 @@ class Day extends React.Component {
           fullDate={this.props.fullDate}
         />
 
-        {/* Exams badge */}
-        <Badge
-          type="exams"
-          exams={this.state.exams}
-          user={this.props.user}
-        ></Badge>
-        {/* Assignments badge */}
-        <Badge
-          type="assignments"
-          assignments={this.state.assignments}
-          user={this.props.user}
-        ></Badge>
+        {this.state.expand === "no-expand" && (
+          //Exams badge
+          <div>
+            <Badge
+              type="exams"
+              exams={this.state.exams}
+              user={this.props.user}
+            ></Badge>
+            {/* // Assignments badge */}
+            <Badge
+              type="assignments"
+              assignments={this.state.assignments}
+              user={this.props.user}
+            ></Badge>
+          </div>
+        )}
 
         <div className={this.state.expand === "is-expanded" ? "flex" : ""}>
           <div className="courses">

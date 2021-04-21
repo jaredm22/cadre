@@ -1,15 +1,51 @@
-@use './type.scss';
-
+@import "carbon-components/scss/globals/scss/vars.scss";
+@import "./cadre-vars.scss";
 
 body {
-  
-} 
+}
 
 .App {
   overflow-x: hidden;
 }
 
+//navbar
 
+.nav {
+  padding-top: $spacing-05;
+  background-color: $cadre-blue;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-link:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link-home {
+  text-decoration: none;
+  padding: 2rem;
+  padding-top: 3rem;
+  color: white;
+}
+
+.zoom-link-list {
+  text-decoration: none;
+  background: inherit;
+}
+
+.nav-zoom-link {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  padding-left: 1rem;
+}
+
+.nav-zoom-link:hover {
+  color: royalblue;
+}
 
 .App-logo {
   height: 40vmin;
@@ -46,13 +82,13 @@ body {
   }
 }
 
-//overrides 
+//overrides
 .bx--content {
   margin-left: auto;
   width: calc(100% - 16rem);
   padding: 0;
 }
 
-.bx--side-nav__navigation {
-  background-color: #fafafa;
-}
+// .bx--side-nav__navigation {
+//   background-color: #fafafa;
+// }
