@@ -1,6 +1,7 @@
 @import "carbon-components/scss/components/slider/slider";
 @import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
 @import "carbon-components/scss/globals/scss/vars.scss";
+@import "../../cadre-vars.scss";
 
 // $blue: rgb(5, 162, 230);
 
@@ -14,7 +15,7 @@
 }
 
 .user-first-name {
-  color: lightblue;
+  color: $cadre-blue;
 }
 
 .blue {
@@ -53,7 +54,7 @@
 
 .date-today {
   margin-bottom: $spacing-05;
-  color: orange;
+  color: $cadre-orange;
   padding: 1rem;
 }
 
@@ -92,43 +93,6 @@
     0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
-.nav {
-  padding-top: $spacing-05;
-  background-color: rgb(164, 201, 201);
-}
-
-.nav-link {
-  text-decoration: none;
-  color: black;
-}
-
-.nav-link:hover {
-  text-decoration: none;
-  color: white;
-}
-
-.nav-link-home {
-  text-decoration: none;
-  padding: 2rem;
-  padding-top: 3rem;
-  color: white;
-}
-
-.zoom-link-list {
-  text-decoration: none;
-  background: inherit;
-}
-
-.nav-zoom-link {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  padding-left: 1rem;
-}
-
-.nav-zoom-link:hover {
-  color: royalblue;
-}
-
 .date-head {
   height: calc(100vh - 10rem);
   overflow-x: hidden;
@@ -137,9 +101,11 @@
 }
 
 // DAY COMPONENT SECTION STYLES
+
 .day-col {
   padding: $layout-02;
   transition: transform 777ms;
+  background-color: white;
   // display: flex;
 }
 
@@ -148,9 +114,9 @@
 //   background-color: aliceblue;
 // }
 
-.day-col.is-expanded:hover {
-  background-color: white;
-}
+// .day-col.is-expanded:hover {
+//   // background-color: white;
+// }
 
 .clndr-today {
   // background-color: aliceblue;
@@ -171,22 +137,22 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.courses {
-  width: 100%;
-}
-
+//Badge Styles
 .badge:hover {
   box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.4);
 }
 
 .badge {
-  width: 100%;
+  width: 85%;
   height: fit-content;
+  margin-right: auto;
+  margin-left: auto;
   border: none;
   border-radius: 25px;
   margin-bottom: $spacing-05;
   text-decoration: none;
-  color: black;
+  color: rgb(255, 255, 255) !important;
+  font-size: 0.8rem !important;
 }
 
 .link {
@@ -195,11 +161,11 @@
 }
 
 .exams {
-  background: lightblue;
+  background-color: $cadre-blue;
 }
 
 .assignments {
-  background: orange;
+  background-color: $cadre-orange;
 }
 
 // .badge .assignments {
@@ -209,21 +175,6 @@
 //   border-radius: 25px;
 //   margin-bottom: $spacing-05;
 // }
-
-.course {
-  border-left: 3px solid black;
-  margin-bottom: $spacing-07;
-  padding: $spacing-04;
-  padding-left: $spacing-05;
-  width: 100%;
-  background-color: none;
-  min-height: fit-content;
-  overflow-wrap: break-word;
-}
-
-.course:hover {
-  background-color: aliceblue;
-}
 
 // .assignment {
 //   border: 1px solid lightblue;
@@ -274,6 +225,23 @@
   margin-bottom: -$spacing-01;
 }
 
+//Lecutre Card Styles
+
+.course {
+  border-left: 3px solid black;
+  margin-bottom: $spacing-07;
+  padding: $spacing-04;
+  padding-left: $spacing-05;
+  width: 100%;
+  background-color: none;
+  min-height: fit-content;
+  overflow-wrap: break-word;
+}
+
+.course:hover {
+  background-color: aliceblue;
+}
+
 .fullname-course,
 .fullname-assignment,
 .fullname-exam {
@@ -285,11 +253,13 @@
 //     margin: none;
 // }
 
+//Expanded View Styles Section
+
 .is-expanded {
   // padding-left: 10% !important;
   // padding-right: 10% !important;
   // opacity: 0.7;
-  background-color: white;
+  // background-color: white;
   // flex-grow: 12;
   position: relative;
   // left: 0 !important;
@@ -306,8 +276,12 @@
   // background-color: #f0f0f0;
 }
 
+.courses {
+  width: 100%;
+}
+
 .right-side {
-  width: 60%;
+  max-width: 50%;
 }
 
 // .calendar-contain .bx--row {
