@@ -6,14 +6,17 @@ import logo from "../assets/logo.png";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import Calendar from 'react-calendar';
+import DayPicker from "react-day-picker";
+import "./calender.scss";
 
 function HeaderNav(props) {
   const [date, setDate] = useState(new Date());
-  const printDay = async (day) => {
+
+  const handleDayClick = async (day) => {
     setDate(day);
-    console.log(date)
-  }
+    props.parentCallback(day);
+  };
+
   return (
     <div className="App">
       <SideNav
@@ -136,12 +139,12 @@ function HeaderNav(props) {
                 <h4>Login</h4>
               </Link>
             </Row>
-            <Row></Row>
-            <Row>
-            <Calendar
-        onChange={(value) => printDay(value)}
-        value={date}
-      />
+
+            <Row style={{ marginTop: 30 }}>
+              <DayPicker
+                onDayClick={(day) => handleDayClick(day)}
+                selectedDays={date}
+              />
             </Row>
           </Column>
         </Grid>
