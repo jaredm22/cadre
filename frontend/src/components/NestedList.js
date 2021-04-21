@@ -10,7 +10,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
-import "./date-picker.scss";
+import "../pages/schedule/date-picker.scss";
 
 export default function HeaderNav(props) {
   const [open, setOpen] = React.useState(true);
