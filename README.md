@@ -1,31 +1,31 @@
 ## Sprint Plan
-Our forecast for this week (April 6 - April 12) is to complete user story(ies):
-- Add syllabus right hand view in expanded view
-- Professor upload course functionality
-- Catch up to UI mockups
+Our forecast for this week (April 13 - April 21) is to complete user story(ies):
+- Add assignments page
+- Add exams page
+- Badges to schedule page
 Melissa, Jared, and Chinwe particpated in this activity.
 
-## Daily Scrum - 04 / 04 / 2021
+## Daily Scrum - 04 / 17 / 2021
 What We did:
-- Jared: forms for professor to add assignment to class
-- Chinwe: click inside expanded view for popup
-- Melissa: endpoint for professor to add student to course
+- Jared: Started infrastructure for right side expanded view mockup
+- Chinwe:  fix the CSS slider bugs; hover effects to lecture cards
+- Melissa: go through database to see what table are needed based on new mockups
 
 What We Will Work On:
-- Jared: pass data from calendar component t
-- Chinwe: UI design development
-- Melissa: Look into real login 
+- Jared: Implement wireframe design 
+- Chinwe: implement wireframe design
+- Melissa: finish up all possible routes
 
 Blockers:
-- Chinwe & Jared & Melissa: school
+- Chinwe & Jared & Melissa: time 
 
 ## Mob Programming 
-<!-- [Forgor to save photo of the mob program but look at collaborative pr's](./spark!sprintReports!/images/mob4.png) -->
+[Check us out programming mobly](./spark!sprintReports!/images/mob5.png)
 
 ## Sprint Review
-[Check us out reviewing our sprint](../spark!sprintReports!/images/stakeholder3.png)
+[Check us out reviewing our sprint](../spark!sprintReports!/images/stakeholder5.png)
 
 ## Sprint Retrospective
-- time to start making app that works end-to-end for our MVP
+- hustle to the end; we're doing really good!
 
 
