@@ -1,8 +1,7 @@
-
 @import "carbon-components/scss/components/slider/slider";
 @import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
 @import "carbon-components/scss/globals/scss/vars.scss";
-@import '../../cadre-vars.scss';
+@import "../../cadre-vars.scss";
 
 // $blue: rgb(5, 162, 230);
 
@@ -15,9 +14,6 @@
   transition: 777ms;
 }
 
-
-
-
 .user-first-name {
   color: $cadre-blue;
 }
@@ -26,7 +22,6 @@
   text-decoration: none;
   // color: blue
 }
-
 
 .black {
   text-decoration: none;
@@ -63,11 +58,11 @@
   padding: 1rem;
 }
 
-.date-today:hover, .date:hover {
+.date-today:hover,
+.date:hover {
   background: aliceblue;
   border-radius: 30px;
 }
-
 
 .slider {
   float: right;
@@ -92,16 +87,11 @@
 
 .logo {
   border-radius: 13%;
-  box-shadow:
-  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-  0 12.5px 10px rgba(0, 0, 0, 0.06),
-  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-  0 100px 80px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
 }
-
-
 
 .date-head {
   height: calc(100vh - 10rem);
@@ -109,8 +99,6 @@
   // padding-left: $spacing-01;
   // padding-right: $spacing-01;
 }
-
-
 
 // DAY COMPONENT SECTION STYLES
 
@@ -120,8 +108,6 @@
   background-color: white;
   // display: flex;
 }
-
-
 
 // .day-col:hover {
 //   // transition: 777ms;
@@ -151,23 +137,22 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.courses {
-  width: 100%;
-}
-
+//Badge Styles
 .badge:hover {
   box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.4);
 }
 
 .badge {
-  width: 100%;
+  width: 85%;
   height: fit-content;
+  margin-right: auto;
+  margin-left: auto;
   border: none;
   border-radius: 25px;
   margin-bottom: $spacing-05;
   text-decoration: none;
   color: rgb(255, 255, 255) !important;
-  // font-weight: 300 !important;
+  font-size: 0.8rem !important;
 }
 
 .link {
@@ -183,8 +168,6 @@
   background-color: $cadre-orange;
 }
 
-
-
 // .badge .assignments {
 //   width: 100%;
 //   background: orange;
@@ -192,21 +175,6 @@
 //   border-radius: 25px;
 //   margin-bottom: $spacing-05;
 // }
-
-.course {
-  border-left: 3px solid black;
-  margin-bottom: $spacing-07;
-  padding: $spacing-04;
-  padding-left: $spacing-05;
-  width: 100%;
-  background-color: none;
-  min-height: fit-content;
-  overflow-wrap: break-word;
-}
-
-.course:hover {
-  background-color: aliceblue;
-}
 
 // .assignment {
 //   border: 1px solid lightblue;
@@ -221,7 +189,6 @@
 //   min-height: fit-content;
 //   overflow-wrap: break-word;
 // }
-
 
 .assignment {
   text-align: center;
@@ -258,6 +225,23 @@
   margin-bottom: -$spacing-01;
 }
 
+//Lecutre Card Styles
+
+.course {
+  border-left: 3px solid black;
+  margin-bottom: $spacing-07;
+  padding: $spacing-04;
+  padding-left: $spacing-05;
+  width: 100%;
+  background-color: none;
+  min-height: fit-content;
+  overflow-wrap: break-word;
+}
+
+.course:hover {
+  background-color: aliceblue;
+}
+
 .fullname-course,
 .fullname-assignment,
 .fullname-exam {
@@ -268,6 +252,8 @@
 //     padding: none;
 //     margin: none;
 // }
+
+//Expanded View Styles Section
 
 .is-expanded {
   // padding-left: 10% !important;
@@ -290,9 +276,13 @@
   // background-color: #f0f0f0;
 }
 
+.courses {
+  width: 100%;
+}
+
 .right-side {
-  width: 60%
-};
+  max-width: 50%;
+}
 
 // .calendar-contain .bx--row {
 //     justify-content: center;

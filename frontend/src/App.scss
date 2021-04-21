@@ -1,11 +1,8 @@
-@import './cadre-vars.scss';
 @import "carbon-components/scss/globals/scss/vars.scss";
-
-
+@import "./cadre-vars.scss";
 
 body {
-  
-} 
+}
 
 .App {
   overflow-x: hidden;
@@ -15,8 +12,7 @@ body {
 
 .nav {
   padding-top: $spacing-05;
-  background-color: $cadre-orange;
-  
+  background-color: $cadre-blueß;
 }
 
 .nav-link {
@@ -24,7 +20,7 @@ body {
   color: black;
 }
 
-.nav-link:hover{
+.nav-link:hover {
   text-decoration: none;
   color: white;
 }
@@ -50,7 +46,6 @@ body {
 .nav-zoom-link:hover {
   color: royalblue;
 }
-
 
 .App-logo {
   height: 40vmin;
@@ -87,7 +82,7 @@ body {
   }
 }
 
-//overrides 
+//overrides
 .bx--content {
   margin-left: auto;
   width: calc(100% - 16rem);
