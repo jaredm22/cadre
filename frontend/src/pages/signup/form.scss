@@ -1,6 +1,10 @@
-.signup-form {
-  padding-top: 10%;
+.signup-page {
+  background: rgb(164,201,201);
+  width: 100vw;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 }

@@ -13,7 +13,9 @@
   transition: 777ms;
 }
 
-.student-name {
+
+
+.user-first-name {
   color: lightblue;
 }
 
@@ -48,14 +50,21 @@
 
 .date {
   margin-bottom: $spacing-05;
+  padding: 1rem;
   text-align: center;
 }
 
 .date-today {
   margin-bottom: $spacing-05;
-  color: lightblue;
-
+  color: orange;
+  padding: 1rem;
 }
+
+.date-today:hover, .date:hover {
+  background: aliceblue;
+  border-radius: 30px;
+}
+
 
 .slider {
   float: right;
@@ -80,11 +89,18 @@
 
 .logo {
   border-radius: 13%;
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
 .nav {
   padding-top: $spacing-05;
-  background-color: orange;
+  background-color: rgb(164, 201, 201);
 }
 
 .nav-link {
@@ -92,10 +108,31 @@
   color: black;
 }
 
+.nav-link:hover{
+  text-decoration: none;
+  color: white;
+}
+
 .nav-link-home {
   text-decoration: none;
-  padding: 4em;
+  padding: 2rem;
+  padding-top: 3rem;
   color: white;
+}
+
+.zoom-link-list {
+  text-decoration: none;
+  background: inherit;
+}
+
+.nav-zoom-link {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  padding-left: 1rem;
+}
+
+.nav-zoom-link:hover {
+  color: royalblue;
 }
 
 .date-head {
@@ -114,10 +151,12 @@
   // display: flex;
 }
 
-.day-col:hover {
-  // transition: 777ms;
-  background-color: aliceblue;
-}
+
+
+// .day-col:hover {
+//   // transition: 777ms;
+//   background-color: aliceblue;
+// }
 
 .day-col.is-expanded:hover {
   background-color: white;
@@ -186,6 +225,7 @@
 .course {
   border-left: 3px solid black;
   margin-bottom: $spacing-07;
+  padding: $spacing-04;
   padding-left: $spacing-05;
   width: 100%;
   background-color: none;
@@ -194,7 +234,7 @@
 }
 
 .course:hover {
-  background-color: lightblue;
+  background-color: aliceblue;
 }
 
 // .assignment {
