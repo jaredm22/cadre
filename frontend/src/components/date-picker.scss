@@ -4,6 +4,7 @@
   display: inline-block;
   font-size: 0.7rem;
   justify-content: center;
+  color: black;
 }
 
 .DayPicker-wrapper {
@@ -11,6 +12,7 @@
   flex-direction: row;
   padding-bottom: 1em;
   user-select: none;
+  color: black;
 }
 
 .DayPicker-Months {
@@ -26,6 +28,7 @@
   border-spacing: 0;
   border-collapse: collapse;
   user-select: none;
+  color: black;
 }
 
 .DayPicker-NavBar {
@@ -43,7 +46,7 @@
   background-position: center;
   background-size: 50%;
   background-repeat: no-repeat;
-  color: #8b9898;
+  color: black;
   cursor: pointer;
 }
 
@@ -88,7 +91,7 @@
 .DayPicker-Weekday {
   display: table-cell;
   padding: 0.5em;
-  color: #8b9898;
+  color: black;
   text-align: center;
   font-size: 0.875em;
 }
@@ -119,8 +122,8 @@
   display: table-cell;
   padding: 0.5em;
   min-width: 1em;
-  border-right: 1px solid #eaecec;
-  color: #8b9898;
+  border-right: 1px solid black;
+  color: black;
   vertical-align: middle;
   text-align: right;
   font-size: 0.75em;
@@ -153,12 +156,12 @@
 }
 
 .DayPicker-Day--outside {
-  color: #8b9898;
+  color: black;
   cursor: default;
 }
 
 .DayPicker-Day--disabled {
-  color: #dce0e0;
+  color: black;
   cursor: default;
   /* background-color: #eff1f1; */
 }
@@ -175,33 +178,15 @@
 
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   position: relative;
-  background-color: #4a90e2;
+  background-color: orange;
   color: #f0f8ff;
 }
 
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-  background-color: #51a0fa;
+  background-color: #fcae1e;
 }
 
 .DayPicker:not(.DayPicker--interactionDisabled)
   .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
   background-color: #f0f8ff;
-}
-
-/* DayPickerInput */
-
-.DayPickerInput {
-  display: inline-block;
-}
-
-.DayPickerInput-OverlayWrapper {
-  position: relative;
-}
-
-.DayPickerInput-Overlay {
-  position: absolute;
-  left: 0;
-  z-index: 1;
-  background: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }

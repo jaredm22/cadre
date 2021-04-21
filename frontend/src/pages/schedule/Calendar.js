@@ -2,7 +2,6 @@ import React from "react";
 import { Slider, Grid, Row, Column, Loading } from "carbon-components-react";
 import { addDays, format, formatISO } from "date-fns";
 import Day from "./Day";
-import "./calendar.scss";
 import api from "../../apiHandle";
 
 class Calendar extends React.Component {
