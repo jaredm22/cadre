@@ -40,6 +40,7 @@ const LectureCard = React.forwardRef((props, ref) => {
       onClick={props.handleclick}
       ref={ref}
     >
+      {/* Course Code (or 'Lab' if lab */}
       {props.courseName != null ? (
         <div className="fullname-course">
           <h4 className="black"> {props.courseId} </h4>
@@ -50,13 +51,15 @@ const LectureCard = React.forwardRef((props, ref) => {
         </div>
       )}
 
+      {/* Name of course */}
       <div
         className="fullname-course"
         // style={{ overflow: "hidden"}}
       >
-        <h5 className="black">{props.courseName}</h5>
+        <h4 className="black">{props.courseName}</h4>
       </div>
 
+      {/* Time */}
       <div className="time">
         <h5>{parseTime(props.startTime, props.endTime)} </h5>
       </div>
@@ -70,7 +73,7 @@ const LectureCard = React.forwardRef((props, ref) => {
           rel="noreferrer"
           href={props.zoomLink}
         >
-          Zoom Link
+          <h5>Zoom Link</h5>
         </a>
       </div>
 
@@ -111,13 +114,6 @@ const LectureCard = React.forwardRef((props, ref) => {
           {/* <li>Exams</li> */}
           <li>Office hours</li>
         </ul>
-
-        {/* <div 
-          className="right-side"
-          style={{ display: props.syllabusView ? "block" : "none" }}>
-            <h1>HI</h1>
-            <h1>showExtra</h1>
-        </div> */}
       </div>
     </div>
   );
