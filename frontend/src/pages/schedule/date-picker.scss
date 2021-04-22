@@ -2,7 +2,7 @@
 
 .DayPicker {
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   justify-content: center;
   color: black;
 }
@@ -56,14 +56,13 @@
 
 .DayPicker-NavButton--prev {
   margin-right: 1.5em;
-  background-image: url("../../assets/back.png");
-  background-size: 10px 10px;
+  background-image: url("../../assets/caret--left.svg");
+  background-size: 15px 15px;
 }
 
 .DayPicker-NavButton--next {
-  background-image: url("../../assets/back.png");
-  background-size: 10px 10px;
-  transform: scaleX(-1);
+  background-image: url("../../assets/caret--right.svg");
+  background-size: 15px 15px;
 }
 
 .DayPicker-NavButton--interactionDisabled {
@@ -154,7 +153,7 @@
 /* Default modifiers */
 
 .DayPicker-Day--today {
-  color: #d0021b;
+  color: orange;
   font-weight: 700;
 }
 
@@ -181,12 +180,13 @@
 
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   position: relative;
-  background-color: orange;
+  // background-color: orange;
+  box-shadow: 0 0 0 2px orange;
   color: #f0f8ff;
 }
 
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-  background-color: #fcae1e;
+  background-color: orange;
 }
 
 .DayPicker:not(.DayPicker--interactionDisabled)

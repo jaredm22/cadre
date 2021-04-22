@@ -33,7 +33,10 @@ export default function HeaderNav(props) {
       isChildOfHeader={false}
       aria-label="Side navigation"
     >
-      <List component="nav">
+      <List
+        component="nav"
+        style={{ minHeight: "100vh", display: "block", position: "relative" }}
+      >
         <ListItem component="div" className="logo-header">
           <ListItemIcon>
             <img className="logo" src={logo} width="80px" height="80px"></img>
@@ -152,7 +155,7 @@ export default function HeaderNav(props) {
             </Link>
         </ListItem> */}
 
-        <ListItem>
+        <ListItem style={{ position: "absolute", bottom: 50 }}>
           <DayPicker
             onDayClick={(day) => handleDayClick(day)}
             selectedDays={date}
