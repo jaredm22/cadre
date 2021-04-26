@@ -11,26 +11,21 @@
   height: 100%;
   background-color: white;
   border-radius: 0.5pc;
-  transition: 777ms;
+  transition: all 777ms;
 }
 
 .user-first-name {
   color: $cadre-blue;
 }
 
-.blue {
-  text-decoration: none;
-  // color: blue
-}
+// .blue {
+//   text-decoration: none;
+//   // color: blue
+// }
 
 .black {
   text-decoration: none;
   color: black;
-}
-
-.breadcrumbs {
-  color: black;
-  margin-bottom: $spacing-07;
 }
 
 .bc {
@@ -102,6 +97,22 @@
 
 // DAY COMPONENT SECTION STYLES
 
+@keyframes rollout {
+  0% {
+      transform: translateX(50px);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+.a-day {
+  animation: .4s rollout;
+  
+
+  // width: 100%;   
+}
+
 .day-col {
   padding: $layout-02;
   transition: transform 777ms;
@@ -138,6 +149,10 @@
 }
 
 //Badge Styles
+.badge-contain {
+  display: flex;
+  justify-content: center;
+}
 .badge:hover {
   box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.4);
 }
@@ -152,12 +167,19 @@
   margin-bottom: $spacing-05;
   text-decoration: none;
   color: rgb(255, 255, 255) !important;
+  
+}
+
+.badge p {
   font-size: 0.8rem !important;
 }
 
 .link {
   text-decoration: none;
-  color: black;
+}
+
+.link:hover {
+  text-decoration: underline;
 }
 
 .exams {
@@ -191,15 +213,7 @@
 // }
 
 .assignment {
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 25px;
-  margin-bottom: $spacing-07;
-  padding: $spacing-05;
-  width: 100%;
-  background-color: none;
-  min-height: fit-content;
-  overflow-wrap: break-word;
+
 }
 
 .tag {
@@ -221,14 +235,16 @@
   overflow-wrap: break-word;
 }
 
-.course-id {
-  margin-bottom: -$spacing-01;
+.fullname-course,
+.fullname-assignment,
+.fullname-exam {
+  margin-bottom: $spacing-02;
 }
 
 //Lecutre Card Styles
 
 .course {
-  border-left: 3px solid black;
+  border-left: 3px solid $secondary-grey;
   margin-bottom: $spacing-07;
   padding: $spacing-04;
   padding-left: $spacing-05;
@@ -236,22 +252,23 @@
   background-color: none;
   min-height: fit-content;
   overflow-wrap: break-word;
+  transition: background 111ms linear
+}
+
+#clndr-col-0 .course {
+  border-left: 3px solid $cadre-orange;
+}
+.course-id {
+  margin-bottom: -$spacing-01;
 }
 
 .course:hover {
-  background-color: aliceblue;
+  background-color: $highlight-orange;
 }
 
-.fullname-course,
-.fullname-assignment,
-.fullname-exam {
-  margin-bottom: $spacing-02;
+.zoomlink {
+  margin-bottom: $spacing-03;
 }
-
-// .zoomlink, .piazzalink, .lectureslideslink {
-//     padding: none;
-//     margin: none;
-// }
 
 //Expanded View Styles Section
 
@@ -276,6 +293,37 @@
   // background-color: #f0f0f0;
 }
 
+.breadcrumbs {
+  color: black;
+  margin-bottom: $spacing-07;
+}
+
+
+//Container for back button to schedule
+.icon-text{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon-text div:hover * {
+  fill: $highlight-orange;
+  color: $secondary-pink !important;
+  cursor: grab;
+}
+
+.icon-text p{
+  font-size: 0.9rem;
+  display: inline-table;
+  height: inherit;
+  vertical-align: middle;
+}
+
+.back-button {
+  fill: $cadre-orange;
+}
+
+//div of all lecture cards
 .courses {
   width: 100%;
 }

@@ -5,6 +5,7 @@ import {
   BreadcrumbItem,
   BreadcrumbSkeleton,
 } from "carbon-components-react";
+import { ChevronLeft32 } from '@carbon/icons-react';
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import LinkUI from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
@@ -79,7 +80,7 @@ function Badge(props) {
 function DayHeader(props) {
   let style = {};
   if (props.expand === "is-expanded") {
-    style = { "text-align": "left", display: "flex", "flex-direction": "row" };
+    style = { "text-align": "left", display: "flex", flexDirection: "row" };
     return (
       <div className={props.today ? "date-today" : "date"} style={style}>
         <h4 className="clndr-day">
@@ -88,7 +89,7 @@ function DayHeader(props) {
       </div>
     );
   } else {
-    style = { "text-align": "center" };
+    style = { textAlign: "center" };
     return (
       <div className={props.today ? "date-today" : "date"} style={style}>
         <h3 className="clndr-day">{format(props.fullDate, "eee")}</h3>
@@ -109,6 +110,36 @@ function SyllabusView(props) {
   return course ? (
     <div className="right-side" style={right_side_css}>
       <div style={{ display: "flex", flexDirection: "row" }}>
+      <Breadcrumbs aria-label="breadcrumb" className="bc">
+              {/* <LinkUI
+                color="inherit"
+                onClick={() => {
+                  this.setState({ expand: "no-expand" });
+                }}
+              >
+                Weekly Overview
+              </LinkUI>
+
+              <LinkUI color="inherit">
+                {format(this.props.fullDate, "E',' LLL do")}
+              </LinkUI>
+
+              {this.state.expandedCourse ? (
+                <LinkUI color="inherit">
+                  {this.state.expandedCourse.courseId +
+                    " - " +
+                    this.state.expandedCourse.courseName}
+                </LinkUI>
+              ) : (
+                false
+              )}
+
+              {this.state.expandedCourse ? (
+                <LinkUI color="textPrimary">Assignments</LinkUI>
+              ) : (
+                false
+              )} */}
+            </Breadcrumbs>
         <div
           className="syllabus-column"
           style={{
@@ -321,7 +352,6 @@ class Day extends React.Component {
         };
       });
       this.setState({ syllabusView: !this.state.syllabusView });
-      // console.log(showExtra)
     }
   }
 
@@ -331,11 +361,6 @@ class Day extends React.Component {
       elem = document.querySelector(".no-expand");
     }
     let width = this.props.days > 1 ? elem.clientWidth : 0;
-
-    // let e = document.getElementById("clndr-col-" + i);
-    // console.log(elem);
-    // console.log(this.state.colWidth)
-
     return width;
   }
 
@@ -343,6 +368,7 @@ class Day extends React.Component {
     // console.log("expad: " + this.state.expand)
     // console.log("prev expand: " + this.state.prevExpand)
     // console.log("colWid: " + this.state.colWidth)
+    console.log(this.courserefs)
 
     var { lectures, labs } = this.state;
 
@@ -366,37 +392,11 @@ class Day extends React.Component {
         style={section_css}
       >
         {this.state.expand === "is-expanded" ? (
-          <div className="breadcrumbs">
-            <Breadcrumbs aria-label="breadcrumb" className="bc">
-              <LinkUI
-                color="inherit"
-                onClick={() => {
-                  this.setState({ expand: "no-expand" });
-                }}
-              >
-                Weekly Overview
-              </LinkUI>
-
-              <LinkUI color="inherit">
-                {format(this.props.fullDate, "E',' LLL do")}
-              </LinkUI>
-
-              {this.state.expandedCourse ? (
-                <LinkUI color="inherit">
-                  {this.state.expandedCourse.courseId +
-                    " - " +
-                    this.state.expandedCourse.courseName}
-                </LinkUI>
-              ) : (
-                false
-              )}
-
-              {this.state.expandedCourse ? (
-                <LinkUI color="textPrimary">Assignments</LinkUI>
-              ) : (
-                false
-              )}
-            </Breadcrumbs>
+          <div className="icon-text">
+            <div>
+            <ChevronLeft32 aria-label="backSchedule" className="back-button"/> 
+            <p>Schedule</p>
+            </div>
           </div>
         ) : (
           false
@@ -412,7 +412,7 @@ class Day extends React.Component {
 
         {this.state.expand === "no-expand" && (
           //Exams badge
-          <div>
+          <div className="badge-contain">
             <Badge
               type="exams"
               exams={this.state.exams}
@@ -436,6 +436,7 @@ class Day extends React.Component {
                 return (
                   <LectureCard
                     {...course}
+                    assignmentsDue={this.state.assignments.length}
                     parseTime={(time) => this.parseTime(time)}
                     expand={this.state.expand} //bool to toggle expanded view
                     showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below

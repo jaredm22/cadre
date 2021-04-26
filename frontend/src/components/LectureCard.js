@@ -68,13 +68,22 @@ const LectureCard = React.forwardRef((props, ref) => {
 
       <div className="zoomlink">
         <a
-          className="blue"
+          className="link blue"
           target="_blank"
           rel="noreferrer"
           href={props.zoomLink}
         >
           <h5>Zoom Link</h5>
         </a>
+        <div
+        className="zoom-info"
+        style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
+      > 
+      <p className="link"><a className="link black" href={props.zoomLink}>{props.zoomLink}</a></p>
+      <p>Meeting Id:</p>
+      <p>Passwords</p>
+      </div>
+        
       </div>
 
       <div
@@ -82,7 +91,7 @@ const LectureCard = React.forwardRef((props, ref) => {
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
         <ul>
-          <li>
+          {/* <li>
             <a
               className="black"
               style={{ display: props.showFull ? "block" : "none" }}
@@ -92,9 +101,9 @@ const LectureCard = React.forwardRef((props, ref) => {
             >
               Lecture Slides
             </a>
-          </li>
+          </li> */}
 
-          <li>
+          {/* <li>
             {props.piazzaLink != null ? (
               <a
                 className="black"
@@ -108,11 +117,13 @@ const LectureCard = React.forwardRef((props, ref) => {
             ) : (
               false
             )}
-          </li>
+          </li> */}
           {/* <li>Course Page</li> */}
-          <li>Assignments</li>
-          {/* <li>Exams</li> */}
-          <li>Office hours</li>
+          <li className="orange"><h5>{
+          props.assignmentsDue > 0 
+          ? props.assignmentsDue + " Assignment" + ( props.assignmentsDue === 1 ? " due" : " s due" )
+          : ""
+          }</h5></li>
         </ul>
       </div>
     </div>
