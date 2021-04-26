@@ -9,9 +9,17 @@ import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
+import DayPicker from "react-day-picker";
+import "../pages/schedule/date-picker.scss";
 
 export default function HeaderNav(props) {
   const [open, setOpen] = React.useState(true);
+  const [date, setDate] = React.useState(new Date());
+
+  const handleDayClick = async (day) => {
+    setDate(day);
+    props.parentCallback(day);
+  };
 
   const handleClick = () => {
     setOpen(!open);
@@ -25,7 +33,10 @@ export default function HeaderNav(props) {
       isChildOfHeader={false}
       aria-label="Side navigation"
     >
-      <List component="nav">
+      <List
+        component="nav"
+        style={{ minHeight: "100vh", display: "block", position: "relative" }}
+      >
         <ListItem component="div" className="logo-header">
           <ListItemIcon>
             <img className="logo" src={logo} width="80px" height="80px"></img>
@@ -144,7 +155,12 @@ export default function HeaderNav(props) {
             </Link>
         </ListItem> */}
 
-        <ListItem></ListItem>
+        <ListItem style={{ position: "absolute", bottom: 50 }}>
+          <DayPicker
+            onDayClick={(day) => handleDayClick(day)}
+            selectedDays={date}
+          />
+        </ListItem>
       </List>
     </SideNav>
   );

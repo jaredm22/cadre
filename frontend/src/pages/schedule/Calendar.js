@@ -2,14 +2,13 @@ import React from "react";
 import { Slider, Grid, Row, Column, Loading } from "carbon-components-react";
 import { addDays, format, formatISO } from "date-fns";
 import Day from "./Day";
-import "./calendar.scss";
 import api from "../../apiHandle";
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      today: new Date(),
+      today: props.day,
       days: 3, //number of days shown in schedule page
       dataLoaded: false,
       user: props.user,
@@ -53,10 +52,17 @@ class Calendar extends React.Component {
 
   componentDidMount() {
     console.log(this.props);
-    this.setState({
-      user: this.props.user,
-      dataLoaded: true,
-    });
+    this.interval = setInterval(() =>
+      this.setState({
+        user: this.props.user,
+        today: this.props.day,
+        dataLoaded: true,
+      })
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   //   componentWillUnmount() {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SideNav, Row, Column, Grid } from "carbon-components-react";
 import { Link } from "react-router-dom";
 import "../pages/schedule/calendar.scss";
@@ -6,8 +6,17 @@ import logo from "../assets/logo.png";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import DayPicker from "react-day-picker";
+import "./calender.scss";
 
 function HeaderNav(props) {
+  const [date, setDate] = useState(new Date());
+
+  const handleDayClick = async (day) => {
+    setDate(day);
+    props.parentCallback(day);
+  };
+
   return (
     <div className="App">
       <SideNav
@@ -131,7 +140,12 @@ function HeaderNav(props) {
               </Link>
             </Row>
 
-            <Row></Row>
+            <Row style={{ marginTop: 30 }}>
+              <DayPicker
+                onDayClick={(day) => handleDayClick(day)}
+                selectedDays={date}
+              />
+            </Row>
           </Column>
         </Grid>
       </SideNav>
