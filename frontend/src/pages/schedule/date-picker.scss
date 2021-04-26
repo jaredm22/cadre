@@ -28,7 +28,7 @@
   border-spacing: 0;
   border-collapse: collapse;
   user-select: none;
-  color: black;
+  color: #707070;
 }
 
 .DayPicker-NavBar {
@@ -93,7 +93,7 @@
 .DayPicker-Weekday {
   display: table-cell;
   padding: 0.5em;
-  color: aliceblue;
+  color: #707070;
   text-align: center;
   font-size: 0.875em;
 }
@@ -118,6 +118,7 @@
   vertical-align: middle;
   text-align: center;
   cursor: pointer;
+  color: white;
 }
 
 .DayPicker-WeekNumber {
@@ -153,7 +154,8 @@
 /* Default modifiers */
 
 .DayPicker-Day--today {
-  color: orange;
+  color: white;
+  background-color: orange;
   font-weight: 700;
 }
 
@@ -178,18 +180,14 @@
   color: #dce0e0;
 }
 
-.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):not(.DayPicker-Day--today) {
   position: relative;
   // background-color: orange;
-  box-shadow: 0 0 0 2px orange;
-  color: #f0f8ff;
-}
-
-.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
-  background-color: orange;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: orange;
 }
 
 .DayPicker:not(.DayPicker--interactionDisabled)
-  .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
-  background-color: aliceblue;
+  .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):not(.DayPicker-Day--today):hover {
+  background-color: rgba(255, 255, 255, 0.3);
 }
