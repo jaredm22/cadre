@@ -25,6 +25,15 @@ export default function HeaderNav(props) {
     setOpen(!open);
   };
 
+  const birthdayStyle = `.DayPicker-Day--highlighted {
+    background-color: orange;
+    color: white;
+  }`;
+
+  const modifiers = {
+    highlighted: new Date(),
+  };
+
   return (
     <SideNav
       className="nav"
@@ -119,7 +128,11 @@ export default function HeaderNav(props) {
 
         <ListItem button onClick={handleClick}>
           <h4 className="nav-link">Zoom Links</h4>
-          {open ? <ExpandLess /> : <ExpandMore />}
+          {open ? (
+            <ExpandLess style={{ fill: "white" }} />
+          ) : (
+            <ExpandMore style={{ fill: "white" }} />
+          )}
         </ListItem>
 
         <Collapse in={!open} timeout="auto" unmountOnExit>
@@ -156,9 +169,11 @@ export default function HeaderNav(props) {
         </ListItem> */}
 
         <ListItem style={{ position: "absolute", bottom: 50 }}>
+          {/* <style>{birthdayStyle}</style> */}
           <DayPicker
             onDayClick={(day) => handleDayClick(day)}
             selectedDays={date}
+            disabledKeyboardNavigation
           />
         </ListItem>
       </List>
