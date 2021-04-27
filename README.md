@@ -1,29 +1,27 @@
 ## Sprint Plan
-Our forecast for this week (April 13 - April 21) is to complete user story(ies):
-- Add assignments page
-- Add exams page
-- Badges to schedule page
-Melissa, Jared, and Chinwe particpated in this activity.
+Our forecast for this week (April 21 - April 30) is to complete user story(ies):
+- Refine UI
+Melissa, Jared, and Chinwe, Noelle, Jacqueline particpated in this activity.
 
 ## Daily Scrum - 04 / 17 / 2021
 What We did:
-- Jared: Started infrastructure for right side expanded view mockup
-- Chinwe:  fix the CSS slider bugs; hover effects to lecture cards
-- Melissa: go through database to see what table are needed based on new mockups
+- Jared: implemented right hand and wireframes for demo
+- Chinwe:  color scheme align with mockups
+- Melissa: created calendar component for date picker
 
 What We Will Work On:
-- Jared: Implement wireframe design 
-- Chinwe: implement wireframe design
-- Melissa: finish up all possible routes
+- Jared: add all pages for right hand side view
+- Chinwe: styling to mockup and expanded view back button
+- Melissa: implements exam and assignments pages
 
 Blockers:
-- Chinwe & Jared & Melissa: time 
+- Chinwe & Jared & Melissa: time & motivation
 
 ## Mob Programming 
-[Check us out programming mobly](./spark!sprintReports!/images/mob5.png)
+[Check us out programming mobly](./spark!sprintReports!/images/mob6.png)
 
 ## Sprint Review
-[Check us out reviewing our sprint](../spark!sprintReports!/images/stakeholder5.png)
+[Check us out reviewing our sprint](../spark!sprintReports!/images/stakeholder6.png)
 
 ## Sprint Retrospective
 - hustle to the end; we're doing really good!
