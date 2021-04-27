@@ -178,9 +178,11 @@
   text-decoration: none;
 }
 
-.link:hover {
+.link:hover h5{
   text-decoration: underline;
 }
+
+
 
 .exams {
   background-color: $cadre-blue;
@@ -328,9 +330,13 @@
   width: 100%;
 }
 
-.right-side {
-  max-width: 50%;
+.flex .courses {
+  width: 50%;
 }
+
+// .right-side {
+//   width: 100%;
+// }
 
 // .calendar-contain .bx--row {
 //     justify-content: center;

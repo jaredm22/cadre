@@ -73,13 +73,12 @@ const LectureCard = React.forwardRef((props, ref) => {
           rel="noreferrer"
           href={props.zoomLink}
         >
-          <h5>Zoom Link</h5>
+          <h5 style={{"display": "inline-block"}}>Zoom Link</h5>
         </a>
         <div
         className="zoom-info"
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       > 
-      <p className="link"><a className="link black" href={props.zoomLink}>{props.zoomLink}</a></p>
       <p>Meeting Id:</p>
       <p>Passwords</p>
       </div>
