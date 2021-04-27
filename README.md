@@ -22,7 +22,7 @@ Link to Product Backlong is [here:](https://buspark.atlassian.net/jira/software/
 The application uses React.js on the frontend, Express.js on the backend, and PostgresSQL as the database.
 
 ## Hosting
-Our project is currently being hosted on Heroku. [Check it out here!](https://cadretest.herokuapp.com)
+Our project is hosted on Heroku. [Check it out here!](https://cadretest.herokuapp.com)
 
 ## Requirements
 ### Frontend
