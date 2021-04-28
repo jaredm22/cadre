@@ -139,7 +139,7 @@ export default function HeaderNav(props) {
           <List component="div" className="zoom-link-list" disablePadding>
             {props.user.courses.map((course) => {
               return (
-                <ListItem>
+                <ListItem key={course.id}>
                   <a className="nav-zoom-link" href={course.zoomLink}>
                     {course.courseId + " - " + course.courseName}
                   </a>
@@ -148,7 +148,7 @@ export default function HeaderNav(props) {
             })}
             {props.user.labs.map((lab) => {
               return (
-                <ListItem>
+                <ListItem key={lab.id}>
                   <a className="nav-zoom-link" href={lab.zoomLink}>
                     {lab.course.courseId + " | Lab"}
                   </a>

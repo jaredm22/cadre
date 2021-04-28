@@ -6,9 +6,6 @@ import {
   Button,
   Select,
   SelectItem,
-  Grid,
-  Row,
-  Column,
 } from "carbon-components-react/";
 import api from "../../apiHandle";
 import { useHistory } from "react-router-dom";
@@ -92,7 +89,11 @@ export default function LoginForm() {
           id="lectureStyle"
         >
           {userTypeOptions.map((option) => (
-            <SelectItem text={option.text} value={option.value} />
+            <SelectItem
+              key={option.value}
+              text={option.text}
+              value={option.value}
+            />
           ))}
         </Select>
       </FormGroup>

@@ -52,18 +52,18 @@ class Calendar extends React.Component {
 
   componentDidMount() {
     console.log(this.props);
-    this.interval = setInterval(() =>
-      this.setState({
-        user: this.props.user,
-        today: this.props.day,
-        dataLoaded: true,
-      })
-    );
+    // this.interval = setInterval(() =>
+    this.setState({
+      user: this.props.user,
+      today: this.props.day,
+      dataLoaded: true,
+    });
+    // );
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.interval);
+  // }
 
   //   componentWillUnmount() {
   //       var state = this.state;
@@ -197,7 +197,7 @@ class Calendar extends React.Component {
                 <div>
                   <Slider
                     ariaLabelInput="day slider"
-                    className="day-slider "
+                    className="day-slider"
                     max={5}
                     min={1}
                     value={3}
@@ -220,7 +220,7 @@ class Calendar extends React.Component {
                   // className={'a-day bx--col-lg-' + Math.floor(16 / this.state.days)}
                   className="a-day"
                   lg={Math.floor(16 / this.state.days)}
-                  onClick={handleclick}
+                  // onClick={handleclick}
                 >
                   {day}
                 </Column>

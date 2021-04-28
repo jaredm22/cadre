@@ -78,6 +78,9 @@
 // }
 .flex {
   display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
 }
 
 .logo {
@@ -91,6 +94,9 @@
 .date-head {
   height: calc(100vh - 10rem);
   overflow-x: hidden;
+  position: relative;
+  
+
   // padding-left: $spacing-01;
   // padding-right: $spacing-01;
 }
@@ -153,12 +159,13 @@
   display: flex;
   justify-content: center;
 }
+
 .badge:hover {
   box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.4);
 }
 
 .badge {
-  width: 85%;
+  width: 100%;
   height: fit-content;
   margin-right: auto;
   margin-left: auto;
@@ -166,12 +173,43 @@
   border-radius: 25px;
   margin-bottom: $spacing-05;
   text-decoration: none;
-  color: rgb(255, 255, 255) !important;
-  
+  color: rgb(255, 255, 255) !important; 
 }
 
 .badge p {
   font-size: 0.8rem !important;
+}
+
+.see-all {
+  color: orange;
+  text-decoration: underline;
+  background: none;
+  border: none;
+}
+
+.lecture-card-button {
+  border: none;
+  background: lightblue;
+  border: 1px solid black;
+  z-index: 2;
+}
+
+.syllabus-view-button {
+  width: 80%;
+  height: 20px;
+  background: lightskyblue;
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+.syllabus-column {
+  margin: 40px;
+  margin-top: 0px;
+  overflow: auto;
+  text-align: left;
+  padding: 1%;
 }
 
 .link {
@@ -192,48 +230,23 @@
   background-color: $cadre-orange;
 }
 
-// .badge .assignments {
-//   width: 100%;
-//   background: orange;
-//   border: none;
-//   border-radius: 25px;
-//   margin-bottom: $spacing-05;
-// }
-
-// .assignment {
-//   border: 1px solid lightblue;
-//   background: lightblue;
-//   border-radius: 25px;
-//   margin-bottom: $spacing-07;
-//   padding: $spacing-05;
-//   // width: 100%;
-//   // height: 100%;
-//   width: 100%;
-//   background-color: none;
-//   min-height: fit-content;
-//   overflow-wrap: break-word;
-// }
-
-.assignment {
-
-}
-
 .tag {
-  border: 1px solid orange;
+  border: 1px solid $cadre-orange;
   padding: $spacing-03;
   margin: $spacing-03;
   border-radius: 25px;
   background: none;
 }
 
-.exam {
-  border-left: 3px solid rgb(86, 220, 86);
+.assignment, .exam  {
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 25px;
   margin-bottom: $spacing-07;
   padding: $spacing-05;
   width: 100%;
-  height: 100%;
   background-color: none;
-  min-height: 60px;
+  min-height: fit-content;
   overflow-wrap: break-word;
 }
 
@@ -241,6 +254,27 @@
 .fullname-assignment,
 .fullname-exam {
   margin-bottom: $spacing-02;
+}
+
+.assignment-small, .exam-small  {
+  text-align: center;
+  border: 3px solid orange;
+  background: none;
+  border-radius: 25px;
+  margin-bottom: $spacing-05;
+  width: fit-content;
+  padding: 0 $spacing-05;
+  min-height: fit-content;
+  overflow-wrap: break-word;
+}
+
+.exam-small:hover, .assignment-small:hover {
+  background: orange;
+  color: white;
+}
+
+.course-id {
+  margin-bottom: -$spacing-01;
 }
 
 //Lecutre Card Styles
@@ -284,6 +318,7 @@
   // left: 0 !important;
   // right: 0;
   margin: 0 auto;
+  width: 100%;
   width: calc(100vw - 20em) !important;
   height: 100%;
   z-index: 999;
@@ -306,9 +341,12 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
 }
 
-.icon-text div:hover * {
+.icon-text:hover * {
   fill: $highlight-orange;
   color: $secondary-pink !important;
   cursor: grab;
@@ -332,6 +370,14 @@
 
 .flex .courses {
   width: 50%;
+}
+
+.right-side {
+  width: 100%;
+}
+
+.zoomlink {
+  width: fit-content;
 }
 
 // .right-side {
@@ -365,5 +411,5 @@
 
 .date-head .bx--col:last-child {
   // padding-left: $spacing-01;
-  padding-right: $spacing-01;
+  padding-right: none;
 }

@@ -1,10 +1,7 @@
 import React from "react";
-import { useParams, useLocation } from "react-router-dom";
-import { Content } from "carbon-components-react";
+import { useLocation } from "react-router-dom";
 import HeaderNav from "../../components/NestedList";
 import AssignmentCard from "../../components/AssignmentCard";
-import { Breadcrumbs, Link } from "@material-ui/core";
-import { format } from "date-fns";
 import "./assignments.scss";
 
 function ClassColumn(props) {

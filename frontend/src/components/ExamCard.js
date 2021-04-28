@@ -1,4 +1,3 @@
-import { Dropdown, Grid, Row } from "carbon-components-react";
 import { parse, format } from "date-fns";
 import React from "react";
 import "../pages/schedule/calendar.scss";
@@ -22,8 +21,8 @@ export default function ExamCard(props) {
   const dueTime = parseTime(props.dueTime);
   console.log(props);
 
-  return (
-    <div key={props.id} className="assignment">
+  return props.size === "small" ? (
+    <div key={props.id} className="exam">
       <div>
         <h4>{props.Course.courseId}</h4>
         {/* <h6>{props.Course.courseName}</h6> */}
@@ -42,28 +41,25 @@ export default function ExamCard(props) {
         })}
       </div>
     </div>
+  ) : (
+    <div key={props.id} className="exam">
+      <div>
+        <h4>{props.Course.courseId}</h4>
+        {/* <h6>{props.Course.courseName}</h6> */}
+        <h4>{props.name}</h4>
+        <br></br>
+        <h6>{"Date: " + dueDate}</h6>
+        <h6>{"Time: " + dueTime}</h6>
+      </div>
 
-    // <div key={props.id} className="exam">
-    //   <div className="time">
-    //     <h5>{dueTime}</h5>
-    //   </div>
-
-    //   <div className="course-id">
-    //     <h4>{props.Course.courseId + (props.showFull ? " |  Exam" : "")}</h4>
-    //   </div>
-
-    //   <div className="fullname-exam">
-    //     <h6>{props.name}</h6>
-    //   </div>
-
-    //   <div
-    //     className="xtra-info"
-    //     style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
-    //   >
-    //     <ul>
-    //       <li>{props.tags.map((tag) => tag).join(", ")}</li>
-    //     </ul>
-    //   </div>
-    // </div>
+      <div
+        className="xtra-info"
+        style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
+      >
+        {props.tags.map((t) => {
+          return <button className="tag">{t}</button>;
+        })}
+      </div>
+    </div>
   );
 }

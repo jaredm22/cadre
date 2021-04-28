@@ -5,27 +5,15 @@ import {
   BreadcrumbItem,
   BreadcrumbSkeleton,
 } from "carbon-components-react";
-import { ChevronLeft32 } from '@carbon/icons-react';
+import { ChevronLeft32 } from "@carbon/icons-react";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import LinkUI from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
 import api from "../../apiHandle";
-import {
-  parseISO,
-  getHours,
-  getMinutes,
-  getDate,
-  getMonth,
-  getDay,
-  isSameDay,
-  isSameWeek,
-  compareAsc,
-  isThisHour,
-  format,
-  formatRelative,
-} from "date-fns";
+import { parseISO, getHours, getMinutes, isSameDay, format } from "date-fns";
 import LectureCard from "../../components/LectureCard";
 import AssignmentCard from "../../components/AssignmentCard";
+import ExamCard from "../../components/AssignmentCard";
 
 function Badge(props) {
   if (props.type === "assignments") {
@@ -59,9 +47,7 @@ function Badge(props) {
             className="badge link"
             to={{
               pathname: "/exams",
-              state: {
-                user: props.user,
-              },
+              state: { user: props.user },
             }}
           >
             <p>
@@ -80,9 +66,23 @@ function Badge(props) {
 function DayHeader(props) {
   let style = {};
   if (props.expand === "is-expanded") {
-    style = { "text-align": "left", display: "flex", flexDirection: "row" };
+    style = { textAlign: "left", display: "flex", flexDirection: "row" };
     return (
-      <div className={props.today ? "date-today" : "date"} style={style}>
+      <div
+        className={props.today ? "date-today" : "date"}
+        style={style}
+        onClick={() =>
+          props.parentCallback(
+            props.expand === "is-expanded"
+              ? {
+                  expand: "no-expand",
+                  expandedCourse: null,
+                  syllabusView: false,
+                }
+              : { expand: "is-expanded" }
+          )
+        }
+      >
         <h4 className="clndr-day">
           {format(props.fullDate, "eeee',' LLLL do")}
         </h4>
@@ -91,7 +91,21 @@ function DayHeader(props) {
   } else {
     style = { textAlign: "center" };
     return (
-      <div className={props.today ? "date-today" : "date"} style={style}>
+      <div
+        className={props.today ? "date-today" : "date"}
+        style={style}
+        onClick={() =>
+          props.parentCallback(
+            props.expand === "is-expanded"
+              ? {
+                  expand: "no-expand",
+                  expandedCourse: null,
+                  syllabusView: false,
+                }
+              : { expand: "is-expanded" }
+          )
+        }
+      >
         <h3 className="clndr-day">{format(props.fullDate, "eee")}</h3>
         <h4 className="clndr-date">{format(props.fullDate, "dd")}</h4>
       </div>
@@ -104,133 +118,159 @@ function SyllabusView(props) {
     display:
       props.expand === "is-expanded" && props.syllabusView ? "block" : "none",
   };
-  const course = props.course;
-  console.log(course);
 
-  return course ? (
-    <div className="right-side" style={right_side_css}>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-      <Breadcrumbs aria-label="breadcrumb" className="bc">
-              {/* <LinkUI
-                color="inherit"
-                onClick={() => {
-                  this.setState({ expand: "no-expand" });
-                }}
-              >
-                Weekly Overview
-              </LinkUI>
+  const { course, type } = props;
+  console.log(props);
+  console.log(course.courseId);
 
-              <LinkUI color="inherit">
-                {format(this.props.fullDate, "E',' LLL do")}
-              </LinkUI>
+  switch (type) {
+    case "assignments":
+      return (
+        <div className="right-side" style={right_side_css}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div className="syllabus-column">
+              <h6 style={{ color: "gray" }}>
+                {`${course.courseId} - ${course.courseName} ${course.section}`}
+              </h6>
+              <br></br>
 
-              {this.state.expandedCourse ? (
-                <LinkUI color="inherit">
-                  {this.state.expandedCourse.courseId +
-                    " - " +
-                    this.state.expandedCourse.courseName}
-                </LinkUI>
+              <h4>Assignments:</h4>
+              <br></br>
+
+              {course.assignments.length == 0 ? (
+                <p>No assignments for this course.</p>
               ) : (
-                false
+                course.assignments.map((a) => {
+                  return <AssignmentCard {...a} />;
+                })
+              )}
+            </div>
+          </div>
+        </div>
+      );
+
+    case "exams":
+      return (
+        <div className="right-side" style={right_side_css}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div className="syllabus-column">
+              <h6 style={{ color: "gray" }}>
+                {`${course.courseId} - ${course.courseName} ${course.section}`}
+              </h6>
+
+              <br></br>
+              <h4>
+                All exams for{" "}
+                {<span style={{ color: "orange" }}>{course.courseId}</span>}:
+              </h4>
+
+              {course.exams.length == 0 ? (
+                <p>No exams for this course.</p>
+              ) : (
+                course.exams.map((e) => {
+                  return <ExamCard {...e} />;
+                })
+              )}
+            </div>
+          </div>
+        </div>
+      );
+
+    case "course-overview":
+      return (
+        <div className="right-side" style={right_side_css}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div className="syllabus-column">
+              <h5 style={{ color: "gray" }}>
+                {`${course.courseId} - ${course.courseName} ${course.section}`}
+              </h5>
+              <br></br>
+
+              <h4>Office Hours:</h4>
+              <br></br>
+
+              <h5>{`Professor ${course.professor[0].firstName} ${course.professor[0].lastName}: Wednesday 10am-11am`}</h5>
+              <div className="zoomlink">
+                <a
+                  className="blue"
+                  target="_blank"
+                  rel="noreferrer"
+                  // href={props.zoomLink}
+                >
+                  <h5>Zoom Link</h5>
+                </a>
+              </div>
+              <br></br>
+
+              <h5>{`TA Fake TA-Man: Monday 12pm-1pm`}</h5>
+              <div className="zoomlink">
+                <a
+                  className="blue"
+                  target="_blank"
+                  rel="noreferrer"
+                  // href={props.zoomLink}
+                >
+                  <h5>Zoom Link</h5>
+                </a>
+              </div>
+              <br></br>
+
+              <h4>
+                Due today:{" "}
+                <button
+                  className="see-all"
+                  onClick={() =>
+                    props.parentCallback({ syllabusViewType: "assignments" })
+                  }
+                >
+                  <h4>See all</h4>
+                </button>
+              </h4>
+              <br></br>
+              {course.assignments.length == 0 ? (
+                <p>No assignments due today.</p>
+              ) : (
+                course.assignments.map((a) => {
+                  return (
+                    <button key={a.id} className={"assignment-small"}>
+                      <div>
+                        <h5>{a.name}</h5>
+                      </div>
+                    </button>
+                  );
+                })
               )}
 
-              {this.state.expandedCourse ? (
-                <LinkUI color="textPrimary">Assignments</LinkUI>
+              <h4>
+                Exams today:{" "}
+                <button
+                  className="see-all"
+                  onClick={() =>
+                    props.parentCallback({ syllabusViewType: "exams" })
+                  }
+                >
+                  <h4>See all</h4>
+                </button>
+              </h4>
+              <br></br>
+              {course.exams.length == 0 ? (
+                <p>No exams for this course.</p>
               ) : (
-                false
-              )} */}
-            </Breadcrumbs>
-        <div
-          className="syllabus-column"
-          style={{
-            margin: "40px",
-            marginTop: "0px",
-            overflow: "auto",
-            textAlign: "left",
-            padding: "1%",
-          }}
-        >
-          <h4>
-            All Assignments for{" "}
-            <span style={{ color: "orange" }}>{course.courseId}</span>:{" "}
-          </h4>
-          <br></br>
-
-          {course.assignments.length == 0 ? (
-            <p>No assignments for this course.</p>
-          ) : (
-            course.assignments.map((assignment) => {
-              return <AssignmentCard {...assignment} />;
-            })
-          )}
+                course.exams.map((e) => {
+                  return (
+                    <button key={e.id} className={"exam-small"}>
+                      <div>
+                        <h5>{e.name}</h5>
+                      </div>
+                    </button>
+                  );
+                })
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  ) : (
-    false
-  );
-
-  // (<div className="right-side" style={right_side_css}>
-  //       <div style={{ display: "flex", flexDirection: "row" }}>
-  //         <div
-  //           className="syllabus-column"
-  //           style={{
-  //             margin: "40px",
-  //             marginTop: "0px",
-  //             overflow: "auto",
-  //             textAlign: "center",
-  //           }}
-  //         >
-  //           <h4>Due This Week</h4>
-  //           {course.assignments.length == 0 ? (
-  //             <p>No assignments due this week.</p>
-  //           ) : (
-  //             course.assignments.map((assignment) => {
-  //               const dueDate = parseISO(
-  //                 assignment.dueDate,
-  //                 "yyyy-MM-dd",
-  //                 new Date()
-  //               );
-  //               if (isSameWeek(dueDate, props.fullDate)) {
-  //                 return (
-  //                   <AssignmentCard
-  //                     {...assignment}
-  //                   />
-  //                 );
-  //               }
-  //             })
-  //           )}
-  //         </div>
-
-  //         <div
-  //           style={{
-  //             display: "flex",
-  //             flexDirection: "column",
-  //             textAlign: "center",
-  //           }}
-  //         >
-  //           <h4>Upcoming Assignments</h4>
-  //           {course.assignments.length == 0 ? (
-  //             <p>No assigments due this week.</p>
-  //           ) : (
-  //             course.assignments.map((assignment) => {
-  //               const dueDate = parseISO(
-  //                 assignment.dueDate,
-  //                 "yyyy-MM-dd",
-  //                 new Date()
-  //               );
-  //               if (!isSameWeek(dueDate, props.fullDate)) {
-  //                 return (
-  //                   <AssignmentCard
-  //                     {...assignment}
-  //                   />
-  //                 );
-  //               }
-  //             })
-  //           )}
-  //         </div>
-  //       </div>
-  //     </div>) : false)
+      );
+  }
 }
 
 class Day extends React.Component {
@@ -244,7 +284,9 @@ class Day extends React.Component {
       exams: [],
       expand: "no-expand", //classname to add to day component to indicate css transition
       prevExpand: "no-expand", //set previous state of expansion to prevent repeated events into expanded view
+      expandedCourse: null,
       syllabusView: false,
+      syllabusViewType: "course-overview",
       rightSide: {},
       colWidth: 0,
     };
@@ -253,13 +295,8 @@ class Day extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.expand === "is-expanded") {
-      let width = this.getEWidth();
-      width !== this.state.colWidth &&
-        this.setState({
-          colWidth: width,
-        });
-    }
+    console.log("f");
+    return true;
   }
 
   componentDidMount() {
@@ -267,16 +304,6 @@ class Day extends React.Component {
       if (course.days.includes(this.props.day)) {
         return course;
       }
-      // api.getModifiedLecture(course.id, format(this.props.fullDate, "yyyy-MM-dd"))
-      //   .then(res => {
-      //     if ( res == null && course.days.includes(this.props.day)) {
-      //       console.log(course);
-      //       return course;
-      //     } else if (res != null) {
-      //       modifiedLecture = res;
-      //     }
-      //   }
-      // );
     });
 
     const labs = this.props.user.labs.filter((lab) => {
@@ -286,6 +313,7 @@ class Day extends React.Component {
     });
 
     const assignments = [];
+    const exams = [];
     this.props.user.courses.forEach((course) => {
       course.assignments.forEach((assignment) => {
         const dueDate = parseISO(assignment.dueDate, "yyyy-MM-dd", new Date());
@@ -293,14 +321,14 @@ class Day extends React.Component {
           assignments.push(assignment);
         }
       });
-    });
 
-    const exams = [];
-    this.props.user.courses.forEach((course) => {
       course.exams.map((exam) => {
-        console.log(exam);
-        const dueDate = parseISO(exam.dueDate, "yyyy-MM-dd", new Date());
-        if (isSameDay(dueDate, this.props.fullDate)) {
+        if (
+          isSameDay(
+            parseISO(exam.dueDate, "yyyy-MM-dd", new Date()),
+            this.props.fullDate
+          )
+        ) {
           exams.push(exam);
         }
       });
@@ -331,6 +359,53 @@ class Day extends React.Component {
     this.expandRef = el;
     this.daysrefs.push(this.showMoreRef);
     console.log(el);
+  };
+
+  handleCallback = (courseId) => {
+    console.log(courseId);
+    // this.setState(childData)
+
+    var toExpand = this.props.user.courses.find((c) => c.courseId === courseId);
+    console.log(toExpand);
+    // If day is expanded AND a course's syllabus view is open
+    //    If clicked course is currently open course, close syllabusview
+    if (this.state.expand === "is-expanded" && this.state.syllabusView) {
+      console.log("expanded and syllabus");
+      toExpand.courseId !== this.state.expandedCourse.courseId
+        ? this.setState({
+            expandedCourse: toExpand,
+            syllabusViewType: "course-overview",
+          })
+        : this.setState({ expandedCourse: null, syllabusView: false });
+
+      // If day is expanded AND no syllabus view is open
+      //    Open course's syllabus view
+    } else if (
+      this.state.expand === "is-expanded" &&
+      !this.state.syllabusView
+    ) {
+      console.log("expanded and !syllabus");
+      this.setState({
+        syllabusView: true,
+        expandedCourse: toExpand,
+        syllabusViewType: "course-overview",
+      });
+
+      // If day is not expanded
+      //    Expand day and open clicked course's syllabus view
+    } else if (this.state.expand === "no-expand") {
+      console.log("this happened4");
+      this.setState({
+        expand: "is-expanded",
+        syllabusViewType: "course-overview",
+        syllabusView: true,
+        expandedCourse: toExpand,
+      });
+    }
+  };
+
+  childCallback = (data) => {
+    this.setState(data);
   };
 
   //On-Click function that shows right hand side expanded view for class on
@@ -368,7 +443,6 @@ class Day extends React.Component {
     // console.log("expad: " + this.state.expand)
     // console.log("prev expand: " + this.state.prevExpand)
     // console.log("colWid: " + this.state.colWidth)
-    console.log(this.courserefs)
 
     var { lectures, labs } = this.state;
 
@@ -392,12 +466,19 @@ class Day extends React.Component {
         style={section_css}
       >
         {this.state.expand === "is-expanded" ? (
-          <div className="icon-text">
-            <div>
-            <ChevronLeft32 aria-label="backSchedule" className="back-button"/> 
+          <button
+            className="icon-text"
+            onClick={() =>
+              this.setState({
+                expandedCourse: null,
+                syllabusView: false,
+                expand: "no-expand",
+              })
+            }
+          >
+            <ChevronLeft32 aria-label="backSchedule" className="back-button" />
             <p>Schedule</p>
-            </div>
-          </div>
+          </button>
         ) : (
           false
         )}
@@ -408,6 +489,7 @@ class Day extends React.Component {
           day={this.props.day}
           date={this.props.date}
           fullDate={this.props.fullDate}
+          parentCallback={this.childCallback}
         />
 
         {this.state.expand === "no-expand" && (
@@ -423,71 +505,39 @@ class Day extends React.Component {
               type="assignments"
               assignments={this.state.assignments}
               user={this.props.user}
-            ></Badge>
+            />
           </div>
         )}
 
         <div className={this.state.expand === "is-expanded" ? "flex" : ""}>
           <div className="courses">
-            {lectures
-              .concat(labs)
-              .sort((l1, l2) => l1.startTime > l2.startTime)
-              .map((course, i) => {
-                return (
-                  <LectureCard
-                    {...course}
-                    assignmentsDue={this.state.assignments.length}
-                    parseTime={(time) => this.parseTime(time)}
-                    expand={this.state.expand} //bool to toggle expanded view
-                    showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                    handleclick={(e) => {
-                      console.log(course);
-                      var toExpand = course;
-                      if (this.state.expand === "is-expanded") {
-                        e.stopPropagation();
-                        this.setState((prevState) => {
-                          return {
-                            expand: "is-expanded",
-                            prevExpand: prevState.expand,
-                          };
-                        });
-                        if (this.state.syllabusView) {
-                          toExpand.courseId !==
-                          this.state.expandedCourse.courseId
-                            ? this.setState({ expandedCourse: toExpand })
-                            : this.setState({
-                                syllabusView: !this.state.syllabusView,
-                                expandedCourse: null,
-                              });
-                        } else {
-                          this.setState({
-                            syllabusView: !this.state.syllabusView,
-                            expandedCourse: toExpand,
-                          });
-                        }
-                      } else {
-                        if (this.state.syllabusView) {
-                          toExpand.courseId !==
-                          this.state.expandedCourse.courseId
-                            ? this.setState({ expandedCourse: toExpand })
-                            : this.setState({
-                                syllabusView: !this.state.syllabusView,
-                                expandedCourse: null,
-                              });
-                        } else {
-                          this.setState({
-                            expand: "is-expanded",
-                            syllabusView: !this.state.syllabusView,
-                            expandedCourse: toExpand,
-                          });
-                        }
+            {lectures.length + labs.length !== 0 ? (
+              lectures
+                .concat(labs)
+                .sort((l1, l2) => l1.startTime > l2.startTime)
+                .map((course, i) => {
+                  return (
+                    <LectureCard
+                      key={course.courseId}
+                      {...course}
+                      expanded={
+                        this.state.expandedCourse !== null &&
+                        this.state.expandedCourse.courseId === course.courseId
                       }
-                    }}
-                    syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
-                    ref={(ref) => (this.courserefs[i] = ref)}
-                  />
-                );
-              })}
+                      assignmentsDue={this.state.assignments.length}
+                      expand={this.state.expand} //bool to toggle expanded view
+                      showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
+                      parentCallback={this.handleCallback}
+                      syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
+                      // ref={(ref) => (this.courserefs[i] = ref)}
+                    />
+                  );
+                })
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <h5>No classes</h5>
+              </div>
+            )}
           </div>
 
           {this.state.syllabusView ? (
@@ -497,6 +547,8 @@ class Day extends React.Component {
               expand={this.state.expand}
               showFull={this.props.days <= 4}
               syllabusView={this.state.syllabusView}
+              type={this.state.syllabusViewType}
+              parentCallback={this.childCallback}
             />
           ) : (
             false
