@@ -1,6 +1,8 @@
 import React from "react";
-import { ChevronLeft32 } from "@carbon/icons-react";
 import { Link } from "react-router-dom";
+import BackButton from '../../components/BackButton';
+import Badge from '../../components/Badge';
+import DayHeader from './components/DayHeader';
 import api from "../../apiHandle";
 import { parseISO, getHours, getMinutes, isSameDay, format } from "date-fns";
 import LectureCard from "../../components/LectureCard";
@@ -8,120 +10,6 @@ import AssignmentCard from "../../components/AssignmentCard";
 import ExamCard from "../../components/AssignmentCard";
 import SyllabusView from './components/SyllabusView';
 
-function BackButton(props) {
-
-  return (
-    <button
-      className="icon-text"
-      onClick={() => props.parentCallback({
-        expandedCourse: null,
-        syllabusView: false,
-        expand: "no-expand",
-      })}
-    >
-      <ChevronLeft32 aria-label="backSchedule" className="back-button" />
-      <p>Schedule</p>
-    </button>
-  );
-}
-
-function Badge(props) {
-  if (props.type === "assignments") {
-    if (props.assignments.length != 0) {
-      return (
-        <button className="badge assignments">
-          <Link
-            className="badge link"
-            to={{
-              pathname: "/assignments",
-              state: {
-                user: props.user,
-              },
-            }}
-          >
-            <p>
-              {props.assignments.length} Assignment
-              {props.assignments.length == 1 ? false : "s"} Due
-            </p>
-          </Link>
-        </button>
-      );
-    } else {
-      return null;
-    }
-  } else if (props.type === "exams") {
-    if (props.exams.length != 0) {
-      return (
-        <button className="badge exams">
-          <Link
-            className="badge link"
-            to={{
-              pathname: "/exams",
-              state: { user: props.user },
-            }}
-          >
-            <p>
-              {props.exams.length} Exam
-              {props.exams.length == 1 ? false : "s"} Due
-            </p>
-          </Link>
-        </button>
-      );
-    } else {
-      return null;
-    }
-  }
-}
-
-function DayHeader(props) {
-  let style = {};
-  if (props.expand === "is-expanded") {
-    style = { textAlign: "left", display: "flex", flexDirection: "row" };
-    return (
-      <div
-        className={props.today ? "date-today" : "date"}
-        style={style}
-        onClick={() =>
-          props.parentCallback(
-            props.expand === "is-expanded"
-              ? {
-                  expand: "no-expand",
-                  expandedCourse: null,
-                  syllabusView: false,
-                }
-              : { expand: "is-expanded" }
-          )
-        }
-      >
-        <h4 className="clndr-day">
-          {format(props.fullDate, "eeee',' LLLL do")}
-        </h4>
-      </div>
-    );
-  } else {
-    style = { textAlign: "center" };
-    return (
-      <div
-        className={props.today ? "date-today" : "date"}
-        style={style}
-        onClick={() =>
-          props.parentCallback(
-            props.expand === "is-expanded"
-              ? {
-                  expand: "no-expand",
-                  expandedCourse: null,
-                  syllabusView: false,
-                }
-              : { expand: "is-expanded" }
-          )
-        }
-      >
-        <h3 className="clndr-day">{format(props.fullDate, "eee")}</h3>
-        <h4 className="clndr-date">{format(props.fullDate, "dd")}</h4>
-      </div>
-    );
-  }
-}
 class Day extends React.Component {
   constructor(props) {
     super(props);
@@ -140,6 +28,14 @@ class Day extends React.Component {
     this.test = false;
   }
 
+  backButtonCallback() {
+    this.setState({
+      expandedCourse: null,
+      syllabusView: false,
+      expand: "no-expand",
+    })
+  }
+
   componentDidUpdate() {
     if (this.state.expand === "is-expanded") {
       let width = this.getEWidth();
@@ -148,14 +44,6 @@ class Day extends React.Component {
           colWidth: width,
         });
     }
-  }
-
-  backButtonCallback() {
-    this.setState({
-      expandedCourse: null,
-      syllabusView: false,
-      expand: "no-expand",
-    })
   }
 
   componentDidMount() {
@@ -193,7 +81,7 @@ class Day extends React.Component {
       });
     });
 
-    console.log(lectures.concat(labs).sort((l1, l2) => l1.startTime < l2.startTime));
+    console.log(lectures.concat(labs).sort());
 
     this.setState({
       lectures: lectures,
