@@ -122,15 +122,6 @@ function LectureCard(props) {
                 : ""}
             </h5>
           </li>
-          {/* <li>            
-            <button className="lecture-card-button" onClick={() => props.parentCallback("course-overview")}>Course Overview</button> 
-          </li>
-          <li>
-            <button className="lecture-card-button" onClick={() => props.parentCallback("assignments")}>Assignments</button>
-          </li>
-          <li>            
-            <button className="lecture-card-button" onClick={() => props.parentCallback("exams")}>Exams</button> 
-          </li> */}
         </ul>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 // import {HomePage} from './home/HomePage'
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Calendar from "./Calendar";
-import HeaderNav from "../../components/NestedList";
+import HeaderNav from "../../components/HeaderNav";
 import { Content } from "carbon-components-react";
 
 function SchedulePage(props) {

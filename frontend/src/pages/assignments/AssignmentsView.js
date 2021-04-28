@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import HeaderNav from "../../components/NestedList";
+import HeaderNav from "../../components/HeaderNav";
 import AssignmentCard from "../../components/AssignmentCard";
 import "./assignments.scss";
 

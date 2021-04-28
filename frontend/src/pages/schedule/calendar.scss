@@ -194,24 +194,6 @@
   z-index: 2;
 }
 
-.syllabus-view-button {
-  width: 80%;
-  height: 20px;
-  background: lightskyblue;
-  border: 1px solid black;
-  padding: 1rem;
-  margin: 1rem;
-  text-align: center;
-}
-
-.syllabus-column {
-  margin: 40px;
-  margin-top: 0px;
-  overflow: auto;
-  text-align: left;
-  padding: 1%;
-}
-
 .link {
   text-decoration: none;
 }
@@ -262,6 +244,7 @@
   background: none;
   border-radius: 25px;
   margin-bottom: $spacing-05;
+  margin-right: $spacing-05;
   width: fit-content;
   padding: 0 $spacing-05;
   min-height: fit-content;
@@ -294,6 +277,7 @@
 #clndr-col-0 .course {
   border-left: 3px solid $cadre-orange;
 }
+
 .course-id {
   margin-bottom: -$spacing-01;
 }
@@ -315,10 +299,7 @@
   // background-color: white;
   // flex-grow: 12;
   position: relative;
-  // left: 0 !important;
-  // right: 0;
   margin: 0 auto;
-  width: 100%;
   width: calc(100vw - 20em) !important;
   height: 100%;
   z-index: 999;
@@ -368,21 +349,38 @@
   width: 100%;
 }
 
-.flex .courses {
-  width: 50%;
+.flex {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
 }
 
 .right-side {
   width: 100%;
 }
 
+.syllabus-view-button {
+  width: 80%;
+  height: 20px;
+  background: lightskyblue;
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+.syllabus-column {
+  margin: 40px;
+  margin-top: 0px;
+  overflow: auto;
+  text-align: left;
+  padding: 1%;
+}
+
 .zoomlink {
   width: fit-content;
 }
-
-// .right-side {
-//   width: 100%;
-// }
 
 // .calendar-contain .bx--row {
 //     justify-content: center;

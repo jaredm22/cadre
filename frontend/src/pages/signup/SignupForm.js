@@ -6,9 +6,6 @@ import {
   Button,
   Select,
   SelectItem,
-  Grid,
-  Row,
-  Column,
 } from "carbon-components-react/";
 import api from "../../apiHandle";
 import { useHistory } from "react-router-dom";
