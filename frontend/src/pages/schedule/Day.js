@@ -104,7 +104,12 @@ class Day extends React.Component {
     );
   };
 
+  scrollTop(){ //scroll clicked lecture card to top of page
+    console.log("scrolling to top...")
+  }
+
   handleCallback = (courseId) => {
+    this.scrollTop();
     console.log(courseId);
     // this.setState(childData)
 

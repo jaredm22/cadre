@@ -76,12 +76,7 @@
 //     margin-bottom: $spacing-07;
 //     border-bottom: 1px solid #20202020;
 // }
-.flex {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-}
+
 
 .logo {
   border-radius: 13%;
@@ -349,15 +344,22 @@
   width: 100%;
 }
 
+.is-expanded .courses {
+  width: 50%;
+}
+
 .flex {
-  width: 100%;
   display: flex;
   flex-direction: row;
-
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
 }
 
 .right-side {
-  width: 100%;
+  max-width: 50%;
+  position: fixed;
+  right: 0;
 }
 
 .syllabus-view-button {
