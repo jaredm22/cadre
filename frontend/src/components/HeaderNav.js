@@ -178,6 +178,7 @@ export default function HeaderNav(props) {
           <DayPicker
             onDayClick={(day) => handleDayClick(day)}
             selectedDays={date}
+            showOutsideDays
             disabledKeyboardNavigation
           />
         </ListItem>

@@ -4,7 +4,7 @@ import BackButton from "../../components/BackButton";
 import Badge from "../../components/Badge";
 import DayHeader from "./components/DayHeader";
 import api from "../../apiHandle";
-import { parseISO, getHours, getMinutes, isSameDay, format } from "date-fns";
+import { parseISO, isSameDay } from "date-fns";
 import LectureCard from "../../components/LectureCard";
 import AssignmentCard from "../../components/AssignmentCard";
 import ExamCard from "../../components/AssignmentCard";
@@ -36,16 +36,6 @@ class Day extends React.Component {
     });
   }
 
-  componentDidUpdate() {
-    if (this.state.expand === "is-expanded") {
-      let width = this.getEWidth();
-      width !== this.state.colWidth &&
-        this.setState({
-          colWidth: width,
-        });
-    }
-  }
-
   componentDidMount() {
     const lectures = this.props.user.courses.filter((course) => {
       if (course.days.includes(this.props.day)) {
@@ -75,11 +65,9 @@ class Day extends React.Component {
       });
     });
 
-    console.log(lectures);
     const sortedLectures = lectures.sort(
       (l1, l2) => this.parseTime(l1.startTime) - this.parseTime(l2.startTime)
     );
-    console.log(sortedLectures);
 
     this.setState({
       lectures: sortedLectures,
@@ -87,6 +75,25 @@ class Day extends React.Component {
       exams: exams,
       colWidth: this.getEWidth(),
     });
+  }
+
+  shouldComponentUpdate() {
+    return true;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.day !== this.props.day) {
+      this.setState({
+        day: this.props.day,
+      });
+    }
+    if (this.state.expand === "is-expanded") {
+      let width = this.getEWidth();
+      width !== this.state.colWidth &&
+        this.setState({
+          colWidth: width,
+        });
+    }
   }
 
   parseTime = (time) => {
@@ -98,9 +105,6 @@ class Day extends React.Component {
   };
 
   handleCallback = (courseId) => {
-    console.log(courseId);
-    // this.setState(childData)
-
     var toExpand = this.props.user.courses.find((c) => c.courseId === courseId);
     console.log(toExpand);
     // If day is expanded AND a course's syllabus view is open
@@ -197,7 +201,7 @@ class Day extends React.Component {
         style={section_css}
       >
         {expand === "is-expanded" ? (
-          <BackButton parentCallback={this.childCallback} />
+          <BackButton parentCallback={this.childCallback} type="day-view" />
         ) : (
           false
         )}

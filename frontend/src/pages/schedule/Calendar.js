@@ -16,14 +16,7 @@ class Calendar extends React.Component {
     };
     this.date = format(this.state.today, "d");
     this.daysrefs = [];
-    // this.expandRef = React.createRef();
   }
-
-  // setDayRef = (el) => {
-  //   this.expandRef = el;
-  //   this.daysrefs.push(this.expandRef);
-  //   console.log(el);
-  // };
 
   // Handles day slider change to close any currently expanded days before re-rendering days
   daySliderHandler = (value) => {
@@ -47,14 +40,11 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
-    // this.interval = setInterval(() =>
     this.setState({
       user: this.props.user,
       today: this.props.day,
       dataLoaded: true,
     });
-    // );
   }
 
   handleCallback = (data) => {

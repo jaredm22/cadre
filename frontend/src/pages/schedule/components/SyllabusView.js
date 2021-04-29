@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import AssignmentCard from "../../../components/AssignmentCard";
 import ExamCard from "../../../components/AssignmentCard";
+import BackButton from "../../../components/BackButton";
 
 export default function SyllabusView(props) {
   var right_side_css = {
@@ -9,8 +10,6 @@ export default function SyllabusView(props) {
   };
 
   const { course, type } = props;
-  console.log(props);
-  console.log(course.courseId);
 
   switch (type) {
     case "assignments":
