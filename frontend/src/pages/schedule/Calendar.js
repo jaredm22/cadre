@@ -122,6 +122,7 @@ class Calendar extends React.Component {
               fullDate={this.state.today}
               day={format(this.state.today, "EEE")}
               days={this.state.days}
+              ref={(ref) => (this.daysrefs[i] = ref)}
               expand="no-expand"
               parentCallback={this.handleCallback}
               user={this.state.user}
@@ -134,6 +135,7 @@ class Calendar extends React.Component {
               fullDate={addDays(this.state.today, i)}
               day={format(addDays(this.state.today, i), "EEE")}
               days={this.state.days}
+              ref={(ref) => (this.daysrefs[i] = ref)}
               expand="no-expand"
               parentCallback={this.handleCallback}
               user={this.state.user}

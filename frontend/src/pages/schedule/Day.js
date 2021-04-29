@@ -77,10 +77,6 @@ class Day extends React.Component {
     });
   }
 
-  shouldComponentUpdate() {
-    return true;
-  }
-
   componentDidUpdate(prevProps) {
     if (prevProps.day !== this.props.day) {
       this.setState({
