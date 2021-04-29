@@ -2,7 +2,6 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import HeaderNav from "../../components/HeaderNav";
 import ExamCard from "../../components/ExamCard";
-import "./exams.scss";
 
 function ClassColumn(props) {
   return (

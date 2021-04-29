@@ -141,7 +141,11 @@ export default function HeaderNav(props) {
             {props.user.courses.map((course) => {
               return (
                 <ListItem key={course.id}>
-                  <a className="nav-zoom-link" href={course.zoomLink}>
+                  <a
+                    className="nav-zoom-link"
+                    href={course.zoomLink}
+                    target="_blank"
+                  >
                     {course.courseId + " - " + course.courseName}
                   </a>
                 </ListItem>
@@ -174,6 +178,7 @@ export default function HeaderNav(props) {
           <DayPicker
             onDayClick={(day) => handleDayClick(day)}
             selectedDays={date}
+            showOutsideDays
             disabledKeyboardNavigation
           />
         </ListItem>

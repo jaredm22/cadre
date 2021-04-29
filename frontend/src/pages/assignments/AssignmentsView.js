@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import HeaderNav from "../../components/HeaderNav";
 import AssignmentCard from "../../components/AssignmentCard";
 import LectureCard from "../../components/LectureCard"
+// import SyllabusView from "../schedule/components"
 import "./assignments.scss";
 
 function ClassColumn(props) {
@@ -24,9 +25,38 @@ function ClassColumn(props) {
 }
 
 export default function AssignmentsView(props) {
+  // var initState = {}
   const location = useLocation();
   console.log(props);
   const courses = props.user.courses;
+
+  const [syllabusView, setView] = useState(false);
+  const [toExpand, setToExpand] = useState({})
+
+  const handleCallback = (courseId) => {
+      let newToExpand = props.user.courses.find((c) => c.courseId === courseId);
+      console.log(newToExpand);
+      // If day is expanded AND a course's syllabus view is open
+      //    If clicked course is currently open course, close syllabusview
+      if (syllabusView) {
+        // return
+        if (toExpand.courseId !== newToExpand.courseId) {
+          setToExpand(newToExpand)
+        } else {
+          setView(false)
+        }
+  
+        // // If day is expanded AND no syllabus view is open
+        // //    Open course's syllabus view
+      } else if (!syllabusView) {
+        console.log("show me!")
+        setToExpand(newToExpand)
+        setView(true)
+      } 
+    // setView(!syllabusView)
+  }
+
+  // const childCallback = (courseId)
 
   return (
     <div className="App">
@@ -56,7 +86,7 @@ export default function AssignmentsView(props) {
                       // assignmentsDue={this.state.assignments.length}
                       // expand={this.state.expand} //bool to toggle expanded view
                       // showFull={this.props.days <= 4} //show full zoom link when schedule is on 3-day view and below
-                      // parentCallback={this.handleCallback}
+                      parentCallback={handleCallback}
                       // syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
                     />
                   );
@@ -64,17 +94,19 @@ export default function AssignmentsView(props) {
               }
           </div>
 
-          {/* {this.state.syllabusView ? (
-            <SyllabusView
-              course={this.state.expandedCourse}
-              fullDate={this.props.fullDate}
-              expand={this.state.expand}
-              showFull={this.props.days <= 4}
-              syllabusView={this.state.syllabusView}
-              type={this.state.syllabusViewType}
-              parentCallback={this.childCallback}
-            />
-          ) : (false)} */}
+          {syllabusView ? (
+            <div className="class-container right-side">
+            {toExpand.assignments.map((assignment) => {
+            return <AssignmentCard {...assignment}/>
+            ;
+          })}
+          {/* // <div>{toExpand}</div> */}
+          </div>
+          ) : (
+            <div className="flex">
+              <p>No assignments</p>
+            </div>
+          )}
         </div>
       </section>
 

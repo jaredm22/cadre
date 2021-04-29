@@ -27,8 +27,6 @@ function LectureCard(props) {
   // const [syllabusView, setView] = useState(false);
   // console.log(props);
 
-  //need to add 'button' to these things
-
   return (
     <div
       key={props.id}
