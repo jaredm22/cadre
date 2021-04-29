@@ -4,6 +4,7 @@ import HeaderNav from "../../components/HeaderNav";
 import AssignmentCard from "../../components/AssignmentCard";
 import LectureCard from "../../components/LectureCard";
 // import SyllabusView from "../schedule/components"
+import NoCard from "../../components/NoCard";
 import "./assignments.scss";
 
 function ClassColumn(props) {
@@ -91,17 +92,19 @@ export default function AssignmentsView(props) {
                 })}
               </div>
 
-              {syllabusView ? (
+              {syllabusView && toExpand.assignments.length > 0 ? (
                 <div className="class-container right-side">
                   {toExpand.assignments.map((assignment) => {
                     return <AssignmentCard {...assignment} />;
                   })}
                   {/* // <div>{toExpand}</div> */}
                 </div>
-              ) : (
-                <div className="flex">
-                  <p>No assignments</p>
+              ) : syllabusView && toExpand.assignments.length <= 0 ? (
+                <div className="class-container right-side">
+                  <NoCard type="Assignments" />
                 </div>
+              ) : (
+                <div className="flex"></div>
               )}
             </div>
           </section>

@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import HeaderNav from "../../components/HeaderNav";
 import ExamCard from "../../components/ExamCard";
 import LectureCard from "../../components/LectureCard";
+import NoCard from "../../components/NoCard";
 // import "./exams.scss"
 
 function ClassColumn(props) {
@@ -87,16 +88,20 @@ export default function ExamsView(props) {
                 })}
               </div>
 
-              {syllabusView ? (
+              {syllabusView && toExpand.exams.length > 0 ? (
                 <div className="class-container right-side">
                   {toExpand.exams.map((exam) => {
                     return <ExamCard {...exam} />;
                   })}
                   {/* // <div>{toExpand}</div> */}
                 </div>
+              ) : syllabusView && toExpand.exams.length <= 0 ? (
+                <div className="class-container right-side">
+                  <NoCard type="Exams" />
+                </div>
               ) : (
                 <div className="flex">
-                  <p>No exams</p>
+                  {/* <p>No exams</p> */}
                   {/* {toExpand.exams.map((exam) => {
                     return <NoCard {...exam} />;
                   })} */}

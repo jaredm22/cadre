@@ -2,9 +2,7 @@
 @import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
 @import "carbon-components/scss/globals/scss/vars.scss";
 @import "../../cadre-vars.scss";
-
 // $blue: rgb(5, 162, 230);
-
 .calendar-contain {
   // margin-top: 3em;
   padding: 40px;
@@ -22,7 +20,6 @@
 //   text-decoration: none;
 //   // color: blue
 // }
-
 .black {
   text-decoration: none;
   color: black;
@@ -67,7 +64,6 @@
   // margin-top: -$spacing-07;
   // margin-bottom: $spacing-09;
   @include carbon--font-family("sans");
-
   // font-weight: 600;
 }
 
@@ -76,7 +72,6 @@
 //     margin-bottom: $spacing-07;
 //     border-bottom: 1px solid #20202020;
 // }
-
 .logo {
   border-radius: 13%;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -89,13 +84,11 @@
   height: calc(100vh - 10rem);
   overflow-x: hidden;
   position: relative;
-
   // padding-left: $spacing-01;
   // padding-right: $spacing-01;
 }
 
 // DAY COMPONENT SECTION STYLES
-
 @keyframes rollout {
   0% {
     transform: translateX(50px);
@@ -107,7 +100,6 @@
 
 .a-day {
   animation: 0.4s rollout;
-
   // width: 100%;
 }
 
@@ -122,11 +114,9 @@
 //   // transition: 777ms;
 //   background-color: aliceblue;
 // }
-
 // .day-col.is-expanded:hover {
 //   // background-color: white;
 // }
-
 .clndr-today {
   // background-color: aliceblue;
 }
@@ -211,7 +201,8 @@
 }
 
 .assignment,
-.exam {
+.exam,
+.no {
   text-align: center;
   border: 1px solid black;
   border-radius: 25px;
@@ -254,7 +245,6 @@
 }
 
 //Lecutre Card Styles
-
 .course {
   border-left: 3px solid $secondary-grey;
   margin-bottom: $spacing-07;
@@ -284,7 +274,6 @@
 }
 
 //Expanded View Styles Section
-
 .is-expanded {
   // padding-left: 10% !important;
   // padding-right: 10% !important;
@@ -382,18 +371,20 @@
 // .calendar-contain .bx--row {
 //     justify-content: center;
 // }
-
 //Carbon UI Overrides
 .bx--grid {
   margin-right: 0;
   transition: width 777ms;
 }
+
 .bx--content {
   background-color: transparent;
 }
+
 .bx--text-input.bx--slider-text-input {
   display: none; //ugly number indicator in slider code
 }
+
 .bx--slider__thumb {
   height: $spacing-05;
   width: $spacing-05;
