@@ -1,10 +1,26 @@
 $cadre-blue: rgb(155, 201, 202);
 $cadre-orange: rgb(222, 119, 47);
 
+$highlight-blue: rgba(189, 229, 238, 0.164);
+$highlight-orange: rgba(247, 190, 150, 0.164);
+
+$secondary-blue: rgb(62, 84, 164);
+$secondary-red: rgb(212, 89, 83);
+$secondary-pink: rgb(232, 169, 204);
+// $secondary-grey: rgb(148, 147, 149);
+$secondary-grey: #707070;
+
+
+
+
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 .blue {
   color: $cadre-blue;
+}
+
+.orange {
+  color: $cadre-orange;
 }

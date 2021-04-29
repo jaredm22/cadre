@@ -1,8 +1,4 @@
-import { Dropdown, Grid, Row } from "carbon-components-react";
-import { parseISO, getHours, getMinutes, format } from "date-fns";
-// import React, { useState } from "react";
 import React from "react";
-
 import "../pages/schedule/calendar.scss";
 
 const parseTime = (startTime, endTime) => {
@@ -27,7 +23,7 @@ const parseTime = (startTime, endTime) => {
   }
 };
 
-const LectureCard = React.forwardRef((props, ref) => {
+function LectureCard(props) {
   // const [syllabusView, setView] = useState(false);
   // console.log(props);
 
@@ -37,8 +33,8 @@ const LectureCard = React.forwardRef((props, ref) => {
     <div
       key={props.id}
       className="course"
-      onClick={props.handleclick}
-      ref={ref}
+      style={props.expanded ? { background: "rgba(247, 190, 150, 0.164)" } : {}}
+      onClick={() => props.parentCallback(props.courseId)}
     >
       {/* Course Code (or 'Lab' if lab */}
       {props.courseName != null ? (
@@ -47,7 +43,7 @@ const LectureCard = React.forwardRef((props, ref) => {
         </div>
       ) : (
         <div className="fullname-course">
-          <h5 className="black">{props.course.courseId + " | Lab"}</h5>
+          <h5 className="black">{props.courseId + " | Lab"}</h5>
         </div>
       )}
 
@@ -68,13 +64,20 @@ const LectureCard = React.forwardRef((props, ref) => {
 
       <div className="zoomlink">
         <a
-          className="blue"
+          className="link blue"
           target="_blank"
           rel="noreferrer"
           href={props.zoomLink}
         >
-          <h5>Zoom Link</h5>
+          <h5 style={{ display: "inline-block" }}>Zoom Link</h5>
         </a>
+        <div
+          className="zoom-info"
+          style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
+        >
+          <p>Meeting Id:</p>
+          <p>Password:</p>
+        </div>
       </div>
 
       <div
@@ -82,7 +85,7 @@ const LectureCard = React.forwardRef((props, ref) => {
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
         <ul>
-          <li>
+          {/* <li>
             <a
               className="black"
               style={{ display: props.showFull ? "block" : "none" }}
@@ -92,9 +95,9 @@ const LectureCard = React.forwardRef((props, ref) => {
             >
               Lecture Slides
             </a>
-          </li>
+          </li> */}
 
-          <li>
+          {/* <li>
             {props.piazzaLink != null ? (
               <a
                 className="black"
@@ -108,15 +111,21 @@ const LectureCard = React.forwardRef((props, ref) => {
             ) : (
               false
             )}
-          </li>
+          </li> */}
           {/* <li>Course Page</li> */}
-          <li>Assignments</li>
-          {/* <li>Exams</li> */}
-          <li>Office hours</li>
+          <li className="orange">
+            <h5>
+              {props.assignmentsDue > 0
+                ? props.assignmentsDue +
+                  " Assignment" +
+                  (props.assignmentsDue === 1 ? " due" : " s due")
+                : ""}
+            </h5>
+          </li>
         </ul>
       </div>
     </div>
   );
-});
+}
 
 export default LectureCard;

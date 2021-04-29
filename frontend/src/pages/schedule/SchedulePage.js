@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 // import {HomePage} from './home/HomePage'
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Calendar from "./Calendar";
-import HeaderNav from "../../components/NestedList";
+import HeaderNav from "../../components/HeaderNav";
+import { format } from "date-fns";
 import { Content } from "carbon-components-react";
 
 function SchedulePage(props) {
@@ -21,7 +22,11 @@ function SchedulePage(props) {
         parentCallback={(childData) => changeDate(childData)}
       />
       <Content>
-        <Calendar user={location.state.user} day={day} />
+        <Calendar
+          key={format(day, "M-d-y")}
+          user={location.state.user}
+          day={day}
+        />
       </Content>
     </div>
   );

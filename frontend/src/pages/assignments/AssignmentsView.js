@@ -1,10 +1,7 @@
 import React from "react";
-import { useParams, useLocation } from "react-router-dom";
-import { Content } from "carbon-components-react";
-import HeaderNav from "../../components/NestedList";
+import { useLocation } from "react-router-dom";
+import HeaderNav from "../../components/HeaderNav";
 import AssignmentCard from "../../components/AssignmentCard";
-import { Breadcrumbs, Link } from "@material-ui/core";
-import { format } from "date-fns";
 import "./assignments.scss";
 
 function ClassColumn(props) {
@@ -35,7 +32,7 @@ export default function AssignmentsView(props) {
       <HeaderNav user={location.state.user} />
       <div className="view-container">
         <h3>Assignments</h3>
-        <div class="class-container">
+        <div className="class-container">
           {courses.map((c) => {
             return <ClassColumn {...c}></ClassColumn>;
           })}

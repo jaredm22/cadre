@@ -1,5 +1,4 @@
-import { Dropdown, Grid, Row } from "carbon-components-react";
-import { parseISO, getDate, getMonth, format, parse } from "date-fns";
+import { format, parse } from "date-fns";
 import React from "react";
 import "../pages/schedule/calendar.scss";
 
@@ -29,7 +28,6 @@ export default function AssignmentCard(props) {
     <div key={props.id} className="assignment">
       <div>
         <h6>{props.Course.courseId}</h6>
-        {/* <h6>{props.Course.courseName}</h6> */}
         <h4>{props.name}</h4>
         <br></br>
         <h6>{"Due: " + dueDate + " - " + dueTime}</h6>
