@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import HeaderNav from "../../components/HeaderNav";
 import AssignmentCard from "../../components/AssignmentCard";
-import LectureCard from "../../components/LectureCard"
+import LectureCard from "../../components/LectureCard";
 // import SyllabusView from "../schedule/components"
 import "./assignments.scss";
 
@@ -31,30 +31,30 @@ export default function AssignmentsView(props) {
   const courses = props.user.courses;
 
   const [syllabusView, setView] = useState(false);
-  const [toExpand, setToExpand] = useState({})
+  const [toExpand, setToExpand] = useState({});
 
   const handleCallback = (courseId) => {
-      let newToExpand = props.user.courses.find((c) => c.courseId === courseId);
-      console.log(newToExpand);
-      // If day is expanded AND a course's syllabus view is open
-      //    If clicked course is currently open course, close syllabusview
-      if (syllabusView) {
-        // return
-        if (toExpand.courseId !== newToExpand.courseId) {
-          setToExpand(newToExpand)
-        } else {
-          setView(false)
-        }
-  
-        // // If day is expanded AND no syllabus view is open
-        // //    Open course's syllabus view
-      } else if (!syllabusView) {
-        console.log("show me!")
-        setToExpand(newToExpand)
-        setView(true)
-      } 
+    let newToExpand = props.user.courses.find((c) => c.courseId === courseId);
+    console.log(newToExpand);
+    // If day is expanded AND a course's syllabus view is open
+    //    If clicked course is currently open course, close syllabusview
+    if (syllabusView) {
+      // return
+      if (toExpand.courseId !== newToExpand.courseId) {
+        setToExpand(newToExpand);
+      } else {
+        setView(false);
+      }
+
+      // // If day is expanded AND no syllabus view is open
+      // //    Open course's syllabus view
+    } else if (!syllabusView) {
+      console.log("show me!");
+      setToExpand(newToExpand);
+      setView(true);
+    }
     // setView(!syllabusView)
-  }
+  };
 
   // const childCallback = (courseId)
 
@@ -68,12 +68,10 @@ export default function AssignmentsView(props) {
             return <ClassColumn {...c}></ClassColumn>;
           })} */}
 
-<section>
-       
-
-        <div className="flex">
-          <div className="courses">
-            {courses.map((course) => {
+          <section>
+            <div className="flex">
+              <div className="courses">
+                {courses.map((course) => {
                   return (
                     <LectureCard
                       key={course.courseId}
@@ -90,26 +88,23 @@ export default function AssignmentsView(props) {
                       // syllabusView={this.state.syllabusView} //bool to toggle right-hand side details
                     />
                   );
-                })
-              }
-          </div>
+                })}
+              </div>
 
-          {syllabusView ? (
-            <div className="class-container right-side">
-            {toExpand.assignments.map((assignment) => {
-            return <AssignmentCard {...assignment}/>
-            ;
-          })}
-          {/* // <div>{toExpand}</div> */}
-          </div>
-          ) : (
-            <div className="flex">
-              <p>No assignments</p>
+              {syllabusView ? (
+                <div className="class-container right-side">
+                  {toExpand.assignments.map((assignment) => {
+                    return <AssignmentCard {...assignment} />;
+                  })}
+                  {/* // <div>{toExpand}</div> */}
+                </div>
+              ) : (
+                <div className="flex">
+                  <p>No assignments</p>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </section>
-
+          </section>
         </div>
       </div>
     </div>

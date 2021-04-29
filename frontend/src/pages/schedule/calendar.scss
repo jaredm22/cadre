@@ -77,7 +77,6 @@
 //     border-bottom: 1px solid #20202020;
 // }
 
-
 .logo {
   border-radius: 13%;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -90,7 +89,6 @@
   height: calc(100vh - 10rem);
   overflow-x: hidden;
   position: relative;
-  
 
   // padding-left: $spacing-01;
   // padding-right: $spacing-01;
@@ -100,18 +98,17 @@
 
 @keyframes rollout {
   0% {
-      transform: translateX(50px);
+    transform: translateX(50px);
   }
   100% {
-      transform: translateX(0);
+    transform: translateX(0);
   }
 }
 
 .a-day {
-  animation: .4s rollout;
-  
+  animation: 0.4s rollout;
 
-  // width: 100%;   
+  // width: 100%;
 }
 
 .day-col {
@@ -168,7 +165,7 @@
   border-radius: 25px;
   margin-bottom: $spacing-05;
   text-decoration: none;
-  color: rgb(255, 255, 255) !important; 
+  color: rgb(255, 255, 255) !important;
 }
 
 .badge p {
@@ -193,11 +190,9 @@
   text-decoration: none;
 }
 
-.link:hover h5{
+.link:hover h5 {
   text-decoration: underline;
 }
-
-
 
 .exams {
   background-color: $cadre-blue;
@@ -215,7 +210,8 @@
   background: none;
 }
 
-.assignment, .exam  {
+.assignment,
+.exam {
   text-align: center;
   border: 1px solid black;
   border-radius: 25px;
@@ -233,7 +229,8 @@
   margin-bottom: $spacing-02;
 }
 
-.assignment-small, .exam-small  {
+.assignment-small,
+.exam-small {
   text-align: center;
   border: 3px solid orange;
   background: none;
@@ -246,7 +243,8 @@
   overflow-wrap: break-word;
 }
 
-.exam-small:hover, .assignment-small:hover {
+.exam-small:hover,
+.assignment-small:hover {
   background: orange;
   color: white;
 }
@@ -266,7 +264,7 @@
   background-color: none;
   min-height: fit-content;
   overflow-wrap: break-word;
-  transition: background 111ms linear
+  transition: background 111ms linear;
 }
 
 #clndr-col-0 .course {
@@ -311,9 +309,8 @@
   margin-bottom: $spacing-07;
 }
 
-
 //Container for back button to schedule
-.icon-text{
+.icon-text {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -328,7 +325,7 @@
   cursor: grab;
 }
 
-.icon-text p{
+.icon-text p {
   font-size: 0.9rem;
   display: inline-table;
   height: inherit;
@@ -358,7 +355,6 @@
 
 .right-side {
   max-width: 50%;
-
 }
 
 .syllabus-view-button {

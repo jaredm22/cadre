@@ -104,8 +104,9 @@ class Day extends React.Component {
     return hours + minutes;
   };
 
-  scrollTop(){ //scroll clicked lecture card to top of page
-    console.log("scrolling to top...")
+  scrollTop() {
+    //scroll clicked lecture card to top of page
+    console.log("scrolling to top...");
   }
 
   handleCallback = (courseId) => {

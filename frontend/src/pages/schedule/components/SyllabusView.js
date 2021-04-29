@@ -117,25 +117,24 @@ export default function SyllabusView(props) {
               <h4>
                 Due today:{" "}
                 <Link
-            className="badge link"
-            to={{
-              pathname: "/assignments",
-              state: {
-                user: props.user,
-                // toExpand: course.courseId
-              },
-            }}
-          >
-              <button
-                  className="see-all"
-                  onClick={() =>
-                    props.parentCallback({ syllabusViewType: "assignments" })
-                  }
+                  className="badge link"
+                  to={{
+                    pathname: "/assignments",
+                    state: {
+                      user: props.user,
+                      // toExpand: course.courseId
+                    },
+                  }}
                 >
-                  <h4>See all</h4>
-                </button>
-          </Link>
-                
+                  <button
+                    className="see-all"
+                    onClick={() =>
+                      props.parentCallback({ syllabusViewType: "assignments" })
+                    }
+                  >
+                    <h4>See all</h4>
+                  </button>
+                </Link>
               </h4>
               <br></br>
               {course.assignments.length == 0 ? (
@@ -143,13 +142,13 @@ export default function SyllabusView(props) {
               ) : (
                 course.assignments.map((a) => {
                   return (
-                    <button 
-                      key={a.id} 
+                    <button
+                      key={a.id}
                       className={"assignment-small"}
-                      // onClick={() => 
+                      // onClick={() =>
                       //   props.parentCallback({ syllabusViewType: "assignment brief" })
                       // }
-                      >
+                    >
                       <div>
                         <h5>{a.name}</h5>
                       </div>
@@ -188,19 +187,16 @@ export default function SyllabusView(props) {
         </div>
       );
     case "assignment brief":
-      return(
+      return (
         <div>
           <p>assignment brief</p>
-       </div>
-      )
-      
-    default: 
-      return(
+        </div>
+      );
+
+    default:
+      return (
         <div></div>
         // <div><p>Click a class to see </p></div>
-      )
-      
+      );
   }
-  
-
 }

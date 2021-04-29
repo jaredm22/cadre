@@ -2,8 +2,7 @@
 @import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
 @import "carbon-components/scss/globals/scss/vars.scss";
 
-
-.view-container { 
+.view-container {
   display: flex;
   padding: 20px;
   flex-direction: column;
@@ -33,7 +32,7 @@
   overflow-y: scroll;
 }
 
-.class-container.right-side .flex .assignments{
+.class-container.right-side .flex .assignments {
   overflow-y: scroll;
 }
 
@@ -45,12 +44,10 @@
   width: 100%;
 }
 
-
 .breadcrumbs {
   color: black;
-  margin-bottom: $spacing-07
+  margin-bottom: $spacing-07;
 }
-
 
 .class-column h5 {
   margin-bottom: $spacing-07;
