@@ -246,6 +246,17 @@
   margin-right: $spacing-05;
 }
 
+.card-left h6 {
+  font-weight: 500;
+  font-size: 0.8em;
+}
+
+.card-left h4 {
+  font-weight: 900;
+  color: $secondary-grey;
+  margin: $spacing-02 0;
+}
+
 .card-right {
   display: flex;
   flex-direction: column;
@@ -350,6 +361,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  text-align: center;
   background: none;
   border: none;
 }

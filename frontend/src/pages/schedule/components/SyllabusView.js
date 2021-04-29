@@ -78,7 +78,9 @@ export default function SyllabusView(props) {
         <div className="right-side" style={right_side_css}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div className="syllabus-column">
-              <h6 style={{ color: "gray" }}>
+              <h6
+                style={{ color: "gray", fontWeight: "500", fontSize: "0.8em" }}
+              >
                 {`${course.courseId} - ${course.courseName} ${course.section}`}
               </h6>
               <br></br>
@@ -111,6 +113,7 @@ export default function SyllabusView(props) {
                 </a>
               </div>
               <br></br>
+              <br></br>
 
               <h4>
                 Assignments:{" "}
@@ -136,15 +139,19 @@ export default function SyllabusView(props) {
               </h4>
               <br></br>
               {course.assignments.length == 0 ? (
-                <p style={{marginBottom: "10px"}}>No assignments due today.</p>
+                <p style={{ marginBottom: "10px" }}>
+                  No assignments due for this course.
+                </p>
               ) : (
                 course.assignments.map((a) => {
                   return (
-                    <button 
-                      key={a.id} 
-                      className={"assignment-small"} 
+                    <button
+                      key={a.id}
+                      className={"assignment-small"}
                       onClick={() =>
-                        props.parentCallback({ syllabusViewType: "assignments" })
+                        props.parentCallback({
+                          syllabusViewType: "assignments",
+                        })
                       }
                     >
                       <div>
@@ -154,8 +161,9 @@ export default function SyllabusView(props) {
                   );
                 })
               )}
+              <br></br>
 
-              <h4 style={{marginTop: "10px"}}>
+              <h4 style={{ marginTop: "10px" }}>
                 Exams:{" "}
                 <button
                   className="see-all"
@@ -172,8 +180,8 @@ export default function SyllabusView(props) {
               ) : (
                 course.exams.map((e) => {
                   return (
-                    <button 
-                      key={e.id} 
+                    <button
+                      key={e.id}
                       className={"exam-small"}
                       onClick={() =>
                         props.parentCallback({ syllabusViewType: "exams" })

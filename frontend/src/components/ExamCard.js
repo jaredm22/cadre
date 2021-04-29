@@ -23,8 +23,17 @@ export default function ExamCard(props) {
 
   return (
     <div key={props.id} className="card">
-      <div className="card-left" style={{display: "flex", flexDirection: "column", textAlign: "left"}}>
-        <h6>{props.Course.courseId + " " + props.Course.courseName + " " + props.Course.section}</h6>
+      <div
+        className="card-left"
+        style={{ display: "flex", flexDirection: "column", textAlign: "left" }}
+      >
+        <h6>
+          {props.Course.courseId +
+            " " +
+            props.Course.courseName +
+            " " +
+            props.Course.section}
+        </h6>
         <h4>{props.name}</h4>
         <h6>{dueDate + " at " + dueTime}</h6>
       </div>
