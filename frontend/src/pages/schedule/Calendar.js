@@ -61,14 +61,6 @@ class Calendar extends React.Component {
     this.setState(data);
   };
 
-  // componentWillUnmount() {
-  //   clearInterval(this.interval);
-  // }
-
-  //   componentWillUnmount() {
-  //       var state = this.state;
-  //   }
-
   // toggles the state of the clicked day component and calendar component to expand/no-expand
   expandDay(index, day) {
     // console.log(index);
@@ -115,7 +107,7 @@ class Calendar extends React.Component {
   }
 
   changeDayVal(value) {
-    console.log(this.state.expand)
+    console.log(this.state.expand);
     if (this.state.expand === "is-expanded") {
       let day = this.findExpandedDay();
       console.log(day);
@@ -124,7 +116,7 @@ class Calendar extends React.Component {
     }
     console.log(this.state.expand);
     console.log(value);
-    this.setState({expand: "no-expand", days: value});
+    this.setState({ expand: "no-expand", days: value });
   }
 
   render() {
@@ -138,7 +130,6 @@ class Calendar extends React.Component {
               i={i}
               today={true}
               fullDate={this.state.today}
-              date={this.state.today.getDate()}
               day={format(this.state.today, "EEE")}
               days={this.state.days}
               expand="no-expand"
@@ -151,7 +142,6 @@ class Calendar extends React.Component {
               i={i}
               today={false}
               fullDate={addDays(this.state.today, i)}
-              date={addDays(this.state.today, i).getDate()}
               day={format(addDays(this.state.today, i), "EEE")}
               days={this.state.days}
               expand="no-expand"
@@ -201,7 +191,6 @@ class Calendar extends React.Component {
         {this.state.dataLoaded ? (
           <Row className="date-head">
             {day_list.map((day) => {
-
               return (
                 <Column
                   key={day.props.date}

@@ -32,7 +32,7 @@ export default function AssignmentsView(props) {
       <HeaderNav user={location.state.user} />
       <div className="view-container">
         <h3>Assignments</h3>
-        <div class="class-container">
+        <div className="class-container">
           {courses.map((c) => {
             return <ClassColumn {...c}></ClassColumn>;
           })}
