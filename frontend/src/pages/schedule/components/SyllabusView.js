@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import AssignmentCard from "../../../components/AssignmentCard";
 import ExamCard from "../../../components/AssignmentCard";
-import BackButton from "../../../components/BackButton";
+import { ChevronLeft32 } from "@carbon/icons-react";
 
 export default function SyllabusView(props) {
   var right_side_css = {
@@ -15,13 +15,18 @@ export default function SyllabusView(props) {
     case "assignments":
       return (
         <div className="right-side" style={right_side_css}>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <div className="syllabus-column">
-              <h6 style={{ color: "gray" }}>
-                {`${course.courseId} - ${course.courseName} ${course.section}`}
-              </h6>
-              <br></br>
+          <button
+            className="icon-text"
+            onClick={() =>
+              props.parentCallback({ syllabusViewType: "course-overview" })
+            }
+          >
+            <ChevronLeft32 aria-label="backSchedule" className="back-button" />
+            <p>{course.courseId + " - " + course.courseName}</p>
+          </button>
 
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="syllabus-column">
               <h4>Assignments:</h4>
               <br></br>
 
@@ -40,13 +45,18 @@ export default function SyllabusView(props) {
     case "exams":
       return (
         <div className="right-side" style={right_side_css}>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <div className="syllabus-column">
-              <h6 style={{ color: "gray" }}>
-                {`${course.courseId} - ${course.courseName} ${course.section}`}
-              </h6>
+          <button
+            className="icon-text"
+            onClick={() =>
+              props.parentCallback({ syllabusViewType: "course-overview" })
+            }
+          >
+            <ChevronLeft32 aria-label="backSchedule" className="back-button" />
+            <p>{course.courseId + " - " + course.courseName}</p>
+          </button>
 
-              <br></br>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="syllabus-column">
               <h4>
                 All exams for{" "}
                 {<span style={{ color: "orange" }}>{course.courseId}</span>}:
