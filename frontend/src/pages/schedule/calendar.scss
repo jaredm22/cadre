@@ -72,6 +72,13 @@
 //     margin-bottom: $spacing-07;
 //     border-bottom: 1px solid #20202020;
 // }
+.flex {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
 .logo {
   border-radius: 13%;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -84,8 +91,6 @@
   height: calc(100vh - 10rem);
   overflow-x: hidden;
   position: relative;
-  // padding-left: $spacing-01;
-  // padding-right: $spacing-01;
 }
 
 // DAY COMPONENT SECTION STYLES
@@ -100,6 +105,7 @@
 
 .a-day {
   animation: 0.4s rollout;
+
   // width: 100%;
 }
 
@@ -193,32 +199,75 @@
 }
 
 .tag {
-  border: 1px solid $cadre-orange;
+  border: 2px solid $cadre-orange;
   padding: $spacing-03;
   margin: $spacing-03;
+  width: 100%;
   border-radius: 25px;
   background: none;
 }
 
-.assignment,
-.exam,
-.no {
-  text-align: center;
-  border: 1px solid black;
+.tag:hover {
+  color: white;
+  background: $cadre-orange;
+}
+
+.card {
+  text-align: left;
+  border: 2px solid black;
   border-radius: 25px;
+  display: flex;
+  flex-direction: row;
   margin-bottom: $spacing-07;
   padding: $spacing-05;
   width: 100%;
-  background-color: none;
   min-height: fit-content;
+  background-color: none;
   overflow-wrap: break-word;
 }
 
-.fullname-course,
-.fullname-assignment,
-.fullname-exam {
-  margin-bottom: $spacing-02;
+.card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: $spacing-02;
+  padding-bottom: $spacing-05;
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+  margin-right: $spacing-05;
 }
+
+.card-left h6 {
+  font-weight: 500;
+  font-size: 0.8em;
+}
+
+.card-left h4 {
+  font-weight: 900;
+  color: $secondary-grey;
+  margin: $spacing-02 0;
+}
+
+.card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.card h6 {
+  color: $secondary-grey;
+}
+
+// .fullname-course,
+// .fullname-assignment,
+// .fullname-exam {
+//   margin-bottom: $spacing-02;
+// }
 
 .assignment-small,
 .exam-small {
@@ -240,15 +289,10 @@
   color: white;
 }
 
-.course-id {
-  margin-bottom: -$spacing-01;
-}
-
 //Lecutre Card Styles
 .course {
   border-left: 3px solid $secondary-grey;
   margin-bottom: $spacing-07;
-  padding: $spacing-04;
   padding-left: $spacing-05;
   width: 100%;
   background-color: none;
@@ -257,21 +301,25 @@
   transition: background 111ms linear;
 }
 
+.time {
+  color: $secondary-grey;
+}
+
 #clndr-col-0 .course {
   border-left: 3px solid $cadre-orange;
 }
 
-.course-id {
-  margin-bottom: -$spacing-01;
-}
+// .course-id {
+//   margin-bottom: -$spacing-01;
+// }
 
 .course:hover {
   background-color: $highlight-orange;
 }
 
-.zoomlink {
-  margin-bottom: $spacing-03;
-}
+// .zoomlink {
+//   margin-bottom: $spacing-03;
+// }
 
 //Expanded View Styles Section
 .is-expanded {
@@ -304,6 +352,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  text-align: center;
   background: none;
   border: none;
 }
@@ -330,20 +379,14 @@
   width: 100%;
 }
 
-.is-expanded .courses {
-  width: 50%;
-}
-
 .flex {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
-  position: relative;
 }
 
 .right-side {
-  max-width: 50%;
+  width: 100%;
 }
 
 .syllabus-view-button {
@@ -364,8 +407,20 @@
   padding: 1%;
 }
 
+.syllabus-column header {
+  margin-bottom: 40px;
+}
+
 .zoomlink {
   width: fit-content;
+}
+
+.xtra-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-grow: 1;
+  width: 100%;
 }
 
 // .calendar-contain .bx--row {

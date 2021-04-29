@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AssignmentCard from "../../../components/AssignmentCard";
-import ExamCard from "../../../components/AssignmentCard";
+import ExamCard from "../../../components/ExamCard";
 import { ChevronLeft32 } from "@carbon/icons-react";
 
 export default function SyllabusView(props) {
@@ -58,10 +58,8 @@ export default function SyllabusView(props) {
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div className="syllabus-column">
-              <h4>
-                All exams for{" "}
-                {<span style={{ color: "orange" }}>{course.courseId}</span>}:
-              </h4>
+              <h4>Exams</h4>
+              <br></br>
 
               {course.exams.length == 0 ? (
                 <p>No exams for this course.</p>
@@ -80,9 +78,11 @@ export default function SyllabusView(props) {
         <div className="right-side" style={right_side_css}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <div className="syllabus-column">
-              <h5 style={{ color: "gray" }}>
+              <h6
+                style={{ color: "gray", fontWeight: "500", fontSize: "0.8em" }}
+              >
                 {`${course.courseId} - ${course.courseName} ${course.section}`}
-              </h5>
+              </h6>
               <br></br>
 
               <h4>Office Hours:</h4>
@@ -101,7 +101,7 @@ export default function SyllabusView(props) {
               </div>
               <br></br>
 
-              <h5>{`TA Fake TA-Man: Monday 12pm-1pm`}</h5>
+              <h5>{`TA Tim Allen: Monday 12pm-1pm`}</h5>
               <div className="zoomlink">
                 <a
                   className="blue"
@@ -113,9 +113,10 @@ export default function SyllabusView(props) {
                 </a>
               </div>
               <br></br>
+              <br></br>
 
               <h4>
-                Due today:{" "}
+                Assignments:{" "}
                 <Link
                   className="badge link"
                   to={{
@@ -132,22 +133,26 @@ export default function SyllabusView(props) {
                       props.parentCallback({ syllabusViewType: "assignments" })
                     }
                   >
-                    <h4>See all</h4>
+                    <h5>See all</h5>
                   </button>
                 </Link>
               </h4>
               <br></br>
               {course.assignments.length == 0 ? (
-                <p>No assignments due today.</p>
+                <p style={{ marginBottom: "10px" }}>
+                  No assignments due for this course.
+                </p>
               ) : (
                 course.assignments.map((a) => {
                   return (
                     <button
                       key={a.id}
                       className={"assignment-small"}
-                      // onClick={() =>
-                      //   props.parentCallback({ syllabusViewType: "assignment brief" })
-                      // }
+                      onClick={() =>
+                        props.parentCallback({
+                          syllabusViewType: "assignments",
+                        })
+                      }
                     >
                       <div>
                         <h5>{a.name}</h5>
@@ -156,16 +161,17 @@ export default function SyllabusView(props) {
                   );
                 })
               )}
+              <br></br>
 
-              <h4>
-                Exams today:{" "}
+              <h4 style={{ marginTop: "10px" }}>
+                Exams:{" "}
                 <button
                   className="see-all"
                   onClick={() =>
                     props.parentCallback({ syllabusViewType: "exams" })
                   }
                 >
-                  <h4>See all</h4>
+                  <h5>See all</h5>
                 </button>
               </h4>
               <br></br>
@@ -174,7 +180,13 @@ export default function SyllabusView(props) {
               ) : (
                 course.exams.map((e) => {
                   return (
-                    <button key={e.id} className={"exam-small"}>
+                    <button
+                      key={e.id}
+                      className={"exam-small"}
+                      onClick={() =>
+                        props.parentCallback({ syllabusViewType: "exams" })
+                      }
+                    >
                       <div>
                         <h5>{e.name}</h5>
                       </div>

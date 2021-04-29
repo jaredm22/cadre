@@ -10,35 +10,40 @@ const parseTime = (time) => {
   } else {
     return (
       (hours >= 13 ? hours - 12 : hours) +
-      ":" +
-      (minutes == 0 ? "00" : minutes) +
-      (hours >= 12 ? " PM" : " AM")
+      (minutes == 0 ? "" : `:${minutes}`) +
+      (hours >= 12 ? "pm" : "am")
     );
   }
 };
 
 export default function AssignmentCard(props) {
-  const dueDate = format(
-    parse(props.dueDate, "yyyy-MM-d", new Date()),
-    "MMM do"
-  );
+  const dueDate = format(parse(props.dueDate, "yyyy-MM-d", new Date()), "M/d");
   const dueTime = parseTime(props.dueTime);
 
   return (
-    <div key={props.id} className="assignment">
-      <div>
-        <h6>{props.Course.courseId}</h6>
+    <div key={props.id} className="card">
+      <div
+        className="card-left"
+        style={{ display: "flex", flexDirection: "column", textAlign: "left" }}
+      >
+        <h6>
+          {props.Course.courseId +
+            " " +
+            props.Course.courseName +
+            " " +
+            props.Course.section}
+        </h6>
         <h4>{props.name}</h4>
-        <br></br>
-        <h6>{"Due: " + dueDate + " - " + dueTime}</h6>
+        <h6>{"Due " + dueDate + " at " + dueTime}</h6>
       </div>
 
-      <div
-        className="xtra-info"
-        // style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
-      >
+      <div key={props.id} className="card-right">
         {props.tags.map((t) => {
-          return <button className="tag">{t}</button>;
+          return (
+            <button className="tag">
+              <h6>{t}</h6>
+            </button>
+          );
         })}
       </div>
     </div>
