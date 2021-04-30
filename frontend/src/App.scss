@@ -86,6 +86,13 @@ body {
   padding: 0;
 }
 
+//for materialUI dropdown
+.MuiCollapse-container.MuiCollapse-entered {
+  transition: 0ms;
+  position: relative;
+  z-index: 99;
+  background-color: $cadre-blue;
+}
 // .bx--side-nav__navigation {
 //   background-color: #fafafa;
 // }

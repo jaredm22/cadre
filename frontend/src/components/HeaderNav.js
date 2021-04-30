@@ -10,11 +10,14 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
+import { useLocation } from "react-router-dom";
 import "../pages/schedule/date-picker.scss";
 
 export default function HeaderNav(props) {
   const [open, setOpen] = React.useState(true);
   const [date, setDate] = React.useState(new Date());
+
+  const location = useLocation();
 
   const handleDayClick = async (day) => {
     setDate(day);
@@ -172,16 +175,19 @@ export default function HeaderNav(props) {
                 <p>Login</p>
             </Link>
         </ListItem> */}
-
-        <ListItem style={{ position: "absolute", bottom: 50 }}>
-          {/* <style>{birthdayStyle}</style> */}
-          <DayPicker
-            onDayClick={(day) => handleDayClick(day)}
-            selectedDays={date}
-            showOutsideDays
-            disabledKeyboardNavigation
-          />
-        </ListItem>
+        {location.pathname === "/schedule/student" ? (
+          <ListItem style={{ position: "absolute", bottom: 50 }}>
+            {/* <style>{birthdayStyle}</style> */}
+            <DayPicker
+              onDayClick={(day) => handleDayClick(day)}
+              selectedDays={date}
+              showOutsideDays
+              disabledKeyboardNavigation
+            />
+          </ListItem>
+        ) : (
+          <ListItem style={{ position: "absolute", bottom: 50 }}></ListItem>
+        )}
       </List>
     </SideNav>
   );
