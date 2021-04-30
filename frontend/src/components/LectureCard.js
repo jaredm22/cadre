@@ -27,8 +27,6 @@ function LectureCard(props) {
   // const [syllabusView, setView] = useState(false);
   // console.log(props);
 
-  //need to add 'button' to these things
-
   return (
     <div
       key={props.id}
@@ -60,8 +58,6 @@ function LectureCard(props) {
         <h5>{parseTime(props.startTime, props.endTime)} </h5>
       </div>
 
-      <br></br>
-
       <div className="zoomlink">
         <a
           className="link blue"
@@ -75,13 +71,13 @@ function LectureCard(props) {
           className="zoom-info"
           style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
         >
-          <p>Meeting Id:</p>
-          <p>Password:</p>
+          {/* <p>Meeting Id:</p>
+          <p>Password:</p> */}
         </div>
       </div>
 
       <div
-        className="xtra-info"
+        className=""
         style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
       >
         <ul>
@@ -118,7 +114,7 @@ function LectureCard(props) {
               {props.assignmentsDue > 0
                 ? props.assignmentsDue +
                   " Assignment" +
-                  (props.assignmentsDue === 1 ? " due" : " s due")
+                  (props.assignmentsDue === 1 ? " due" : "s due")
                 : ""}
             </h5>
           </li>

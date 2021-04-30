@@ -2,9 +2,7 @@
 @import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
 @import "carbon-components/scss/globals/scss/vars.scss";
 @import "../../cadre-vars.scss";
-
 // $blue: rgb(5, 162, 230);
-
 .calendar-contain {
   // margin-top: 3em;
   padding: 40px;
@@ -22,7 +20,6 @@
 //   text-decoration: none;
 //   // color: blue
 // }
-
 .black {
   text-decoration: none;
   color: black;
@@ -67,7 +64,6 @@
   // margin-top: -$spacing-07;
   // margin-bottom: $spacing-09;
   @include carbon--font-family("sans");
-
   // font-weight: 600;
 }
 
@@ -95,28 +91,22 @@
   height: calc(100vh - 10rem);
   overflow-x: hidden;
   position: relative;
-  
-
-  // padding-left: $spacing-01;
-  // padding-right: $spacing-01;
 }
 
 // DAY COMPONENT SECTION STYLES
-
 @keyframes rollout {
   0% {
-      transform: translateX(50px);
+    transform: translateX(50px);
   }
   100% {
-      transform: translateX(0);
+    transform: translateX(0);
   }
 }
 
 .a-day {
-  animation: .4s rollout;
-  
+  animation: 0.4s rollout;
 
-  // width: 100%;   
+  // width: 100%;
 }
 
 .day-col {
@@ -130,11 +120,9 @@
 //   // transition: 777ms;
 //   background-color: aliceblue;
 // }
-
 // .day-col.is-expanded:hover {
 //   // background-color: white;
 // }
-
 .clndr-today {
   // background-color: aliceblue;
 }
@@ -173,7 +161,7 @@
   border-radius: 25px;
   margin-bottom: $spacing-05;
   text-decoration: none;
-  color: rgb(255, 255, 255) !important; 
+  color: rgb(255, 255, 255) !important;
 }
 
 .badge p {
@@ -198,11 +186,9 @@
   text-decoration: none;
 }
 
-.link:hover h5{
+.link:hover h5 {
   text-decoration: underline;
 }
-
-
 
 .exams {
   background-color: $cadre-blue;
@@ -213,32 +199,78 @@
 }
 
 .tag {
-  border: 1px solid $cadre-orange;
+  border: 2px solid $cadre-orange;
   padding: $spacing-03;
   margin: $spacing-03;
+  width: 100%;
   border-radius: 25px;
   background: none;
 }
 
-.assignment, .exam  {
-  text-align: center;
-  border: 1px solid black;
+.tag:hover {
+  color: white;
+  background: $cadre-orange;
+}
+
+.card {
+  text-align: left;
+  border: 2px solid black;
   border-radius: 25px;
+  display: flex;
+  flex-direction: row;
   margin-bottom: $spacing-07;
   padding: $spacing-05;
   width: 100%;
-  background-color: none;
   min-height: fit-content;
+  background-color: none;
   overflow-wrap: break-word;
 }
 
-.fullname-course,
-.fullname-assignment,
-.fullname-exam {
-  margin-bottom: $spacing-02;
+.card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: $spacing-02;
+  padding-bottom: $spacing-05;
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+  margin-right: $spacing-05;
 }
 
-.assignment-small, .exam-small  {
+.card-left h6 {
+  font-weight: 500;
+  font-size: 0.8em;
+}
+
+.card-left h4 {
+  font-weight: 900;
+  color: $secondary-grey;
+  margin: $spacing-02 0;
+}
+
+.card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.card h6 {
+  color: $secondary-grey;
+}
+
+// .fullname-course,
+// .fullname-assignment,
+// .fullname-exam {
+//   margin-bottom: $spacing-02;
+// }
+
+.assignment-small,
+.exam-small {
   text-align: center;
   border: 3px solid orange;
   background: none;
@@ -251,47 +283,45 @@
   overflow-wrap: break-word;
 }
 
-.exam-small:hover, .assignment-small:hover {
+.exam-small:hover,
+.assignment-small:hover {
   background: orange;
   color: white;
 }
 
-.course-id {
-  margin-bottom: -$spacing-01;
-}
-
 //Lecutre Card Styles
-
 .course {
   border-left: 3px solid $secondary-grey;
   margin-bottom: $spacing-07;
-  padding: $spacing-04;
   padding-left: $spacing-05;
   width: 100%;
   background-color: none;
   min-height: fit-content;
   overflow-wrap: break-word;
-  transition: background 111ms linear
+  transition: background 111ms linear;
+}
+
+.time {
+  color: $secondary-grey;
 }
 
 #clndr-col-0 .course {
   border-left: 3px solid $cadre-orange;
 }
 
-.course-id {
-  margin-bottom: -$spacing-01;
-}
+// .course-id {
+//   margin-bottom: -$spacing-01;
+// }
 
 .course:hover {
   background-color: $highlight-orange;
 }
 
-.zoomlink {
-  margin-bottom: $spacing-03;
-}
+// .zoomlink {
+//   margin-bottom: $spacing-03;
+// }
 
 //Expanded View Styles Section
-
 .is-expanded {
   // padding-left: 10% !important;
   // padding-right: 10% !important;
@@ -316,13 +346,13 @@
   margin-bottom: $spacing-07;
 }
 
-
 //Container for back button to schedule
-.icon-text{
+.icon-text {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  text-align: center;
   background: none;
   border: none;
 }
@@ -333,7 +363,7 @@
   cursor: grab;
 }
 
-.icon-text p{
+.icon-text p {
   font-size: 0.9rem;
   display: inline-table;
   height: inherit;
@@ -353,7 +383,6 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-
 }
 
 .right-side {
@@ -378,25 +407,39 @@
   padding: 1%;
 }
 
+.syllabus-column header {
+  margin-bottom: 40px;
+}
+
 .zoomlink {
   width: fit-content;
+}
+
+.xtra-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-grow: 1;
+  width: 100%;
 }
 
 // .calendar-contain .bx--row {
 //     justify-content: center;
 // }
-
 //Carbon UI Overrides
 .bx--grid {
   margin-right: 0;
   transition: width 777ms;
 }
+
 .bx--content {
   background-color: transparent;
 }
+
 .bx--text-input.bx--slider-text-input {
   display: none; //ugly number indicator in slider code
 }
+
 .bx--slider__thumb {
   height: $spacing-05;
   width: $spacing-05;

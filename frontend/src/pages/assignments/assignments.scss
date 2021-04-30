@@ -2,38 +2,54 @@
 @import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
 @import "carbon-components/scss/globals/scss/vars.scss";
 
-
-.view-container { 
+.view-container {
   display: flex;
   padding: 20px;
   flex-direction: column;
+  height: 100vh;
   // width: calc(100% - 16rem);
   justify-content: space-between;
   align-items: center;
+  overflow-y: hidden;
 }
-
 
 .class-container {
   margin-left: auto;
   width: calc(100% - 16rem);
   height: 100%;
   padding: 20px;
+  // overflow: scroll;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.breadcrumbs {
-  color: black;
-  margin-bottom: $spacing-07
+.class-container .flex {
+  height: calc(100vh - 7rem);
+}
+
+.class-container .flex .courses {
+  overflow-y: scroll;
+}
+
+.class-container.right-side .flex .assignments {
+  overflow-y: scroll;
 }
 
 .class-column {
   display: flex;
   flex-direction: column;
   text-align: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.breadcrumbs {
+  color: black;
+  margin-bottom: $spacing-07;
 }
 
 .class-column h5 {
   margin-bottom: $spacing-07;
+  padding-bottom: $spacing-03;
 }

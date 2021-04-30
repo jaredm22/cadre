@@ -21,41 +21,24 @@ export default function ExamCard(props) {
   const dueTime = parseTime(props.dueTime);
   console.log(props);
 
-  return props.size === "small" ? (
-    <div key={props.id} className="exam">
-      <div>
-        <h4>{props.Course.courseId}</h4>
-        {/* <h6>{props.Course.courseName}</h6> */}
+  return (
+    <div key={props.id} className="card">
+      <div
+        className="card-left"
+        style={{ display: "flex", flexDirection: "column", textAlign: "left" }}
+      >
+        <h6>
+          {props.Course.courseId +
+            " " +
+            props.Course.courseName +
+            " " +
+            props.Course.section}
+        </h6>
         <h4>{props.name}</h4>
-        <br></br>
-        <h6>{"Date: " + dueDate}</h6>
-        <h6>{"Time: " + dueTime}</h6>
+        <h6>{dueDate + " at " + dueTime}</h6>
       </div>
 
-      <div
-        className="xtra-info"
-        style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
-      >
-        {props.tags.map((t) => {
-          return <button className="tag">{t}</button>;
-        })}
-      </div>
-    </div>
-  ) : (
-    <div key={props.id} className="exam">
-      <div>
-        <h4>{props.Course.courseId}</h4>
-        {/* <h6>{props.Course.courseName}</h6> */}
-        <h4>{props.name}</h4>
-        <br></br>
-        <h6>{"Date: " + dueDate}</h6>
-        <h6>{"Time: " + dueTime}</h6>
-      </div>
-
-      <div
-        className="xtra-info"
-        style={{ display: props.expand === "is-expanded" ? "block" : "none" }}
-      >
+      <div key={props.id} className="card-right">
         {props.tags.map((t) => {
           return <button className="tag">{t}</button>;
         })}

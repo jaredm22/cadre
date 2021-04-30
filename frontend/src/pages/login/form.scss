@@ -1,3 +1,8 @@
+@import '../../cadre-vars.scss';
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+
 // .login-form {
 //   padding-top: 10%;
 //   display: flex;
@@ -7,7 +12,7 @@
 // }
 
 .login-page {
-  background: rgb(164,201,201);
+  background: $cadre-blue;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -15,4 +20,17 @@
   justify-content: center;
   align-items: center;
   color: white;
+}
+
+.submit {
+  color: white;
+  background: $cadre-orange;
+  border: none;
+  padding: 1em 2em;
+  border-radius: 25px;
+  
+}
+
+.submit:hover {
+  background: rgba(151, 116, 91, 0.95)
 }

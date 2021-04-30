@@ -81,6 +81,7 @@ export default function LoginForm() {
 
       <FormGroup label="user-type-select" legendText="Account Type">
         <Select
+          className="select"
           value={user}
           onChange={(e) => {
             handleUserSelect(e.target.value);

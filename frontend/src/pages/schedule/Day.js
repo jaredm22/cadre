@@ -77,10 +77,6 @@ class Day extends React.Component {
     });
   }
 
-  shouldComponentUpdate() {
-    return true;
-  }
-
   componentDidUpdate(prevProps) {
     if (prevProps.day !== this.props.day) {
       this.setState({
@@ -103,6 +99,11 @@ class Day extends React.Component {
 
     return hours + minutes;
   };
+
+  scrollTop() {
+    //scroll clicked lecture card to top of page
+    console.log("scrolling to top...");
+  }
 
   handleCallback = (courseId) => {
     var toExpand = this.props.user.courses.find((c) => c.courseId === courseId);
@@ -251,6 +252,7 @@ class Day extends React.Component {
 
           {syllabusView ? (
             <SyllabusView
+              user={this.props.user}
               course={expandedCourse}
               fullDate={fullDate}
               expand={expand}
