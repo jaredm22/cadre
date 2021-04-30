@@ -23,7 +23,10 @@ export default function SignupForm() {
       api.createStudent(email, firstName, lastName).then((res) => {
         if (res != null) {
           console.log(res);
-          history.push("/schedule/student/" + email + "/" + res.id);
+          history.push({
+            pathname: "/schedule/student",
+            state: { user: res },
+          });
         } else {
           console.log("Unable to create student.");
           console.log(res);
@@ -32,7 +35,10 @@ export default function SignupForm() {
     } else if (user == "Professor") {
       api.createProfessor(email, firstName, lastName).then((res) => {
         if (res != null) {
-          history.push("/schedule/professor/" + email + "/" + res.id);
+          history.push({
+            pathname: "/schedule/student",
+            state: { user: res },
+          });
         } else {
           console.log("Unable to create professor.");
           console.log(res);

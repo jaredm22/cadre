@@ -1,4 +1,12 @@
+@import "../../cadre-vars.scss";
+
+.form-container {
+  height: 100vh;
+  width: 100%;
+}
+
 .course-form {
+  background: $cadre-blue;
   padding: 5%;
   display: flex;
   justify-content: center;

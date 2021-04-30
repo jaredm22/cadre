@@ -205,7 +205,7 @@ export default class CreateCourseForm extends React.Component {
     console.log(this.props);
 
     return (
-      <div>
+      <div className="form-container">
         <Grid className="course-form">
           <Form onSubmit={this.submitHandler}>
             <Row>

@@ -38,7 +38,7 @@ export default function CreateAssignmentForm(props) {
   console.log(props);
 
   return (
-    <div>
+    <div className="form-container">
       <Grid className="course-form">
         <Form onSubmit={(e) => submitHandler(e)}>
           <Row>
